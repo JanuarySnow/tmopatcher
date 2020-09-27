@@ -27,9 +27,6 @@ namespace TMOPatcher
 
             foreach (var record in loadOrder.WinningOverrides<IArmorGetter>().Where(armor => ShouldPatchArmor(armor)))
             {
-                if (record.hasKeyword(Statics.Keywords["ArmorClothing"])) continue;
-                if (record.hasKeyword(Statics.Keywords["ArmorJewelry"])) continue;
-
                 var baseArmor = GetBaseArmor(record);
                 if (baseArmor == null) continue;
                 if (baseArmor.FormKey == record.FormKey) continue;
@@ -44,8 +41,8 @@ namespace TMOPatcher
 
         private bool ShouldPatchArmor(IArmorGetter armor)
         {
-            var excludedWeaponTypes = new FormKey?[] { Statics?.Keywords["WeapTypeStaff"], Statics?.Keywords["WeapTypeBow"]};
-            if (armor.hasAnyKeyword(excludedWeaponTypes)) return false;
+            var excludedArmorTypes = new FormKey?[] { Statics?.Keywords["ArmorClothing"], Statics?.Keywords["ArmorJewelry"] };
+            if (armor.hasAnyKeyword(excludedArmorTypes)) return false;
 
             if (armor.TemplateArmor.FormKey != null) return false;
 
