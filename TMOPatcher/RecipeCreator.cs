@@ -1,4 +1,5 @@
 ﻿using Mutagen.Bethesda;
+using Mutagen.Bethesda.FormKeys.SkyrimSE;
 using Mutagen.Bethesda.Skyrim;
 using Mutagen.Bethesda.Synthesis;
 using Noggog;
@@ -22,7 +23,7 @@ namespace TMOPatcher
         public void RunPatch(SynthesisState<ISkyrimMod, ISkyrimModGetter> state)
         {
             State = state;
-            ModKey[] excludedMods = { "Skyrim.esm", "Update.esm", "Dawnguard.esm", "HearthFires.esm", "Dragonborn.esm", "Unofficial Skyrim Special Edition Patch.esp" };
+            ModKey[] excludedMods = { Constants.Skyrim, Constants.Update, Constants.Dawnguard, Constants.HearthFires, Constants.Dragonborn, "Unofficial Skyrim Special Edition Patch.esp" };
             var loadOrder = state.LoadOrder.PriorityOrder.Where(modGetter => !excludedMods.Contains(modGetter.ModKey));
 
             foreach (var armor in loadOrder.WinningOverrides<IArmorGetter>())
@@ -31,8 +32,8 @@ namespace TMOPatcher
                 if (armor.BodyTemplate == null) continue;
                 if (armor.BodyTemplate.ArmorType == ArmorType.Clothing) continue;
                 if (armor.BodyTemplate.Flags.HasFlag(BodyTemplate.Flag.NonPlayable)) continue;
-                if (armor.hasKeyword(Statics.Keywords["ArmorClothing"])) continue;
-                if (armor.hasKeyword(Statics.Keywords["ArmorJewelry"])) continue;
+                if (armor.hasKeyword(Skyrim.Keyword.ArmorClothing)) continue;
+                if (armor.hasKeyword(Skyrim.Keyword.ArmorJewelry)) continue;
                 
                 CreateMissingRecipesForArmors(armor);
             }
@@ -48,7 +49,7 @@ namespace TMOPatcher
         private void CreateMissingRecipesForArmors(IArmorGetter armor)
         {
             if (!Statics.Recipes["armors"]["breakdown"].TryGetValue(armor.FormKey, out var cobjGetter) || cobjGetter == null) {
-                if (armor.hasKeyword(Statics.Keywords["MagicDisallowEnchanting"])) return;
+                if (armor.hasKeyword(Skyrim.Keyword.MagicDisallowEnchanting)) return;
 
                 if (!FindRecipeTemplate(armor, "breakdown", Statics.ArmorMaterials, Statics.ArmorSlots, out var recipeTemplate) || recipeTemplate == null) {
                     return;
@@ -59,7 +60,7 @@ namespace TMOPatcher
 
             if (!Statics.Recipes["armors"]["creation"].TryGetValue(armor.FormKey, out cobjGetter) || cobjGetter == null)
             {
-                if (armor.hasKeyword(Statics.Keywords["MagicDisallowEnchanting"])) return;
+                if (armor.hasKeyword(Skyrim.Keyword.MagicDisallowEnchanting)) return;
 
                 if (!FindRecipeTemplate(armor, "creation", Statics.ArmorMaterials, Statics.ArmorSlots, out var recipeTemplate) || recipeTemplate == null)
                 {
@@ -84,7 +85,7 @@ namespace TMOPatcher
         {
             if (!Statics.Recipes["weapons"]["breakdown"].TryGetValue(weapon.FormKey, out var cobjGetter) || cobjGetter == null)
             {
-                if (weapon.hasKeyword(Statics.Keywords["MagicDisallowEnchanting"])) return;
+                if (weapon.hasKeyword(Skyrim.Keyword.MagicDisallowEnchanting)) return;
 
                 if (!FindRecipeTemplate(weapon, "breakdown", Statics.ArmorMaterials, Statics.WeaponTypes, out var recipeTemplate) || recipeTemplate == null)
                 {
@@ -96,7 +97,7 @@ namespace TMOPatcher
 
             if (!Statics.Recipes["weapons"]["creation"].TryGetValue(weapon.FormKey, out cobjGetter) || cobjGetter == null)
             {
-                if (weapon.hasKeyword(Statics.Keywords["MagicDisallowEnchanting"])) return;
+                if (weapon.hasKeyword(Skyrim.Keyword.MagicDisallowEnchanting)) return;
 
                 if (!FindRecipeTemplate(weapon, "creation", Statics.WeaponMaterials, Statics.WeaponTypes, out var recipeTemplate) || recipeTemplate == null)
                 {

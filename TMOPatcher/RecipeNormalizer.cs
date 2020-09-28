@@ -1,4 +1,5 @@
 ﻿using Mutagen.Bethesda;
+using Mutagen.Bethesda.FormKeys.SkyrimSE;
 using Mutagen.Bethesda.Skyrim;
 using Mutagen.Bethesda.Synthesis;
 using Noggog;
@@ -195,7 +196,7 @@ namespace TMOPatcher
                     Data = new FunctionConditionData()
                     {
                         Function = (ushort)ConditionData.Function.HasPerk,
-                        ParameterOneRecord = Statics.Perks["ArcaneBlacksmith"]
+                        ParameterOneRecord = Skyrim.Perk.ArcaneBlacksmith
                     }
                 });
             }

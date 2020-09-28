@@ -1,6 +1,7 @@
 using Mutagen.Bethesda;
 using Mutagen.Bethesda.Synthesis;
 using Mutagen.Bethesda.Skyrim;
+using System.Threading.Tasks;
 
 namespace TMOPatcher
 {
@@ -13,9 +14,9 @@ namespace TMOPatcher
         public static bool ShouldNormalizeRecipes = true;
         public static bool ShouldCreateMissingRecipes = true;
 
-        public static int Main(string[] args)
+        public static async Task<int> Main(string[] args)
         {
-            return SynthesisPipeline.Instance.Patch<ISkyrimMod, ISkyrimModGetter>(
+            return await SynthesisPipeline.Instance.Patch<ISkyrimMod, ISkyrimModGetter>(
                 args: args,
                 patcher: RunPatch,
                 new UserPreferences()
@@ -30,7 +31,7 @@ namespace TMOPatcher
             );
         }
 
-        public static void RunPatch(SynthesisState<ISkyrimMod, ISkyrimModGetter> state)
+        public static async Task RunPatch(SynthesisState<ISkyrimMod, ISkyrimModGetter> state)
         {
             Statics = new Statics(state);
 

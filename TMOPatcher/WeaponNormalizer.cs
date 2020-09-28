@@ -1,4 +1,5 @@
 ﻿using Mutagen.Bethesda;
+using Mutagen.Bethesda.FormKeys.SkyrimSE;
 using Mutagen.Bethesda.Skyrim;
 using Mutagen.Bethesda.Synthesis;
 using System;
@@ -57,7 +58,7 @@ namespace TMOPatcher
 
         private bool ShouldPatchWeapon(IWeaponGetter weapon)
         {
-            var excludedWeaponTypes = new FormKey?[] { Statics.Keywords["WeapTypeStaff"], Statics.Keywords["WeapTypeBow"] };
+            var excludedWeaponTypes = new FormKey?[] { Skyrim.Keyword.WeapTypeStaff, Skyrim.Keyword.WeapTypeBow };
             if (weapon.hasAnyKeyword(excludedWeaponTypes)) return false;
 
             if (weapon.Template.FormKey != null) return false;
