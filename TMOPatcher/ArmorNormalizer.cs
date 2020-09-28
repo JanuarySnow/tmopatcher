@@ -1,4 +1,4 @@
-﻿using Mutagen.Bethesda;
+using Mutagen.Bethesda;
 using Mutagen.Bethesda.FormKeys.SkyrimSE;
 using Mutagen.Bethesda.Skyrim;
 using Mutagen.Bethesda.Synthesis;
@@ -24,7 +24,9 @@ namespace TMOPatcher
             State = state;
 
             ModKey[] excludedMods = { "Skyrim.esm", "Update.esm", "Dawnguard.esm", "HearthFires.esm", "Dragonborn.esm", "Unofficial Skyrim Special Edition Patch.esp" };
-            var loadOrder = state.LoadOrder.PriorityOrder.Where(modGetter => !excludedMods.Contains(modGetter.ModKey));
+            var loadOrder = state.LoadOrder.PriorityOrder
+                .OnlyEnabled()
+                .Where(modGetter => !excludedMods.Contains(modGetter.ModKey));
 
             foreach (var record in loadOrder.WinningOverrides<IArmorGetter>().Where(armor => ShouldPatchArmor(armor)))
             {
