@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using Mutagen.Bethesda.FormKeys.SkyrimSE;
 
 namespace TMOPatcher
 {
@@ -66,144 +67,143 @@ namespace TMOPatcher
 
             ArmorSlots = new FormKey[]
             {
-                new FormKey(Constants.Skyrim, 0x06c0ed),
-                new FormKey(Constants.Skyrim, 0x06c0ec),
-                new FormKey(Constants.Skyrim, 0x06c0ef),
-                new FormKey(Constants.Skyrim, 0x06c0ee),
-                new FormKey(Constants.Skyrim, 0x0965b2)
+                Skyrim.Keyword.ArmorBoots,
+                Skyrim.Keyword.ArmorCuirass,
+                Skyrim.Keyword.ArmorGauntlets,
+                Skyrim.Keyword.ArmorHelmet,
+                Skyrim.Keyword.ArmorShield,
             };
 
             ArmorMaterials = new FormKey[]
             {
-                new FormKey(Constants.Update, 0x0009be),
-                new FormKey(Constants.Update, 0x0009c0),
-                new FormKey(Constants.Skyrim, 0x06bbd4),
-                new FormKey(Constants.Skyrim, 0x06bbd5),
-                new FormKey(Constants.Skyrim, 0x06bbd6),
-                new FormKey(Constants.Skyrim, 0x06bbd7),
-                new FormKey(Constants.Skyrim, 0x06bbd8),
-                new FormKey(Constants.Skyrim, 0x06bbd9),
-                new FormKey(Constants.Skyrim, 0x06bbda),
-                new FormKey(Constants.Update, 0x0009bd),
-                new FormKey(Constants.Update, 0x0009b9),
-                new FormKey(Constants.Update, 0x0009ba),
-                new FormKey(Constants.Skyrim, 0x06bbdc),
-                new FormKey(Constants.Skyrim, 0x06bbdd),
-                new FormKey(Constants.Skyrim, 0x06bbe2),
-                new FormKey(Constants.Skyrim, 0x06bbe0),
-                new FormKey(Constants.Skyrim, 0x06bbe1),
-                new FormKey(Constants.Skyrim, 0x06bbe3),
-                new FormKey(Constants.Skyrim, 0x06bbe4),
-                new FormKey(Constants.Skyrim, 0x06bbdb),
-                new FormKey(Constants.Skyrim, 0x06bbe5),
-                new FormKey(Constants.Update, 0x0009bb),
-                new FormKey(Constants.Skyrim, 0x06bbde),
-                new FormKey(Constants.Skyrim, 0x06bbe6),
-                new FormKey(Constants.Skyrim, 0x06bbe7),
-                new FormKey(Constants.Skyrim, 0x0ac13a),
-                new FormKey(Constants.Skyrim, 0x06bbdf),
-                new FormKey(Constants.Update, 0x0009bc),
-                new FormKey(Constants.Update, 0x0009bf),
-                new FormKey(Constants.Skyrim, 0x10FD61),
-                new FormKey(Constants.Dawnguard, 0x012ccd),
-                new FormKey(Constants.Dawnguard, 0x012cce),
-                new FormKey(Constants.Dawnguard, 0x0050c4),
-                new FormKey(Constants.Dawnguard, 0x01463e),
-                new FormKey(Constants.Dawnguard, 0x012ccf),
-                new FormKey(Constants.Dawnguard, 0x012cd0),
-                new FormKey(Constants.Dragonborn, 0x024101),
-                new FormKey(Constants.Dragonborn, 0x024100),
-                new FormKey(Constants.Dragonborn, 0x024103),
-                new FormKey(Constants.Dragonborn, 0x024102),
-                new FormKey(Constants.Dragonborn, 0x03a328),
-                new FormKey(Constants.Dragonborn, 0x024105),
-                new FormKey(Constants.Dragonborn, 0x024104),
-                new FormKey(Constants.Dragonborn, 0x024106),
-                new FormKey(Constants.Dragonborn, 0x024107)
+                Update.Keyword.ArmorMaterialBearStormcloak,
+                Update.Keyword.ArmorMaterialBlades,
+                Skyrim.Keyword.ArmorMaterialDaedric,
+                Skyrim.Keyword.ArmorMaterialDragonplate,
+                Skyrim.Keyword.ArmorMaterialDragonscale,
+                Skyrim.Keyword.ArmorMaterialDwarven,
+                Skyrim.Keyword.ArmorMaterialEbony,
+                Skyrim.Keyword.ArmorMaterialElven,
+                Skyrim.Keyword.ArmorMaterialElvenGilded,
+                Skyrim.Keyword.ArmorMaterialLeather,
+                Update.Keyword.ArmorMaterialForsworn,
+                Update.Keyword.ArmorMaterialMS02Forsworn,
+                Skyrim.Keyword.ArmorMaterialGlass,
+                Skyrim.Keyword.ArmorMaterialHide,
+                Skyrim.Keyword.ArmorMaterialImperialHeavy,
+                Skyrim.Keyword.ArmorMaterialImperialLight,
+                Skyrim.Keyword.ArmorMaterialImperialStudded,
+                Skyrim.Keyword.ArmorMaterialIron,
+                Skyrim.Keyword.ArmorMaterialIronBanded,
+                Skyrim.Keyword.ArmorMaterialLeather,
+                Skyrim.Keyword.ArmorMaterialOrcish,
+                Update.Keyword.ArmorMaterialPenitus,
+                Skyrim.Keyword.ArmorMaterialScaled,
+                Skyrim.Keyword.ArmorMaterialSteel,
+                Skyrim.Keyword.ArmorMaterialSteelPlate,
+                Skyrim.Keyword.ArmorMaterialStormcloak,
+                Skyrim.Keyword.ArmorMaterialStudded,
+                Update.Keyword.ArmorMaterialThievesGuild,
+                Update.Keyword.ArmorMaterialThievesGuildLeader,
+                Skyrim.Keyword.ArmorNightingale,
+                Dawnguard.Keyword.DLC1ArmorMaterialDawnguard,
+                Dawnguard.Keyword.DLC1ArmorMaterialFalmerHardened,
+                Dawnguard.Keyword.DLC1ArmorMaterialHunter,
+                Dawnguard.Keyword.DLC1ArmorMaterialVampire,
+                Dawnguard.Keyword.DLC1ArmorMaterielFalmerHeavy,
+                Dawnguard.Keyword.DLC1ArmorMaterielFalmerHeavyOriginal,
+                Dragonborn.Keyword.DLC2ArmorMaterialBonemoldHeavy,
+                Dragonborn.Keyword.DLC2ArmorMaterialBonemoldLight,
+                Dragonborn.Keyword.DLC2ArmorMaterialChitinHeavy,
+                Dragonborn.Keyword.DLC2ArmorMaterialChitinLight,
+                Dragonborn.Keyword.DLC2ArmorMaterialMoragTong,
+                Dragonborn.Keyword.DLC2ArmorMaterialNordicHeavy,
+                Dragonborn.Keyword.DLC2ArmorMaterialNordicLight,
+                Dragonborn.Keyword.DLC2ArmorMaterialStalhrimHeavy,
+                Dragonborn.Keyword.DLC2ArmorMaterialStalhrimLight,
             };
 
             WeaponMaterials = new FormKey[]
             {
-                new FormKey(Constants.Dawnguard, 0x019822),
-                new FormKey(Constants.Dragonborn, 0x026230),
-                new FormKey(Constants.Dragonborn, 0x02622f),
-                new FormKey(Constants.Skyrim, 0x01e71f),
-                new FormKey(Constants.Skyrim, 0x0c5c01),
-                new FormKey(Constants.Skyrim, 0x0c5c02),
-                new FormKey(Constants.Skyrim, 0x01e71a),
-                new FormKey(Constants.Skyrim, 0x01e71e),
-                new FormKey(Constants.Skyrim, 0x01e71b),
-                new FormKey(Constants.Skyrim, 0x0c5c03),
-                new FormKey(Constants.Skyrim, 0x0c5c04),
-                new FormKey(Constants.Skyrim, 0x01e71d),
-                new FormKey(Constants.Skyrim, 0x0c5c00),
-                new FormKey(Constants.Skyrim, 0x01e718),
-                new FormKey(Constants.Skyrim, 0x01e71c),
-                new FormKey(Constants.Skyrim, 0x10aa1a),
-                new FormKey(Constants.Skyrim, 0x01e719),
-                new FormKey(Constants.Skyrim, 0x01e717)
+                Dawnguard.Keyword.DLC1WeapMaterialDragonbone,
+                Dragonborn.Keyword.DLC2WeaponMaterialNordic,
+                Dragonborn.Keyword.DLC2WeaponMaterialStalhrim,
+                Skyrim.Keyword.WeapMaterialDaedric,
+                Skyrim.Keyword.WeapMaterialDraugr,
+                Skyrim.Keyword.WeapMaterialDraugrHoned,
+                Skyrim.Keyword.WeapMaterialDwarven,
+                Skyrim.Keyword.WeapMaterialEbony,
+                Skyrim.Keyword.WeapMaterialElven,
+                Skyrim.Keyword.WeapMaterialFalmer,
+                Skyrim.Keyword.WeapMaterialFalmerHoned,
+                Skyrim.Keyword.WeapMaterialGlass,
+                Skyrim.Keyword.WeapMaterialImperial,
+                Skyrim.Keyword.WeapMaterialIron,
+                Skyrim.Keyword.WeapMaterialOrcish,
+                Skyrim.Keyword.WeapMaterialSilver,
+                Skyrim.Keyword.WeapMaterialSteel,
+                Skyrim.Keyword.WeapMaterialWood,
             };
 
             WeaponTypes = new FormKey[] {
-                new FormKey(Constants.Skyrim, 0x06d932),
-                new FormKey(Constants.Skyrim, 0x01e715),
-                new FormKey(Constants.Skyrim, 0x01e713),
-                new FormKey(Constants.Skyrim, 0x06d931),
-                new FormKey(Constants.Skyrim, 0x01e714),
-                new FormKey(Constants.Skyrim, 0x01e716),
-                new FormKey(Constants.Skyrim, 0x01e711),
-                new FormKey(Constants.Skyrim, 0x01e712),
-                new FormKey(Constants.Skyrim, 0x06d930)
+                Skyrim.Keyword.WeapTypeBattleaxe,
+                Skyrim.Keyword.WeapTypeBow,
+                Skyrim.Keyword.WeapTypeDagger,
+                Skyrim.Keyword.WeapTypeGreatsword,
+                Skyrim.Keyword.WeapTypeMace,
+                Skyrim.Keyword.WeapTypeStaff,
+                Skyrim.Keyword.WeapTypeSword,
+                Skyrim.Keyword.WeapTypeWarAxe,
+                Skyrim.Keyword.WeapTypeWarhammer,
             };
 
             CraftingSupplies = new Dictionary<string, FormKey>()
             {
-                { "Ale",                    new FormKey(Constants.Skyrim,       0x034c5e) },
-                { "BearCavePelt",           new FormKey(Constants.Skyrim,       0x03ad53) },
-                { "BoneMeal",               new FormKey(Constants.Skyrim,       0x034cdd) },
-                { "Coal01",                 new FormKey(Constants.Skyrim,       0x0bfb09) },
-                { "Charcoal",               new FormKey(Constants.Skyrim,       0x033760) },
-                { "ChaurusChitin",          new FormKey(Constants.Skyrim,       0x03ad57) },
-                { "DaedraHeart",            new FormKey(Constants.Skyrim,       0x03ad5b) },
-                { "DeathBell",              new FormKey(Constants.Skyrim,       0x0516c8) },
-                { "DLC2ChitinPlate",        new FormKey(Constants.Dragonborn,   0x02b04e) },
-                { "DLC2NetchJelly",         new FormKey(Constants.Dragonborn,   0x01cd72) },
-                { "DLC2NetchLeather",       new FormKey(Constants.Dragonborn,   0x01cd7c) },
-                { "DLC2OreStalhrim",        new FormKey(Constants.Dragonborn,   0x02b06b) },
-                { "DeerHide",               new FormKey(Constants.Skyrim,       0x03ad90) },
-                { "DragonBone",             new FormKey(Constants.Skyrim,       0x03ada4) },
-                { "DragonScales",           new FormKey(Constants.Skyrim,       0x03ada3) },
-                { "FireflyThorax",          new FormKey(Constants.Skyrim,       0x04da73) },
-                { "FireSalts",              new FormKey(Constants.Skyrim,       0x03ad5e) },
-                { "Firewood01",             new FormKey(Constants.Skyrim,       0x06f993) },
-                { "FrostSalts",             new FormKey(Constants.Skyrim,       0x03ad5f) },
-                { "GoatHide",               new FormKey(Constants.Skyrim,       0x03ad8e) },
-                { "IngotCorundum",          new FormKey(Constants.Skyrim,       0x05ad93) },
-                { "IngotDwarven",           new FormKey(Constants.Skyrim,       0x0db8a2) },
-                { "IngotEbony",             new FormKey(Constants.Skyrim,       0x05ad9d) },
-                { "IngotGold",              new FormKey(Constants.Skyrim,       0x05ad9e) },
-                { "IngotIMoonstone",        new FormKey(Constants.Skyrim,       0x05ad9f) },
-                { "IngotIron",              new FormKey(Constants.Skyrim,       0x05ace4) },
-                { "IngotMalachite",         new FormKey(Constants.Skyrim,       0x05ada1) },
-                { "IngotOrichalcum",        new FormKey(Constants.Skyrim,       0x05ad99) },
-                { "IngotQuicksilver",       new FormKey(Constants.Skyrim,       0x05ada0) },
-                { "IngotSilver",            new FormKey(Constants.Skyrim,       0x05ace3) },
-                { "IngotSteel",             new FormKey(Constants.Skyrim,       0x05ace5) },
-                { "Leather01",              new FormKey(Constants.Skyrim,       0x0db5d2) },
-                { "LeatherStrips",          new FormKey(Constants.Skyrim,       0x0800e4) },
-                { "PowderedMammothTusk",    new FormKey(Constants.Skyrim,       0x06bc10) },
-                { "SabreCatPelt",           new FormKey(Constants.Skyrim,       0x03ad6d) },
-                { "SaltPile",               new FormKey(Constants.Skyrim,       0x034cdf) },
-                { "SoulGemPetty",           new FormKey(Constants.Skyrim,       0x02e4e2) },
-                { "VoidSalts",              new FormKey(Constants.Skyrim,       0x03ad60) },
-                { "WolfPelt",               new FormKey(Constants.Skyrim,       0x03ad74) }, 
+                { nameof(Skyrim.Ingestible.Ale),                  Skyrim.Ingestible.Ale },
+                { nameof(Skyrim.MiscItem.BearCavePelt),           Skyrim.MiscItem.BearCavePelt },
+                { nameof(Skyrim.Ingredient.BoneMeal),             Skyrim.Ingredient.BoneMeal },
+                { nameof(Skyrim.MiscItem.Coal01),                 Skyrim.MiscItem.Coal01 },
+                { nameof(Skyrim.MiscItem.Charcoal),               Skyrim.MiscItem.Charcoal },
+                { nameof(Skyrim.MiscItem.ChaurusChitin),          Skyrim.MiscItem.ChaurusChitin },
+                { nameof(Skyrim.Ingredient.DaedraHeart),          Skyrim.Ingredient.DaedraHeart },
+                { nameof(Skyrim.Ingredient.deathBell),            Skyrim.Ingredient.deathBell },
+                { nameof(Dragonborn.MiscItem.DLC2ChitinPlate),    Dragonborn.MiscItem.DLC2ChitinPlate },
+                { nameof(Dragonborn.Ingredient.DLC2NetchJelly),   Dragonborn.Ingredient.DLC2NetchJelly },
+                { nameof(Dragonborn.MiscItem.DLC2NetchLeather),   Dragonborn.MiscItem.DLC2NetchLeather },
+                { nameof(Dragonborn.MiscItem.DLC2OreStalhrim),    Dragonborn.MiscItem.DLC2OreStalhrim },
+                { nameof(Skyrim.MiscItem.DeerHide),               Skyrim.MiscItem.DeerHide },
+                { nameof(Skyrim.MiscItem.DragonBone),             Skyrim.MiscItem.DragonBone },
+                { nameof(Skyrim.MiscItem.DragonScales),           Skyrim.MiscItem.DragonScales },
+                { nameof(Skyrim.Ingredient.FireSalts),            Skyrim.Ingredient.FireSalts },
+                { nameof(Skyrim.MiscItem.Firewood01),             Skyrim.MiscItem.Firewood01 },
+                { nameof(Skyrim.Ingredient.FrostSalts),           Skyrim.Ingredient.FrostSalts },
+                { nameof(Skyrim.MiscItem.GoatHide),               Skyrim.MiscItem.GoatHide },
+                { nameof(Skyrim.MiscItem.IngotCorundum),          Skyrim.MiscItem.IngotCorundum },
+                { nameof(Skyrim.MiscItem.IngotDwarven),           Skyrim.MiscItem.IngotDwarven },
+                { nameof(Skyrim.MiscItem.IngotEbony),             Skyrim.MiscItem.IngotEbony },
+                { nameof(Skyrim.MiscItem.IngotGold),              Skyrim.MiscItem.IngotGold },
+                { nameof(Skyrim.MiscItem.IngotIMoonstone),        Skyrim.MiscItem.IngotIMoonstone },
+                { nameof(Skyrim.MiscItem.IngotIron),              Skyrim.MiscItem.IngotIron },
+                { nameof(Skyrim.MiscItem.IngotMalachite),         Skyrim.MiscItem.IngotMalachite },
+                { nameof(Skyrim.MiscItem.IngotOrichalcum),        Skyrim.MiscItem.IngotOrichalcum },
+                { nameof(Skyrim.MiscItem.IngotQuicksilver),       Skyrim.MiscItem.IngotQuicksilver },
+                { nameof(Skyrim.MiscItem.ingotSilver),            Skyrim.MiscItem.ingotSilver },
+                { nameof(Skyrim.MiscItem.IngotSteel),             Skyrim.MiscItem.IngotSteel },
+                { nameof(Skyrim.MiscItem.Leather01),              Skyrim.MiscItem.Leather01 },
+                { nameof(Skyrim.MiscItem.LeatherStrips),          Skyrim.MiscItem.LeatherStrips },
+                { nameof(Skyrim.Ingredient.PowderedMammothTusk),  Skyrim.Ingredient.PowderedMammothTusk },
+                { nameof(Skyrim.MiscItem.SabreCatPelt),           Skyrim.MiscItem.SabreCatPelt },
+                { nameof(Skyrim.Ingredient.SaltPile),             Skyrim.Ingredient.SaltPile },
+                { nameof(Skyrim.SoulGem.SoulGemPetty),            Skyrim.SoulGem.SoulGemPetty },
+                { nameof(Skyrim.Ingredient.VoidSalts),            Skyrim.Ingredient.VoidSalts },
+                { nameof(Skyrim.MiscItem.WolfPelt),               Skyrim.MiscItem.WolfPelt },
  
                 // Nord Hero Support 
-                { "DraugrBattleAxeHoned",   new FormKey(Constants.Skyrim,       0x05bf12) },
-                { "DraugrBowSupple",        new FormKey(Constants.Skyrim,       0x05d179) },
-                { "DraugrGreatswordHoned",  new FormKey(Constants.Skyrim,       0x05bf13) },
-                { "DraugrSwordHoned",       new FormKey(Constants.Skyrim,       0x05bf14) },
-                { "DraugrWarAxeHoned",      new FormKey(Constants.Skyrim,       0x05bf15) },
+                { nameof(Skyrim.Weapon.DraugrBattleAxeHoned),     Skyrim.Weapon.DraugrBattleAxeHoned },
+                { nameof(Skyrim.Weapon.DraugrBowSupple),          Skyrim.Weapon.DraugrBowSupple },
+                { nameof(Skyrim.Weapon.DraugrGreatswordHoned),    Skyrim.Weapon.DraugrGreatswordHoned },
+                { nameof(Skyrim.Weapon.DraugrSwordHoned),         Skyrim.Weapon.DraugrSwordHoned },
+                { nameof(Skyrim.Weapon.DraugrWarAxeHoned),        Skyrim.Weapon.DraugrWarAxeHoned },
             };
 
             var templates = new List<JObject>();
@@ -286,617 +286,617 @@ namespace TMOPatcher
 
             BaseArmors = new Dictionary<FormKey, Dictionary<FormKey, Dictionary<FormKey, IArmorGetter?>>>()
             {
-                [Keywords["ArmorHeavy"]] = new Dictionary<FormKey, Dictionary<FormKey, IArmorGetter?>>()
+                [Skyrim.Keyword.ArmorHeavy] = new Dictionary<FormKey, Dictionary<FormKey, IArmorGetter?>>()
                 {
-                    [Keywords["ArmorMaterialBlades"]] = new Dictionary<FormKey, IArmorGetter?>()
+                    [Update.Keyword.ArmorMaterialBlades] = new Dictionary<FormKey, IArmorGetter?>()
                     {
-                        { Keywords["ArmorBoots"],      LookupArmor(new FormKey(Constants.Skyrim, 0x04b288)) },
-                        { Keywords["ArmorCuirass"],    LookupArmor(new FormKey(Constants.Skyrim, 0x04b28b)) },
-                        { Keywords["ArmorGauntlets"],  LookupArmor(new FormKey(Constants.Skyrim, 0x04b28d)) },
-                        { Keywords["ArmorHelmet"],     LookupArmor(new FormKey(Constants.Skyrim, 0x04b28f)) },
-                        { Keywords["ArmorShield"],     LookupArmor(new FormKey(Constants.Skyrim, 0x04b28f)) }
+                        { Skyrim.Keyword.ArmorBoots,      LookupArmor(Skyrim.Armor.ArmorBladesBoots) },
+                        { Skyrim.Keyword.ArmorCuirass,    LookupArmor(Skyrim.Armor.ArmorBladesCuirass) },
+                        { Skyrim.Keyword.ArmorGauntlets,  LookupArmor(Skyrim.Armor.ArmorBladesGauntlets) },
+                        { Skyrim.Keyword.ArmorHelmet,     LookupArmor(Skyrim.Armor.ArmorBladesHelmet) },
+                        { Skyrim.Keyword.ArmorShield,     LookupArmor(Skyrim.Armor.ArmorBladesShield) },
                     },
 
-                    [Keywords["ArmorMaterialDaedric"]] = new Dictionary<FormKey, IArmorGetter?>()
+                    [Skyrim.Keyword.ArmorMaterialDaedric] = new Dictionary<FormKey, IArmorGetter?>()
                     {
-                        { Keywords["ArmorBoots"],      LookupArmor(new FormKey(Constants.Skyrim, 0x01396a)) },
-                        { Keywords["ArmorCuirass"],    LookupArmor(new FormKey(Constants.Skyrim, 0x01396b)) },
-                        { Keywords["ArmorGauntlets"],  LookupArmor(new FormKey(Constants.Skyrim, 0x01396c)) },
-                        { Keywords["ArmorHelmet"],     LookupArmor(new FormKey(Constants.Skyrim, 0x01396d)) },
-                        { Keywords["ArmorShield"],     LookupArmor(new FormKey(Constants.Skyrim, 0x01396e)) }
+                        { Skyrim.Keyword.ArmorBoots,      LookupArmor(Skyrim.Armor.ArmorDaedricBoots) },
+                        { Skyrim.Keyword.ArmorCuirass,    LookupArmor(Skyrim.Armor.ArmorDaedricCuirass) },
+                        { Skyrim.Keyword.ArmorGauntlets,  LookupArmor(Skyrim.Armor.ArmorDaedricGauntlets) },
+                        { Skyrim.Keyword.ArmorHelmet,     LookupArmor(Skyrim.Armor.ArmorDaedricHelmet) },
+                        { Skyrim.Keyword.ArmorShield,     LookupArmor(Skyrim.Armor.ArmorDaedricShield) }
                     },
 
-                    [Keywords["ArmorMaterialDragonplate"]] = new Dictionary<FormKey, IArmorGetter?>()
+                    [Skyrim.Keyword.ArmorMaterialDragonplate] = new Dictionary<FormKey, IArmorGetter?>()
                     {
-                        { Keywords["ArmorBoots"],      LookupArmor(new FormKey(Constants.Skyrim, 0x013965)) },
-                        { Keywords["ArmorCuirass"],    LookupArmor(new FormKey(Constants.Skyrim, 0x013966)) },
-                        { Keywords["ArmorGauntlets"],  LookupArmor(new FormKey(Constants.Skyrim, 0x013967)) },
-                        { Keywords["ArmorHelmet"],     LookupArmor(new FormKey(Constants.Skyrim, 0x013969)) },
-                        { Keywords["ArmorShield"],     LookupArmor(new FormKey(Constants.Skyrim, 0x013968)) }
+                        { Skyrim.Keyword.ArmorBoots,      LookupArmor(Skyrim.Armor.ArmorDragonplateBoots) },
+                        { Skyrim.Keyword.ArmorCuirass,    LookupArmor(Skyrim.Armor.ArmorDragonplateCuirass) },
+                        { Skyrim.Keyword.ArmorGauntlets,  LookupArmor(Skyrim.Armor.ArmorDragonplateGauntlets) },
+                        { Skyrim.Keyword.ArmorHelmet,     LookupArmor(Skyrim.Armor.ArmorDragonplateHelmet) },
+                        { Skyrim.Keyword.ArmorShield,     LookupArmor(Skyrim.Armor.ArmorDragonplateShield) }
                     },
 
-                    [Keywords["ArmorMaterialDwarven"]] = new Dictionary<FormKey, IArmorGetter?>()
+                    [Skyrim.Keyword.ArmorMaterialDwarven] = new Dictionary<FormKey, IArmorGetter?>()
                     {
-                        { Keywords["ArmorBoots"],      LookupArmor(new FormKey(Constants.Skyrim, 0x01394c)) },
-                        { Keywords["ArmorCuirass"],    LookupArmor(new FormKey(Constants.Skyrim, 0x01394d)) },
-                        { Keywords["ArmorGauntlets"],  LookupArmor(new FormKey(Constants.Skyrim, 0x01394e)) },
-                        { Keywords["ArmorHelmet"],     LookupArmor(new FormKey(Constants.Skyrim, 0x01394f)) },
-                        { Keywords["ArmorShield"],     LookupArmor(new FormKey(Constants.Skyrim, 0x013950)) }
+                        { Skyrim.Keyword.ArmorBoots,      LookupArmor(Skyrim.Armor.ArmorDwarvenBoots) },
+                        { Skyrim.Keyword.ArmorCuirass,    LookupArmor(Skyrim.Armor.ArmorDwarvenCuirass) },
+                        { Skyrim.Keyword.ArmorGauntlets,  LookupArmor(Skyrim.Armor.ArmorDwarvenGauntlets) },
+                        { Skyrim.Keyword.ArmorHelmet,     LookupArmor(Skyrim.Armor.ArmorDwarvenHelmet) },
+                        { Skyrim.Keyword.ArmorShield,     LookupArmor(Skyrim.Armor.ArmorDwarvenShield) }
                     },
 
-                    [Keywords["ArmorMaterialEbony"]] = new Dictionary<FormKey, IArmorGetter?>()
+                    [Skyrim.Keyword.ArmorMaterialEbony] = new Dictionary<FormKey, IArmorGetter?>()
                     {
-                        { Keywords["ArmorBoots"],      LookupArmor(new FormKey(Constants.Skyrim, 0x013960)) },
-                        { Keywords["ArmorCuirass"],    LookupArmor(new FormKey(Constants.Skyrim, 0x013961)) },
-                        { Keywords["ArmorGauntlets"],  LookupArmor(new FormKey(Constants.Skyrim, 0x013962)) },
-                        { Keywords["ArmorHelmet"],     LookupArmor(new FormKey(Constants.Skyrim, 0x013963)) },
-                        { Keywords["ArmorShield"],     LookupArmor(new FormKey(Constants.Skyrim, 0x013964)) }
+                        { Skyrim.Keyword.ArmorBoots,      LookupArmor(Skyrim.Armor.ArmorEbonyBoots) },
+                        { Skyrim.Keyword.ArmorCuirass,    LookupArmor(Skyrim.Armor.ArmorEbonyCuirass) },
+                        { Skyrim.Keyword.ArmorGauntlets,  LookupArmor(Skyrim.Armor.ArmorEbonyGauntlets) },
+                        { Skyrim.Keyword.ArmorHelmet,     LookupArmor(Skyrim.Armor.ArmorEbonyHelmet) },
+                        { Skyrim.Keyword.ArmorShield,     LookupArmor(Skyrim.Armor.ArmorEbonyShield) }
                     },
 
-                    [Keywords["ArmorMaterialFalmer"]] = new Dictionary<FormKey, IArmorGetter?>()
+                    [Update.Keyword.ArmorMaterialFalmer] = new Dictionary<FormKey, IArmorGetter?>()
                     {
-                        { Keywords["ArmorBoots"],      LookupArmor(new FormKey(Constants.Skyrim, 0x0b83cd)) },
-                        { Keywords["ArmorCuirass"],    LookupArmor(new FormKey(Constants.Skyrim, 0x0b83cb)) },
-                        { Keywords["ArmorGauntlets"],  LookupArmor(new FormKey(Constants.Skyrim, 0x0b83cf)) },
-                        { Keywords["ArmorHelmet"],     LookupArmor(new FormKey(Constants.Skyrim, 0x04c3cb)) },
-                        { Keywords["ArmorShield"],     LookupArmor(new FormKey(Constants.Skyrim, 0x05c06c)) }
+                        { Skyrim.Keyword.ArmorBoots,      LookupArmor(Skyrim.Armor.ArmorFalmerBoots) },
+                        { Skyrim.Keyword.ArmorCuirass,    LookupArmor(Skyrim.Armor.ArmorFalmerCuirass) },
+                        { Skyrim.Keyword.ArmorGauntlets,  LookupArmor(Skyrim.Armor.ArmorFalmerGauntlets) },
+                        { Skyrim.Keyword.ArmorHelmet,     LookupArmor(Skyrim.Armor.ArmorFAlmerHelmet) },
+                        { Skyrim.Keyword.ArmorShield,     LookupArmor(Skyrim.Armor.ArmorFalmerShield) }
                     },
 
-                    [Keywords["ArmorMaterialImperialHeavy"]] = new Dictionary<FormKey, IArmorGetter?>()
+                    [Skyrim.Keyword.ArmorMaterialImperialHeavy] = new Dictionary<FormKey, IArmorGetter?>()
                     {
-                        { Keywords["ArmorBoots"],      LookupArmor(new FormKey(Constants.Skyrim, 0x0136d6)) },
-                        { Keywords["ArmorCuirass"],    LookupArmor(new FormKey(Constants.Skyrim, 0x0136d5)) },
-                        { Keywords["ArmorGauntlets"],  LookupArmor(new FormKey(Constants.Skyrim, 0x0136d4)) },
-                        { Keywords["ArmorHelmet"],     LookupArmor(new FormKey(Constants.Skyrim, 0x0136cf)) },
-                        { Keywords["ArmorShield"],     LookupArmor(new FormKey(Constants.Skyrim, 0x0135ba)) }
+                        { Skyrim.Keyword.ArmorBoots,      LookupArmor(Skyrim.Armor.ArmorImperialBoots) },
+                        { Skyrim.Keyword.ArmorCuirass,    LookupArmor(Skyrim.Armor.ArmorImperialCuirass) },
+                        { Skyrim.Keyword.ArmorGauntlets,  LookupArmor(Skyrim.Armor.ArmorImperialGauntlets) },
+                        { Skyrim.Keyword.ArmorHelmet,     LookupArmor(Skyrim.Armor.ArmorImperialHelmet) },
+                        { Skyrim.Keyword.ArmorShield,     LookupArmor(Skyrim.Armor.ArmorImperialShield) }
                     },
 
-                    [Keywords["ArmorMaterialIron"]] = new Dictionary<FormKey, IArmorGetter?>()
+                    [Skyrim.Keyword.ArmorMaterialIron] = new Dictionary<FormKey, IArmorGetter?>()
                     {
-                        { Keywords["ArmorBoots"],      LookupArmor(new FormKey(Constants.Skyrim, 0x012e4b)) },
-                        { Keywords["ArmorCuirass"],    LookupArmor(new FormKey(Constants.Skyrim, 0x012e49)) },
-                        { Keywords["ArmorGauntlets"],  LookupArmor(new FormKey(Constants.Skyrim, 0x012e46)) },
-                        { Keywords["ArmorHelmet"],     LookupArmor(new FormKey(Constants.Skyrim, 0x012e4d)) },
-                        { Keywords["ArmorShield"],     LookupArmor(new FormKey(Constants.Skyrim, 0x012eb6)) }
+                        { Skyrim.Keyword.ArmorBoots,      LookupArmor(Skyrim.Armor.ArmorIronBoots) },
+                        { Skyrim.Keyword.ArmorCuirass,    LookupArmor(Skyrim.Armor.ArmorIronCuirass) },
+                        { Skyrim.Keyword.ArmorGauntlets,  LookupArmor(Skyrim.Armor.ArmorIronGauntlets) },
+                        { Skyrim.Keyword.ArmorHelmet,     LookupArmor(Skyrim.Armor.ArmorIronHelmet) },
+                        { Skyrim.Keyword.ArmorShield,     LookupArmor(Skyrim.Armor.ArmorIronShield) }
                     },
 
-                    [Keywords["ArmorMaterialIronBanded"]] = new Dictionary<FormKey, IArmorGetter?>()
+                    [Skyrim.Keyword.ArmorMaterialIronBanded] = new Dictionary<FormKey, IArmorGetter?>()
                     {
-                        { Keywords["ArmorBoots"],      null                                                 },
-                        { Keywords["ArmorCuirass"],    LookupArmor(new FormKey(Constants.Skyrim, 0x013948)) },
-                        { Keywords["ArmorGauntlets"],  null                                                 },
-                        { Keywords["ArmorHelmet"],     null                                                 },
-                        { Keywords["ArmorShield"],     LookupArmor(new FormKey(Constants.Skyrim, 0x01394b)) }
+                        { Skyrim.Keyword.ArmorBoots,      null                                                 },
+                        { Skyrim.Keyword.ArmorCuirass,    LookupArmor(Skyrim.Armor.ArmorIronBandedCuirass) },
+                        { Skyrim.Keyword.ArmorGauntlets,  null                                                 },
+                        { Skyrim.Keyword.ArmorHelmet,     null                                                 },
+                        { Skyrim.Keyword.ArmorShield,     LookupArmor(Skyrim.Armor.ArmorIronBandedShield) }
                     },
 
-                    [Keywords["ArmorMaterialOrcish"]] = new Dictionary<FormKey, IArmorGetter?>()
+                    [Skyrim.Keyword.ArmorMaterialOrcish] = new Dictionary<FormKey, IArmorGetter?>()
                     {
-                        { Keywords["ArmorBoots"],      LookupArmor(new FormKey(Constants.Skyrim, 0x013956)) },
-                        { Keywords["ArmorCuirass"],    LookupArmor(new FormKey(Constants.Skyrim, 0x013957)) },
-                        { Keywords["ArmorGauntlets"],  LookupArmor(new FormKey(Constants.Skyrim, 0x013958)) },
-                        { Keywords["ArmorHelmet"],     LookupArmor(new FormKey(Constants.Skyrim, 0x013959)) },
-                        { Keywords["ArmorShield"],     LookupArmor(new FormKey(Constants.Skyrim, 0x013946)) }
+                        { Skyrim.Keyword.ArmorBoots,      LookupArmor(Skyrim.Armor.ArmorOrcishBoots) },
+                        { Skyrim.Keyword.ArmorCuirass,    LookupArmor(Skyrim.Armor.ArmorOrcishCuirass) },
+                        { Skyrim.Keyword.ArmorGauntlets,  LookupArmor(Skyrim.Armor.ArmorOrcishGauntlets) },
+                        { Skyrim.Keyword.ArmorHelmet,     LookupArmor(Skyrim.Armor.ArmorOrcishHelmet) },
+                        { Skyrim.Keyword.ArmorShield,     LookupArmor(Skyrim.Armor.ArmorOrcishShield) }
                     },
 
-                    [Keywords["ArmorMaterialSteel"]] = new Dictionary<FormKey, IArmorGetter?>()
+                    [Skyrim.Keyword.ArmorMaterialSteel] = new Dictionary<FormKey, IArmorGetter?>()
                     {
-                        { Keywords["ArmorBoots"],      LookupArmor(new FormKey(Constants.Skyrim, 0x013951)) },
-                        { Keywords["ArmorCuirass"],    LookupArmor(new FormKey(Constants.Skyrim, 0x013952)) },
-                        { Keywords["ArmorGauntlets"],  LookupArmor(new FormKey(Constants.Skyrim, 0x013953)) },
-                        { Keywords["ArmorHelmet"],     LookupArmor(new FormKey(Constants.Skyrim, 0x013954)) },
-                        { Keywords["ArmorShield"],     LookupArmor(new FormKey(Constants.Skyrim, 0x013955)) }
+                        { Skyrim.Keyword.ArmorBoots,      LookupArmor(Skyrim.Armor.ArmorSteelBootsA) },
+                        { Skyrim.Keyword.ArmorCuirass,    LookupArmor(Skyrim.Armor.ArmorSteelCuirassA) },
+                        { Skyrim.Keyword.ArmorGauntlets,  LookupArmor(Skyrim.Armor.ArmorSteelGauntletsA) },
+                        { Skyrim.Keyword.ArmorHelmet,     LookupArmor(Skyrim.Armor.ArmorSteelHelmetA) },
+                        { Skyrim.Keyword.ArmorShield,     LookupArmor(Skyrim.Armor.ArmorSteelShield) }
                     },
 
-                    [Keywords["ArmorMaterialSteelPlate"]] = new Dictionary<FormKey, IArmorGetter?>()
+                    [Skyrim.Keyword.ArmorMaterialSteelPlate] = new Dictionary<FormKey, IArmorGetter?>()
                     {
-                        { Keywords["ArmorBoots"],      LookupArmor(new FormKey(Constants.Skyrim, 0x01395b)) },
-                        { Keywords["ArmorCuirass"],    LookupArmor(new FormKey(Constants.Skyrim, 0x01395c)) },
-                        { Keywords["ArmorGauntlets"],  LookupArmor(new FormKey(Constants.Skyrim, 0x01395d)) },
-                        { Keywords["ArmorHelmet"],     LookupArmor(new FormKey(Constants.Skyrim, 0x01395e)) },
-                        { Keywords["ArmorShield"],     null                                                 }
+                        { Skyrim.Keyword.ArmorBoots,      LookupArmor(Skyrim.Armor.ArmorSteelPlateBoots) },
+                        { Skyrim.Keyword.ArmorCuirass,    LookupArmor(Skyrim.Armor.ArmorSteelPlateCuirass) },
+                        { Skyrim.Keyword.ArmorGauntlets,  LookupArmor(Skyrim.Armor.ArmorSteelPlateGauntlets) },
+                        { Skyrim.Keyword.ArmorHelmet,     LookupArmor(Skyrim.Armor.ArmorSteelPlateHelmet) },
+                        { Skyrim.Keyword.ArmorShield,     null                                                 }
                     },
 
-                    [Keywords["DLC1ArmorMaterialDawnguard"]] = new Dictionary<FormKey, IArmorGetter?>()
+                    [Dawnguard.Keyword.DLC1ArmorMaterialDawnguard] = new Dictionary<FormKey, IArmorGetter?>()
                     {
-                        { Keywords["ArmorBoots"],      LookupArmor(new FormKey(Constants.Dawnguard,  0x014757)) },
-                        { Keywords["ArmorCuirass"],    LookupArmor(new FormKey(Constants.Dawnguard,  0x00f3f7)) },
-                        { Keywords["ArmorGauntlets"],  LookupArmor(new FormKey(Constants.Dawnguard,  0x014758)) },
-                        { Keywords["ArmorHelmet"],     LookupArmor(new FormKey(Constants.Dawnguard,  0x0050d0)) },
-                        { Keywords["ArmorShield"],     LookupArmor(new FormKey(Constants.Dawnguard,  0x0150b8)) }
+                        { Skyrim.Keyword.ArmorBoots,      LookupArmor(Dawnguard.Armor.DLC1ArmorDawnguardBootsHeavy) },
+                        { Skyrim.Keyword.ArmorCuirass,    LookupArmor(Dawnguard.Armor.DLC1ArmorDawnguardCuirassHeavy1) },
+                        { Skyrim.Keyword.ArmorGauntlets,  LookupArmor(Dawnguard.Armor.DLC1ArmorDawnguardGauntletsHeavy) },
+                        { Skyrim.Keyword.ArmorHelmet,     LookupArmor(Dawnguard.Armor.DLC1ArmorDawnguardHelmetHeavy) },
+                        { Skyrim.Keyword.ArmorShield,     LookupArmor(Dawnguard.Armor.DLC1ArmorDawnguardShield) }
                     },
 
-                    [Keywords["DLC1ArmorMaterialFalmerHardened"]] = new Dictionary<FormKey, IArmorGetter?>()
+                    [Dawnguard.Keyword.DLC1ArmorMaterialFalmerHardened] = new Dictionary<FormKey, IArmorGetter?>()
                     {
-                        { Keywords["ArmorBoots"],      LookupArmor(new FormKey(Constants.Dawnguard,  0x00e8dd)) },
-                        { Keywords["ArmorCuirass"],    LookupArmor(new FormKey(Constants.Dawnguard,  0x00e8de)) },
-                        { Keywords["ArmorGauntlets"],  LookupArmor(new FormKey(Constants.Dawnguard,  0x00e8df)) },
-                        { Keywords["ArmorHelmet"],     LookupArmor(new FormKey(Constants.Dawnguard,  0x00e8e0)) },
-                        { Keywords["ArmorShield"],     null                                                 }
+                        { Skyrim.Keyword.ArmorBoots,      LookupArmor(Dawnguard.Armor.DLC1ArmorFalmerHardenedBoots) },
+                        { Skyrim.Keyword.ArmorCuirass,    LookupArmor(Dawnguard.Armor.DLC1ArmorFalmerHardenedCuirass) },
+                        { Skyrim.Keyword.ArmorGauntlets,  LookupArmor(Dawnguard.Armor.DLC1ArmorFalmerHardenedGauntlets) },
+                        { Skyrim.Keyword.ArmorHelmet,     LookupArmor(Dawnguard.Armor.DLC1ArmorFAlmerHardenedHelmet) },
+                        { Skyrim.Keyword.ArmorShield,     null }
                     },
 
-                    [Keywords["DLC1ArmorMaterialHunter"]] = new Dictionary<FormKey, IArmorGetter?>()
+                    [Dawnguard.Keyword.DLC1ArmorMaterialHunter] = new Dictionary<FormKey, IArmorGetter?>()
                     {
-                        { Keywords["ArmorBoots"],      LookupArmor(new FormKey(Constants.Dawnguard,  0x0050c5)) },
-                        { Keywords["ArmorCuirass"],    LookupArmor(new FormKey(Constants.Dawnguard,  0x0050c6)) },
-                        { Keywords["ArmorGauntlets"],  LookupArmor(new FormKey(Constants.Dawnguard,  0x0050c7)) },
-                        { Keywords["ArmorHelmet"],     null                                                 },
-                        { Keywords["ArmorShield"],     null                                                 }
+                        { Skyrim.Keyword.ArmorBoots,      LookupArmor(Dawnguard.Armor.DLC1ArmorHunterBoots) },
+                        { Skyrim.Keyword.ArmorCuirass,    LookupArmor(Dawnguard.Armor.DLC1ArmorHunterCuirass) },
+                        { Skyrim.Keyword.ArmorGauntlets,  LookupArmor(Dawnguard.Armor.DLC1ArmorHunterGauntlets) },
+                        { Skyrim.Keyword.ArmorHelmet,     null },
+                        { Skyrim.Keyword.ArmorShield,     null }
                     },
 
-                    [Keywords["DLC1ArmorMaterielFalmerHeavy"]] = new Dictionary<FormKey, IArmorGetter?>()
+                    [Dawnguard.Keyword.DLC1ArmorMaterielFalmerHeavy] = new Dictionary<FormKey, IArmorGetter?>()
                     {
-                        { Keywords["ArmorBoots"],      LookupArmor(new FormKey(Constants.Dawnguard,  0x0023ef)) },
-                        { Keywords["ArmorCuirass"],    LookupArmor(new FormKey(Constants.Dawnguard,  0x0023e9)) },
-                        { Keywords["ArmorGauntlets"],  LookupArmor(new FormKey(Constants.Dawnguard,  0x0023ed)) },
-                        { Keywords["ArmorHelmet"],     LookupArmor(new FormKey(Constants.Dawnguard,  0x0023eb)) },
-                        { Keywords["ArmorShield"],     null                                                 }
+                        { Skyrim.Keyword.ArmorBoots,      LookupArmor(Dawnguard.Armor.DLC1ArmorFalmerHeavyBoots) },
+                        { Skyrim.Keyword.ArmorCuirass,    LookupArmor(Dawnguard.Armor.DLC1ArmorFalmerHeavyCuirass) },
+                        { Skyrim.Keyword.ArmorGauntlets,  LookupArmor(Dawnguard.Armor.DLC1ArmorFalmerHeavyGauntlets) },
+                        { Skyrim.Keyword.ArmorHelmet,     LookupArmor(Dawnguard.Armor.DLC1ArmorFAlmerHeavyHelmet) },
+                        { Skyrim.Keyword.ArmorShield,     null                                                 }
                     },
 
-                    [Keywords["DLC2ArmorMaterialBonemoldHeavy"]] = new Dictionary<FormKey, IArmorGetter?>()
+                    [Dragonborn.Keyword.DLC2ArmorMaterialBonemoldHeavy] = new Dictionary<FormKey, IArmorGetter?>()
                     {
-                        { Keywords["ArmorBoots"],      LookupArmor(new FormKey(Constants.Dragonborn, 0x01cd92)) },
-                        { Keywords["ArmorCuirass"],    LookupArmor(new FormKey(Constants.Dragonborn, 0x01cd93)) },
-                        { Keywords["ArmorGauntlets"],  LookupArmor(new FormKey(Constants.Dragonborn, 0x01cd9f)) },
-                        { Keywords["ArmorHelmet"],     LookupArmor(new FormKey(Constants.Dragonborn, 0x01cd95)) },
-                        { Keywords["ArmorShield"],     LookupArmor(new FormKey(Constants.Dragonborn, 0x026234)) }
+                        { Skyrim.Keyword.ArmorBoots,      LookupArmor(Dragonborn.Armor.DLC2ArmorBonemoldBoots) },
+                        { Skyrim.Keyword.ArmorCuirass,    LookupArmor(Dragonborn.Armor.DLC2ArmorBonemoldCuirassVariant02) },
+                        { Skyrim.Keyword.ArmorGauntlets,  LookupArmor(Dragonborn.Armor.DLC2ArmorBonemoldGauntlets) },
+                        { Skyrim.Keyword.ArmorHelmet,     LookupArmor(Dragonborn.Armor.DLC2ArmorBonemoldHelmet) },
+                        { Skyrim.Keyword.ArmorShield,     LookupArmor(Dragonborn.Armor.DLC2ArmorBonemoldShield) }
                     },
 
-                    [Keywords["DLC2ArmorMaterialChitinHeavy"]] = new Dictionary<FormKey, IArmorGetter?>()
+                    [Dragonborn.Keyword.DLC2ArmorMaterialChitinHeavy] = new Dictionary<FormKey, IArmorGetter?>()
                     {
-                        { Keywords["ArmorBoots"],      LookupArmor(new FormKey(Constants.Dragonborn, 0x01cd82)) },
-                        { Keywords["ArmorCuirass"],    LookupArmor(new FormKey(Constants.Dragonborn, 0x01cd8a)) },
-                        { Keywords["ArmorGauntlets"],  LookupArmor(new FormKey(Constants.Dragonborn, 0x01cd8b)) },
-                        { Keywords["ArmorHelmet"],     LookupArmor(new FormKey(Constants.Dragonborn, 0x01cd8c)) },
-                        { Keywords["ArmorShield"],     null                                                 }
+                        { Skyrim.Keyword.ArmorBoots,      LookupArmor(Dragonborn.Armor.DLC2ArmorChitinHeavyBoots) },
+                        { Skyrim.Keyword.ArmorCuirass,    LookupArmor(Dragonborn.Armor.DLC2ArmorChitinHeavyCuirass) },
+                        { Skyrim.Keyword.ArmorGauntlets,  LookupArmor(Dragonborn.Armor.DLC2ArmorChitinHeavyGauntlets) },
+                        { Skyrim.Keyword.ArmorHelmet,     LookupArmor(Dragonborn.Armor.DLC2ArmorChitinHeavyHelmet) },
+                        { Skyrim.Keyword.ArmorShield,     null                                                 }
                     },
 
-                    [Keywords["DLC2ArmorMaterialNordicHeavy"]] = new Dictionary<FormKey, IArmorGetter?>()
+                    [Dragonborn.Keyword.DLC2ArmorMaterialNordicHeavy] = new Dictionary<FormKey, IArmorGetter?>()
                     {
-                        { Keywords["ArmorBoots"],      LookupArmor(new FormKey(Constants.Dragonborn, 0x01cd96)) },
-                        { Keywords["ArmorCuirass"],    LookupArmor(new FormKey(Constants.Dragonborn, 0x01cd97)) },
-                        { Keywords["ArmorGauntlets"],  LookupArmor(new FormKey(Constants.Dragonborn, 0x01cd98)) },
-                        { Keywords["ArmorHelmet"],     LookupArmor(new FormKey(Constants.Dragonborn, 0x01cd99)) },
-                        { Keywords["ArmorShield"],     LookupArmor(new FormKey(Constants.Dragonborn, 0x026236)) }
+                        { Skyrim.Keyword.ArmorBoots,      LookupArmor(Dragonborn.Armor.DLC2ArmorNordicHeavyBoots) },
+                        { Skyrim.Keyword.ArmorCuirass,    LookupArmor(Dragonborn.Armor.DLC2ArmorNordicHeavyCuirass) },
+                        { Skyrim.Keyword.ArmorGauntlets,  LookupArmor(Dragonborn.Armor.DLC2ArmorNordicHeavyGauntlets) },
+                        { Skyrim.Keyword.ArmorHelmet,     LookupArmor(Dragonborn.Armor.DLC2ArmorNordicHeavyHelmet) },
+                        { Skyrim.Keyword.ArmorShield,     LookupArmor(Dragonborn.Armor.DLC2ArmorNordicShield) }
                     },
 
-                    [Keywords["DLC2ArmorMaterialStalhrimHeavy"]] = new Dictionary<FormKey, IArmorGetter?>()
+                    [Dragonborn.Keyword.DLC2ArmorMaterialStalhrimHeavy] = new Dictionary<FormKey, IArmorGetter?>()
                     {
-                        { Keywords["ArmorBoots"],      LookupArmor(new FormKey(Constants.Dragonborn, 0x01cd9e)) },
-                        { Keywords["ArmorCuirass"],    LookupArmor(new FormKey(Constants.Dragonborn, 0x01cd9f)) },
-                        { Keywords["ArmorGauntlets"],  LookupArmor(new FormKey(Constants.Dragonborn, 0x01cda0)) },
-                        { Keywords["ArmorHelmet"],     LookupArmor(new FormKey(Constants.Dragonborn, 0x01cda1)) },
-                        { Keywords["ArmorShield"],     null                                                 }
+                        { Skyrim.Keyword.ArmorBoots,      LookupArmor(Dragonborn.Armor.DLC2ArmorStalhrimHeavyBoots) },
+                        { Skyrim.Keyword.ArmorCuirass,    LookupArmor(Dragonborn.Armor.DLC2ArmorStalhrimHeavyCuirass) },
+                        { Skyrim.Keyword.ArmorGauntlets,  LookupArmor(Dragonborn.Armor.DLC2ArmorStalhrimHeavyGauntlets) },
+                        { Skyrim.Keyword.ArmorHelmet,     LookupArmor(Dragonborn.Armor.DLC2ArmorStalhrimHeavyHelmet) },
+                        { Skyrim.Keyword.ArmorShield,     null                                                 }
                     }
                 },
 
-                [Keywords["ArmorLight"]] = new Dictionary<FormKey, Dictionary<FormKey, IArmorGetter?>>()
+                [Skyrim.Keyword.ArmorLight] = new Dictionary<FormKey, Dictionary<FormKey, IArmorGetter?>>()
                 {
-                    [Keywords["ArmorMaterialBearStormcloak"]] = new Dictionary<FormKey, IArmorGetter?>()
+                    [Update.Keyword.ArmorMaterialBearStormcloak] = new Dictionary<FormKey, IArmorGetter?>()
                     {
-                        { Keywords["ArmorBoots"],      LookupArmor(new FormKey(Constants.Skyrim, 0x086981)) },
-                        { Keywords["ArmorCuirass"],    LookupArmor(new FormKey(Constants.Skyrim, 0x08697e)) },
-                        { Keywords["ArmorGauntlets"],  LookupArmor(new FormKey(Constants.Skyrim, 0x086983)) },
-                        { Keywords["ArmorHelmet"],     LookupArmor(new FormKey(Constants.Skyrim, 0x086985)) },
-                        { Keywords["ArmorShield"],     null                                                 }
+                        { Skyrim.Keyword.ArmorBoots,      LookupArmor(Skyrim.Armor.ArmorStormcloakBearBoots) },
+                        { Skyrim.Keyword.ArmorCuirass,    LookupArmor(Skyrim.Armor.ArmorStormcloakBearCuirass) },
+                        { Skyrim.Keyword.ArmorGauntlets,  LookupArmor(Skyrim.Armor.ArmorStormcloakBearGauntlets) },
+                        { Skyrim.Keyword.ArmorHelmet,     LookupArmor(Skyrim.Armor.ArmorStormcloakBearHelmet) },
+                        { Skyrim.Keyword.ArmorShield,     null                                                 }
                     },
 
-                    [Keywords["ArmorMaterialDragonscale"]] = new Dictionary<FormKey, IArmorGetter?>()
+                    [Skyrim.Keyword.ArmorMaterialDragonscale] = new Dictionary<FormKey, IArmorGetter?>()
                     {
-                        { Keywords["ArmorBoots"],      LookupArmor(new FormKey(Constants.Skyrim, 0x01393d)) },
-                        { Keywords["ArmorCuirass"],    LookupArmor(new FormKey(Constants.Skyrim, 0x01393e)) },
-                        { Keywords["ArmorGauntlets"],  LookupArmor(new FormKey(Constants.Skyrim, 0x01393f)) },
-                        { Keywords["ArmorHelmet"],     LookupArmor(new FormKey(Constants.Skyrim, 0x013940)) },
-                        { Keywords["ArmorShield"],     LookupArmor(new FormKey(Constants.Skyrim, 0x013941)) }
+                        { Skyrim.Keyword.ArmorBoots,      LookupArmor(Skyrim.Armor.ArmorDragonscaleBoots) },
+                        { Skyrim.Keyword.ArmorCuirass,    LookupArmor(Skyrim.Armor.ArmorDragonscaleCuirass) },
+                        { Skyrim.Keyword.ArmorGauntlets,  LookupArmor(Skyrim.Armor.ArmorDragonscaleGauntlets) },
+                        { Skyrim.Keyword.ArmorHelmet,     LookupArmor(Skyrim.Armor.ArmorDragonscaleHelmet) },
+                        { Skyrim.Keyword.ArmorShield,     LookupArmor(Skyrim.Armor.ArmorDragonscaleShield) }
                     },
 
-                    [Keywords["ArmorMaterialElven"]] = new Dictionary<FormKey, IArmorGetter?>()
+                    [Skyrim.Keyword.ArmorMaterialElven] = new Dictionary<FormKey, IArmorGetter?>()
                     {
-                        { Keywords["ArmorBoots"],      LookupArmor(new FormKey(Constants.Skyrim, 0x01391a)) },
-                        { Keywords["ArmorCuirass"],    LookupArmor(new FormKey(Constants.Skyrim, 0x0896a3)) },
-                        { Keywords["ArmorGauntlets"],  LookupArmor(new FormKey(Constants.Skyrim, 0x01391c)) },
-                        { Keywords["ArmorHelmet"],     LookupArmor(new FormKey(Constants.Skyrim, 0x01391d)) },
-                        { Keywords["ArmorShield"],     LookupArmor(new FormKey(Constants.Skyrim, 0x01391e)) }
+                        { Skyrim.Keyword.ArmorBoots,      LookupArmor(Skyrim.Armor.ArmorElvenBoots) },
+                        { Skyrim.Keyword.ArmorCuirass,    LookupArmor(Skyrim.Armor.ArmorElvenCuirass) },
+                        { Skyrim.Keyword.ArmorGauntlets,  LookupArmor(Skyrim.Armor.ArmorElvenGauntlets) },
+                        { Skyrim.Keyword.ArmorHelmet,     LookupArmor(Skyrim.Armor.ArmorElvenHelmet) },
+                        { Skyrim.Keyword.ArmorShield,     LookupArmor(Skyrim.Armor.ArmorElvenShield) }
                     },
 
-                    [Keywords["ArmorMaterialElvenGilded"]] = new Dictionary<FormKey, IArmorGetter?>()
+                    [Skyrim.Keyword.ArmorMaterialElvenGilded] = new Dictionary<FormKey, IArmorGetter?>()
                     {
-                        { Keywords["ArmorBoots"],      null                                                 },
-                        { Keywords["ArmorCuirass"],    LookupArmor(new FormKey(Constants.Skyrim, 0x01392a)) },
-                        { Keywords["ArmorGauntlets"],  null                                                 },
-                        { Keywords["ArmorHelmet"],     null                                                 },
-                        { Keywords["ArmorShield"],     null                                                 }
+                        { Skyrim.Keyword.ArmorBoots,      null },
+                        { Skyrim.Keyword.ArmorCuirass,    LookupArmor(Skyrim.Armor.ArmorElvenGildedCuirass) },
+                        { Skyrim.Keyword.ArmorGauntlets,  null },
+                        { Skyrim.Keyword.ArmorHelmet,     null },
+                        { Skyrim.Keyword.ArmorShield,     null }
                     },
 
-                    [Keywords["ArmorMaterialForsworn"]] = new Dictionary<FormKey, IArmorGetter?>()
+                    [Update.Keyword.ArmorMaterialForsworn] = new Dictionary<FormKey, IArmorGetter?>()
                     {
-                        { Keywords["ArmorBoots"],      LookupArmor(new FormKey(Constants.Skyrim, 0x0d8d4e)) },
-                        { Keywords["ArmorCuirass"],    LookupArmor(new FormKey(Constants.Skyrim, 0x0d8d50)) },
-                        { Keywords["ArmorGauntlets"],  LookupArmor(new FormKey(Constants.Skyrim, 0x0d8d55)) },
-                        { Keywords["ArmorHelmet"],     LookupArmor(new FormKey(Constants.Skyrim, 0x0d8d52)) },
-                        { Keywords["ArmorShield"],     null                                                 }
+                        { Skyrim.Keyword.ArmorBoots,      LookupArmor(Skyrim.Armor.ForswornBoots) },
+                        { Skyrim.Keyword.ArmorCuirass,    LookupArmor(Skyrim.Armor.ForswornCuirass) },
+                        { Skyrim.Keyword.ArmorGauntlets,  LookupArmor(Skyrim.Armor.ForswornGauntlets) },
+                        { Skyrim.Keyword.ArmorHelmet,     LookupArmor(Skyrim.Armor.ForswornHelmet) },
+                        { Skyrim.Keyword.ArmorShield,     null                                                 }
                     },
 
-                    [Keywords["ArmorMaterialMS02Forsworn"]] = new Dictionary<FormKey, IArmorGetter?>()
+                    [Update.Keyword.ArmorMaterialMS02Forsworn] = new Dictionary<FormKey, IArmorGetter?>()
                     {
-                        { Keywords["ArmorBoots"],      LookupArmor(new FormKey(Constants.Skyrim, 0x0eafd3)) },
-                        { Keywords["ArmorCuirass"],    LookupArmor(new FormKey(Constants.Skyrim, 0x0eafd0)) },
-                        { Keywords["ArmorGauntlets"],  LookupArmor(new FormKey(Constants.Skyrim, 0x0eafd2)) },
-                        { Keywords["ArmorHelmet"],     LookupArmor(new FormKey(Constants.Skyrim, 0x0eafd1)) },
-                        { Keywords["ArmorShield"],     null                                                 }
+                        { Skyrim.Keyword.ArmorBoots,      LookupArmor(Skyrim.Armor.MS02ForswornBoots) },
+                        { Skyrim.Keyword.ArmorCuirass,    LookupArmor(Skyrim.Armor.MS02ForswornArmor) },
+                        { Skyrim.Keyword.ArmorGauntlets,  LookupArmor(Skyrim.Armor.MS02ForswornGauntlets) },
+                        { Skyrim.Keyword.ArmorHelmet,     LookupArmor(Skyrim.Armor.MS02ForswornHelmet) },
+                        { Skyrim.Keyword.ArmorShield,     null                                                 }
                     },
 
-                    [Keywords["ArmorMaterialGlass"]] = new Dictionary<FormKey, IArmorGetter?>()
+                    [Skyrim.Keyword.ArmorMaterialGlass] = new Dictionary<FormKey, IArmorGetter?>()
                     {
-                        { Keywords["ArmorBoots"],      LookupArmor(new FormKey(Constants.Skyrim, 0x013938)) },
-                        { Keywords["ArmorCuirass"],    LookupArmor(new FormKey(Constants.Skyrim, 0x013939)) },
-                        { Keywords["ArmorGauntlets"],  LookupArmor(new FormKey(Constants.Skyrim, 0x01393a)) },
-                        { Keywords["ArmorHelmet"],     LookupArmor(new FormKey(Constants.Skyrim, 0x01393b)) },
-                        { Keywords["ArmorShield"],     LookupArmor(new FormKey(Constants.Skyrim, 0x01393c)) }
+                        { Skyrim.Keyword.ArmorBoots,      LookupArmor(Skyrim.Armor.ArmorGlassBoots) },
+                        { Skyrim.Keyword.ArmorCuirass,    LookupArmor(Skyrim.Armor.ArmorGlassCuirass) },
+                        { Skyrim.Keyword.ArmorGauntlets,  LookupArmor(Skyrim.Armor.ArmorGlassGauntlets) },
+                        { Skyrim.Keyword.ArmorHelmet,     LookupArmor(Skyrim.Armor.ArmorGlassHelmet) },
+                        { Skyrim.Keyword.ArmorShield,     LookupArmor(Skyrim.Armor.ArmorGlassShield) }
                     },
 
-                    [Keywords["ArmorMaterialHide"]] = new Dictionary<FormKey, IArmorGetter?>()
+                    [Skyrim.Keyword.ArmorMaterialHide] = new Dictionary<FormKey, IArmorGetter?>()
                     {
-                        { Keywords["ArmorBoots"],      LookupArmor(new FormKey(Constants.Skyrim, 0x013910)) },
-                        { Keywords["ArmorCuirass"],    LookupArmor(new FormKey(Constants.Skyrim, 0x013911)) },
-                        { Keywords["ArmorGauntlets"],  LookupArmor(new FormKey(Constants.Skyrim, 0x013912)) },
-                        { Keywords["ArmorHelmet"],     LookupArmor(new FormKey(Constants.Skyrim, 0x013913)) },
-                        { Keywords["ArmorShield"],     LookupArmor(new FormKey(Constants.Skyrim, 0x013914)) }
+                        { Skyrim.Keyword.ArmorBoots,      LookupArmor(Skyrim.Armor.ArmorHideBoots) },
+                        { Skyrim.Keyword.ArmorCuirass,    LookupArmor(Skyrim.Armor.ArmorHideCuirass) },
+                        { Skyrim.Keyword.ArmorGauntlets,  LookupArmor(Skyrim.Armor.ArmorHideGauntlets) },
+                        { Skyrim.Keyword.ArmorHelmet,     LookupArmor(Skyrim.Armor.ArmorHideHelmet) },
+                        { Skyrim.Keyword.ArmorShield,     LookupArmor(Skyrim.Armor.ArmorHideShield) }
                     },
 
-                    [Keywords["ArmorMaterialImperialLight"]] = new Dictionary<FormKey, IArmorGetter?>()
+                    [Skyrim.Keyword.ArmorMaterialImperialLight] = new Dictionary<FormKey, IArmorGetter?>()
                     {
-                        { Keywords["ArmorBoots"],      LookupArmor(new FormKey(Constants.Skyrim, 0x013ed7)) },
-                        { Keywords["ArmorCuirass"],    LookupArmor(new FormKey(Constants.Skyrim, 0x013ed9)) },
-                        { Keywords["ArmorGauntlets"],  LookupArmor(new FormKey(Constants.Skyrim, 0x013eda)) },
-                        { Keywords["ArmorHelmet"],     LookupArmor(new FormKey(Constants.Skyrim, 0x013edb)) },
-                        { Keywords["ArmorShield"],     LookupArmor(new FormKey(Constants.Skyrim, 0x013ab2)) }
+                        { Skyrim.Keyword.ArmorBoots,      LookupArmor(Skyrim.Armor.ArmorImperialLightBoots) },
+                        { Skyrim.Keyword.ArmorCuirass,    LookupArmor(Skyrim.Armor.ArmorImperialLightCuirass) },
+                        { Skyrim.Keyword.ArmorGauntlets,  LookupArmor(Skyrim.Armor.ArmorImperialLightGauntlets) },
+                        { Skyrim.Keyword.ArmorHelmet,     LookupArmor(Skyrim.Armor.ArmorImperialLightHelmet) },
+                        { Skyrim.Keyword.ArmorShield,     LookupArmor(Skyrim.Armor.ArmorImperialLightShield) }
                     },
 
-                    [Keywords["ArmorMaterialImperialStudded"]] = new Dictionary<FormKey, IArmorGetter?>()
+                    [Skyrim.Keyword.ArmorMaterialImperialStudded] = new Dictionary<FormKey, IArmorGetter?>()
                     {
-                        { Keywords["ArmorBoots"],      null                                                 },
-                        { Keywords["ArmorCuirass"],    LookupArmor(new FormKey(Constants.Skyrim, 0x013ed8)) },
-                        { Keywords["ArmorGauntlets"],  null                                                 },
-                        { Keywords["ArmorHelmet"],     LookupArmor(new FormKey(Constants.Skyrim, 0x013edc)) },
-                        { Keywords["ArmorShield"],     null                                                 }
+                        { Skyrim.Keyword.ArmorBoots,      null },
+                        { Skyrim.Keyword.ArmorCuirass,    LookupArmor(Skyrim.Armor.ArmorImperialStuddedCuirass) },
+                        { Skyrim.Keyword.ArmorGauntlets,  null },
+                        { Skyrim.Keyword.ArmorHelmet,     LookupArmor(Skyrim.Armor.ArmorImperialHelmet) },
+                        { Skyrim.Keyword.ArmorShield,     null }
                     },
 
-                    [Keywords["ArmorMaterialLeather"]] = new Dictionary<FormKey, IArmorGetter?>()
+                    [Skyrim.Keyword.ArmorMaterialLeather] = new Dictionary<FormKey, IArmorGetter?>()
                     {
-                        { Keywords["ArmorBoots"],      LookupArmor(new FormKey(Constants.Skyrim, 0x013920)) },
-                        { Keywords["ArmorCuirass"],    LookupArmor(new FormKey(Constants.Skyrim, 0x03619e)) },
-                        { Keywords["ArmorGauntlets"],  LookupArmor(new FormKey(Constants.Skyrim, 0x013921)) },
-                        { Keywords["ArmorHelmet"],     LookupArmor(new FormKey(Constants.Skyrim, 0x013922)) },
-                        { Keywords["ArmorShield"],     null                                                 }
+                        { Skyrim.Keyword.ArmorBoots,      LookupArmor(Skyrim.Armor.ArmorLeatherBoots) },
+                        { Skyrim.Keyword.ArmorCuirass,    LookupArmor(Skyrim.Armor.ArmorLeatherCuirass) },
+                        { Skyrim.Keyword.ArmorGauntlets,  LookupArmor(Skyrim.Armor.ArmorLeatherGauntlets) },
+                        { Skyrim.Keyword.ArmorHelmet,     LookupArmor(Skyrim.Armor.ArmorLeatherHelmet) },
+                        { Skyrim.Keyword.ArmorShield,     null }
                     },
 
-                    [Keywords["ArmorMaterialPenitus"]] = new Dictionary<FormKey, IArmorGetter?>()
+                    [Update.Keyword.ArmorMaterialPenitus] = new Dictionary<FormKey, IArmorGetter?>()
                     {
-                        { Keywords["ArmorBoots"],      LookupArmor(new FormKey(Constants.Skyrim, 0x0d3ea7)) },
-                        { Keywords["ArmorCuirass"],    LookupArmor(new FormKey(Constants.Skyrim, 0x0d3ea0)) },
-                        { Keywords["ArmorGauntlets"],  LookupArmor(new FormKey(Constants.Skyrim, 0x0d3eab)) },
-                        { Keywords["ArmorHelmet"],     LookupArmor(new FormKey(Constants.Skyrim, 0x0d3eaa)) },
-                        { Keywords["ArmorShield"],     null                                                 }
+                        { Skyrim.Keyword.ArmorBoots,      LookupArmor(Skyrim.Armor.ArmorPenitusBoots) },
+                        { Skyrim.Keyword.ArmorCuirass,    LookupArmor(Skyrim.Armor.ArmorPenitusCuirass) },
+                        { Skyrim.Keyword.ArmorGauntlets,  LookupArmor(Skyrim.Armor.ArmorPenitusGauntlets) },
+                        { Skyrim.Keyword.ArmorHelmet,     LookupArmor(Skyrim.Armor.ArmorPenitusHelmet) },
+                        { Skyrim.Keyword.ArmorShield,     null }
                     },
 
-                    [Keywords["ArmorMaterialScaled"]] = new Dictionary<FormKey, IArmorGetter?>()
+                    [Skyrim.Keyword.ArmorMaterialScaled] = new Dictionary<FormKey, IArmorGetter?>()
                     {
-                        { Keywords["ArmorBoots"],      LookupArmor(new FormKey(Constants.Skyrim, 0x01b39f)) },
-                        { Keywords["ArmorCuirass"],    LookupArmor(new FormKey(Constants.Skyrim, 0x01b3a3)) },
-                        { Keywords["ArmorGauntlets"],  LookupArmor(new FormKey(Constants.Skyrim, 0x01b3a0)) },
-                        { Keywords["ArmorHelmet"],     LookupArmor(new FormKey(Constants.Skyrim, 0x01b3a1)) },
-                        { Keywords["ArmorShield"],     null                                                 }
+                        { Skyrim.Keyword.ArmorBoots,      LookupArmor(Skyrim.Armor.ArmorScaledBoots) },
+                        { Skyrim.Keyword.ArmorCuirass,    LookupArmor(Skyrim.Armor.ArmorScaledCuirass) },
+                        { Skyrim.Keyword.ArmorGauntlets,  LookupArmor(Skyrim.Armor.ArmorScaledGauntlets) },
+                        { Skyrim.Keyword.ArmorHelmet,     LookupArmor(Skyrim.Armor.ArmorScaledHelmet) },
+                        { Skyrim.Keyword.ArmorShield,     null }
                     },
 
-                    [Keywords["ArmorMaterialStormcloak"]] = new Dictionary<FormKey, IArmorGetter?>()
+                    [Skyrim.Keyword.ArmorMaterialStormcloak] = new Dictionary<FormKey, IArmorGetter?>()
                     {
-                        { Keywords["ArmorBoots"],      LookupArmor(new FormKey(Constants.Skyrim, 0x0a6d7f)) },
-                        { Keywords["ArmorCuirass"],    LookupArmor(new FormKey(Constants.Skyrim, 0x0ad5a0)) },
-                        { Keywords["ArmorGauntlets"],  LookupArmor(new FormKey(Constants.Skyrim, 0x0a6d7d)) },
-                        { Keywords["ArmorHelmet"],     LookupArmor(new FormKey(Constants.Skyrim, 0x0a6d79)) },
-                        { Keywords["ArmorShield"],     null                                                 }
+                        { Skyrim.Keyword.ArmorBoots,      LookupArmor(Skyrim.Armor.ArmorStormcloakBoots) },
+                        { Skyrim.Keyword.ArmorCuirass,    LookupArmor(Skyrim.Armor.ArmorStormcloakCuirass) },
+                        { Skyrim.Keyword.ArmorGauntlets,  LookupArmor(Skyrim.Armor.ArmorStormcloakGauntlets) },
+                        { Skyrim.Keyword.ArmorHelmet,     LookupArmor(Skyrim.Armor.ArmorStormcloakHelmetFull) },
+                        { Skyrim.Keyword.ArmorShield,     null }
                     },
 
-                    [Keywords["ArmorMaterialStudded"]] = new Dictionary<FormKey, IArmorGetter?>()
+                    [Skyrim.Keyword.ArmorMaterialStudded] = new Dictionary<FormKey, IArmorGetter?>()
                     {
-                        { Keywords["ArmorBoots"],      null                                                 },
-                        { Keywords["ArmorCuirass"],    LookupArmor(new FormKey(Constants.Skyrim, 0x01b3a2)) },
-                        { Keywords["ArmorGauntlets"],  null                                                 },
-                        { Keywords["ArmorHelmet"],     null                                                 },
-                        { Keywords["ArmorShield"],     null                                                 }
+                        { Skyrim.Keyword.ArmorBoots,      null },
+                        { Skyrim.Keyword.ArmorCuirass,    LookupArmor(Skyrim.Armor.ArmorStuddedCuirass) },
+                        { Skyrim.Keyword.ArmorGauntlets,  null },
+                        { Skyrim.Keyword.ArmorHelmet,     null },
+                        { Skyrim.Keyword.ArmorShield,     null }
                     },
 
-                    [Keywords["ArmorMaterialThievesGuild"]] = new Dictionary<FormKey, IArmorGetter?>()
+                    [Update.Keyword.ArmorMaterialThievesGuild] = new Dictionary<FormKey, IArmorGetter?>()
                     {
-                        { Keywords["ArmorBoots"],      LookupArmor(new FormKey(Constants.Skyrim, 0x0d3ac2)) },
-                        { Keywords["ArmorCuirass"],    LookupArmor(new FormKey(Constants.Skyrim, 0x0d3ac3)) },
-                        { Keywords["ArmorGauntlets"],  LookupArmor(new FormKey(Constants.Skyrim, 0x0d3ac4)) },
-                        { Keywords["ArmorHelmet"],     LookupArmor(new FormKey(Constants.Skyrim, 0x0d3ac5)) },
-                        { Keywords["ArmorShield"],     null                                                 }
+                        { Skyrim.Keyword.ArmorBoots,      LookupArmor(Skyrim.Armor.ArmorThievesGuildBootsPlayer) },
+                        { Skyrim.Keyword.ArmorCuirass,    LookupArmor(Skyrim.Armor.ArmorThievesGuildCuirassPlayer) },
+                        { Skyrim.Keyword.ArmorGauntlets,  LookupArmor(Skyrim.Armor.ArmorThievesGuildGauntletsPlayer) },
+                        { Skyrim.Keyword.ArmorHelmet,     LookupArmor(Skyrim.Armor.ArmorThievesGuildHelmetPlayer) },
+                        { Skyrim.Keyword.ArmorShield,     null }
                     },
 
-                    [Keywords["ArmorMaterialThievesGuildLeader"]] = new Dictionary<FormKey, IArmorGetter?>()
+                    [Update.Keyword.ArmorMaterialThievesGuildLeader] = new Dictionary<FormKey, IArmorGetter?>()
                     {
-                        { Keywords["ArmorBoots"],      LookupArmor(new FormKey(Constants.Skyrim, 0x0e35d6)) },
-                        { Keywords["ArmorCuirass"],    LookupArmor(new FormKey(Constants.Skyrim, 0x0e35d7)) },
-                        { Keywords["ArmorGauntlets"],  LookupArmor(new FormKey(Constants.Skyrim, 0x0e35d8)) },
-                        { Keywords["ArmorHelmet"],     LookupArmor(new FormKey(Constants.Skyrim, 0x0e35d9)) },
-                        { Keywords["ArmorShield"],     null                                                 }
+                        { Skyrim.Keyword.ArmorBoots,      LookupArmor(Skyrim.Armor.ArmorThievesGuildLeaderBoots) },
+                        { Skyrim.Keyword.ArmorCuirass,    LookupArmor(Skyrim.Armor.ArmorThievesGuildLeaderCuirass) },
+                        { Skyrim.Keyword.ArmorGauntlets,  LookupArmor(Skyrim.Armor.ArmorThievesGuildLeaderGauntlets) },
+                        { Skyrim.Keyword.ArmorHelmet,     LookupArmor(Skyrim.Armor.ArmorThievesGuildLeaderHelmet) },
+                        { Skyrim.Keyword.ArmorShield,     null }
                     },
 
-                    [Keywords["ArmorNightingale"]] = new Dictionary<FormKey, IArmorGetter?>()
+                    [Skyrim.Keyword.ArmorNightingale] = new Dictionary<FormKey, IArmorGetter?>()
                     {
-                        { Keywords["ArmorBoots"],      LookupArmor(new FormKey(Constants.Skyrim, 0x0483c1)) },
-                        { Keywords["ArmorCuirass"],    LookupArmor(new FormKey(Constants.Skyrim, 0x0483c2)) },
-                        { Keywords["ArmorGauntlets"],  LookupArmor(new FormKey(Constants.Skyrim, 0x0487d1)) },
-                        { Keywords["ArmorHelmet"],     LookupArmor(new FormKey(Constants.Skyrim, 0x0487d8)) },
-                        { Keywords["ArmorShield"],     null                                                 }
+                        { Skyrim.Keyword.ArmorBoots,      LookupArmor(Skyrim.Armor.ArmorNightingaleBoots) },
+                        { Skyrim.Keyword.ArmorCuirass,    LookupArmor(Skyrim.Armor.ArmorNightingaleCuirass) },
+                        { Skyrim.Keyword.ArmorGauntlets,  LookupArmor(Skyrim.Armor.ArmorNightingaleGauntlets) },
+                        { Skyrim.Keyword.ArmorHelmet,     LookupArmor(Skyrim.Armor.ArmorNightingaleHelmet) },
+                        { Skyrim.Keyword.ArmorShield,     null }
                     },
 
-                    [Keywords["DLC1ArmorMaterialDawnguard"]] = new Dictionary<FormKey, IArmorGetter?>()
+                    [Dawnguard.Keyword.DLC1ArmorMaterialDawnguard] = new Dictionary<FormKey, IArmorGetter?>()
                     {
-                        { Keywords["ArmorBoots"],      LookupArmor(new FormKey(Constants.Dawnguard,  0x00f400)) },
-                        { Keywords["ArmorCuirass"],    LookupArmor(new FormKey(Constants.Dawnguard,  0x00f3fb)) },
-                        { Keywords["ArmorGauntlets"],  LookupArmor(new FormKey(Constants.Dawnguard,  0x00f3fe)) },
-                        { Keywords["ArmorHelmet"],     LookupArmor(new FormKey(Constants.Dawnguard,  0x01989e)) },
-                        { Keywords["ArmorShield"],     LookupArmor(new FormKey(Constants.Dawnguard,  0x011baf)) }
+                        { Skyrim.Keyword.ArmorBoots,      LookupArmor(Dawnguard.Armor.DLC1ArmorDawnguardBootsLight) },
+                        { Skyrim.Keyword.ArmorCuirass,    LookupArmor(Dawnguard.Armor.DLC1ArmorDawnguardCuirassLight1) },
+                        { Skyrim.Keyword.ArmorGauntlets,  LookupArmor(Dawnguard.Armor.DLC1ArmorDawnguardGauntletsLight) },
+                        { Skyrim.Keyword.ArmorHelmet,     LookupArmor(Dawnguard.Armor.DLC1ArmorDawnguardHelmetLight) },
+                        { Skyrim.Keyword.ArmorShield,     LookupArmor(Dawnguard.Armor.DLC1DawnguardRuneShield) }
                     },
 
-                    [Keywords["DLC1ArmorMaterialVampire"]] = new Dictionary<FormKey, IArmorGetter?>()
+                    [Dawnguard.Keyword.DLC1ArmorMaterialVampire] = new Dictionary<FormKey, IArmorGetter?>()
                     {
-                        { Keywords["ArmorBoots"],      LookupArmor(new FormKey(Constants.Dawnguard,  0x00b5de)) },
-                        { Keywords["ArmorCuirass"],    LookupArmor(new FormKey(Constants.Dawnguard,  0x0142c7)) },
-                        { Keywords["ArmorGauntlets"],  LookupArmor(new FormKey(Constants.Dawnguard,  0x01a51f)) },
-                        { Keywords["ArmorHelmet"],     null                                                 },
-                        { Keywords["ArmorShield"],     null                                                 }
+                        { Skyrim.Keyword.ArmorBoots,      LookupArmor(Dawnguard.Armor.DLC1ArmorVampireBoots) },
+                        { Skyrim.Keyword.ArmorCuirass,    LookupArmor(Dawnguard.Armor.DLC1ArmorVampireArmorGray)  },
+                        { Skyrim.Keyword.ArmorGauntlets,  LookupArmor(Dawnguard.Armor.DLC1ArmorVampireGauntlets) },
+                        { Skyrim.Keyword.ArmorHelmet,     null },
+                        { Skyrim.Keyword.ArmorShield,     null }
                     },
 
                     // Yes... this is really light armor.  WTF Bethesda 
-                    [Keywords["DLC1ArmorMaterielFalmerHeavyOriginal"]] = new Dictionary<FormKey, IArmorGetter?>()
+                    [Dawnguard.Keyword.DLC1ArmorMaterielFalmerHeavyOriginal] = new Dictionary<FormKey, IArmorGetter?>()
                     {
-                        { Keywords["ArmorBoots"],      LookupArmor(new FormKey(Constants.Skyrim, 0x0b83cd)) },
-                        { Keywords["ArmorCuirass"],    LookupArmor(new FormKey(Constants.Skyrim, 0x0b83cb)) },
-                        { Keywords["ArmorGauntlets"],  LookupArmor(new FormKey(Constants.Skyrim, 0x0b83cf)) },
-                        { Keywords["ArmorHelmet"],     LookupArmor(new FormKey(Constants.Skyrim, 0x04c3cb)) },
-                        { Keywords["ArmorShield"],     null                                                 }
+                        { Skyrim.Keyword.ArmorBoots,      LookupArmor(Skyrim.Armor.ArmorFalmerBoots) },
+                        { Skyrim.Keyword.ArmorCuirass,    LookupArmor(Skyrim.Armor.ArmorFalmerCuirass) },
+                        { Skyrim.Keyword.ArmorGauntlets,  LookupArmor(Skyrim.Armor.ArmorFalmerGauntlets) },
+                        { Skyrim.Keyword.ArmorHelmet,     LookupArmor(Skyrim.Armor.ArmorFAlmerHelmet) },
+                        { Skyrim.Keyword.ArmorShield,     null                                                 }
                     },
 
-                    [Keywords["DLC2ArmorMaterialBonemoldLight"]] = new Dictionary<FormKey, IArmorGetter?>()
+                    [Dragonborn.Keyword.DLC2ArmorMaterialBonemoldLight] = new Dictionary<FormKey, IArmorGetter?>()
                     {
-                        { Keywords["ArmorBoots"],      null                                                 },
-                        { Keywords["ArmorCuirass"],    null                                                 },
-                        { Keywords["ArmorGauntlets"],  null                                                 },
-                        { Keywords["ArmorHelmet"],     null                                                 },
-                        { Keywords["ArmorShield"],     null                                                 }
+                        { Skyrim.Keyword.ArmorBoots,      null                                                 },
+                        { Skyrim.Keyword.ArmorCuirass,    null                                                 },
+                        { Skyrim.Keyword.ArmorGauntlets,  null                                                 },
+                        { Skyrim.Keyword.ArmorHelmet,     null                                                 },
+                        { Skyrim.Keyword.ArmorShield,     null                                                 }
                     },
 
-                    [Keywords["DLC2ArmorMaterialChitinLight"]] = new Dictionary<FormKey, IArmorGetter?>()
+                    [Dragonborn.Keyword.DLC2ArmorMaterialChitinLight] = new Dictionary<FormKey, IArmorGetter?>()
                     {
-                        { Keywords["ArmorBoots"],      LookupArmor(new FormKey(Constants.Dragonborn, 0x01cd86)) },
-                        { Keywords["ArmorCuirass"],    LookupArmor(new FormKey(Constants.Dragonborn, 0x01cd87)) },
-                        { Keywords["ArmorGauntlets"],  LookupArmor(new FormKey(Constants.Dragonborn, 0x01cd88)) },
-                        { Keywords["ArmorHelmet"],     LookupArmor(new FormKey(Constants.Dragonborn, 0x01cd89)) },
-                        { Keywords["ArmorShield"],     LookupArmor(new FormKey(Constants.Dragonborn, 0x026235)) }
+                        { Skyrim.Keyword.ArmorBoots,      LookupArmor(Dragonborn.Armor.DLC2ArmorChitinLightBoots) },
+                        { Skyrim.Keyword.ArmorCuirass,    LookupArmor(Dragonborn.Armor.DLC2ArmorChitinLightCuirass) },
+                        { Skyrim.Keyword.ArmorGauntlets,  LookupArmor(Dragonborn.Armor.DLC2ArmorChitinLightGauntlets) },
+                        { Skyrim.Keyword.ArmorHelmet,     LookupArmor(Dragonborn.Armor.DLC2ArmorChitinLightHelmet) },
+                        { Skyrim.Keyword.ArmorShield,     LookupArmor(Dragonborn.Armor.DLC2ArmorChitinShield) }
                     },
 
-                    [Keywords["DLC2ArmorMaterialMoragTong"]] = new Dictionary<FormKey, IArmorGetter?>()
+                    [Dragonborn.Keyword.DLC2ArmorMaterialMoragTong] = new Dictionary<FormKey, IArmorGetter?>()
                     {
-                        { Keywords["ArmorBoots"],      LookupArmor(new FormKey(Constants.Dragonborn, 0x0292ab)) },
-                        { Keywords["ArmorCuirass"],    LookupArmor(new FormKey(Constants.Dragonborn, 0x0292ac)) },
-                        { Keywords["ArmorGauntlets"],  LookupArmor(new FormKey(Constants.Dragonborn, 0x0292ad)) },
-                        { Keywords["ArmorHelmet"],     LookupArmor(new FormKey(Constants.Dragonborn, 0x0292ae)) },
-                        { Keywords["ArmorShield"],     null                                                 }
+                        { Skyrim.Keyword.ArmorBoots,      LookupArmor(Dragonborn.Armor.DLC2MoragTongBoots) },
+                        { Skyrim.Keyword.ArmorCuirass,    LookupArmor(Dragonborn.Armor.DLC2MoragTongCuirass) },
+                        { Skyrim.Keyword.ArmorGauntlets,  LookupArmor(Dragonborn.Armor.DLC2MoragTongGauntlets) },
+                        { Skyrim.Keyword.ArmorHelmet,     LookupArmor(Dragonborn.Armor.DLC2MoragTongHood) },
+                        { Skyrim.Keyword.ArmorShield,     null }
                     },
 
-                    [Keywords["DLC2ArmorMaterialStalhrimLight"]] = new Dictionary<FormKey, IArmorGetter?>()
+                    [Dragonborn.Keyword.DLC2ArmorMaterialStalhrimLight] = new Dictionary<FormKey, IArmorGetter?>()
                     {
-                        { Keywords["ArmorBoots"],      LookupArmor(new FormKey(Constants.Dragonborn, 0x01cd7e)) },
-                        { Keywords["ArmorCuirass"],    LookupArmor(new FormKey(Constants.Dragonborn, 0x01cda2)) },
-                        { Keywords["ArmorGauntlets"],  LookupArmor(new FormKey(Constants.Dragonborn, 0x01cda5)) },
-                        { Keywords["ArmorHelmet"],     LookupArmor(new FormKey(Constants.Dragonborn, 0x01cda3)) },
-                        { Keywords["ArmorShield"],     LookupArmor(new FormKey(Constants.Dragonborn, 0x026237)) }
+                        { Skyrim.Keyword.ArmorBoots,      LookupArmor(Dragonborn.Armor.DLC2ArmorStalhrimLightBoots) },
+                        { Skyrim.Keyword.ArmorCuirass,    LookupArmor(Dragonborn.Armor.DLC2ArmorStalhrimLightCuirass) },
+                        { Skyrim.Keyword.ArmorGauntlets,  LookupArmor(Dragonborn.Armor.DLC2ArmorStalhrimLightGauntlets) },
+                        { Skyrim.Keyword.ArmorHelmet,     LookupArmor(Dragonborn.Armor.DLC2ArmorStalhrimLightHelmet) },
+                        { Skyrim.Keyword.ArmorShield,     LookupArmor(Dragonborn.Armor.DLC2ArmorStalhrimShield) }
                     }
                 }
             };
 
             BaseWeapons = new Dictionary<FormKey, Dictionary<FormKey, IWeaponGetter?>>()
             {
-                [Keywords["DLC1WeapMaterialDragonbone"]] = new Dictionary<FormKey, IWeaponGetter?>()
+                [Dawnguard.Keyword.DLC1WeapMaterialDragonbone] = new Dictionary<FormKey, IWeaponGetter?>()
                 {
-                    { Keywords["WeapTypeBattleaxe"],  LookupWeapon(new FormKey(Constants.Dawnguard,     0x014fc3))  },
-                    { Keywords["WeapTypeDagger"],     LookupWeapon(new FormKey(Constants.Dawnguard,     0x014fcb))  },
-                    { Keywords["WeapTypeGreatsword"], LookupWeapon(new FormKey(Constants.Dawnguard,     0x014fcc))  },
-                    { Keywords["WeapTypeMace"],       LookupWeapon(new FormKey(Constants.Dawnguard,     0x014fcd))  },
-                    { Keywords["WeapTypeSword"],      LookupWeapon(new FormKey(Constants.Dawnguard,     0x014fce))  },
-                    { Keywords["WeapTypeWarAxe"],     LookupWeapon(new FormKey(Constants.Dawnguard,     0x014fcf))  },
-                    { Keywords["WeapTypeWarhammer"],  LookupWeapon(new FormKey(Constants.Dawnguard,     0x014fd0))  }
+                    { Skyrim.Keyword.WeapTypeBattleaxe,  LookupWeapon(Dawnguard.Weapon.DLC1DragonboneBattleaxe) },
+                    { Skyrim.Keyword.WeapTypeDagger,     LookupWeapon(Dawnguard.Weapon.DLC1DragonboneDagger) },
+                    { Skyrim.Keyword.WeapTypeGreatsword, LookupWeapon(Dawnguard.Weapon.DLC1DragonboneGreatsword) },
+                    { Skyrim.Keyword.WeapTypeMace,       LookupWeapon(Dawnguard.Weapon.DLC1DragonboneMace) },
+                    { Skyrim.Keyword.WeapTypeSword,      LookupWeapon(Dawnguard.Weapon.DLC1DragonboneSword) },
+                    { Skyrim.Keyword.WeapTypeWarAxe,     LookupWeapon(Dawnguard.Weapon.DLC1DragonboneWarAxe) },
+                    { Skyrim.Keyword.WeapTypeWarhammer,  LookupWeapon(Dawnguard.Weapon.DLC1DragonboneWarhammer) }
                 },
 
-                [Keywords["DLC2WeaponMaterialNordic"]] = new Dictionary<FormKey, IWeaponGetter?>()
+                [Dragonborn.Keyword.DLC2WeaponMaterialNordic] = new Dictionary<FormKey, IWeaponGetter?>()
                 {
-                    { Keywords["WeapTypeBattleaxe"],  LookupWeapon(new FormKey(Constants.Dragonborn,    0x01cdad)) },
-                    { Keywords["WeapTypeDagger"],     LookupWeapon(new FormKey(Constants.Dragonborn,    0x01cdae)) },
-                    { Keywords["WeapTypeGreatsword"], LookupWeapon(new FormKey(Constants.Dragonborn,    0x01cdaf)) },
-                    { Keywords["WeapTypeMace"],       LookupWeapon(new FormKey(Constants.Dragonborn,    0x01cdb0)) },
-                    { Keywords["WeapTypeSword"],      LookupWeapon(new FormKey(Constants.Dragonborn,    0x01cdb1)) },
-                    { Keywords["WeapTypeWarAxe"],     LookupWeapon(new FormKey(Constants.Dragonborn,    0x01cdb2)) },
-                    { Keywords["WeapTypeWarhammer"],  LookupWeapon(new FormKey(Constants.Dragonborn,    0x01cdb3)) }
+                    { Skyrim.Keyword.WeapTypeBattleaxe,  LookupWeapon(Dragonborn.Weapon.DLC2NordicBattleaxe) },
+                    { Skyrim.Keyword.WeapTypeDagger,     LookupWeapon(Dragonborn.Weapon.DLC2NordicDagger) },
+                    { Skyrim.Keyword.WeapTypeGreatsword, LookupWeapon(Dragonborn.Weapon.DLC2NordicGreatsword) },
+                    { Skyrim.Keyword.WeapTypeMace,       LookupWeapon(Dragonborn.Weapon.DLC2NordicMace) },
+                    { Skyrim.Keyword.WeapTypeSword,      LookupWeapon(Dragonborn.Weapon.DLC2NordicSword) },
+                    { Skyrim.Keyword.WeapTypeWarAxe,     LookupWeapon(Dragonborn.Weapon.DLC2NordicWarAxe) },
+                    { Skyrim.Keyword.WeapTypeWarhammer,  LookupWeapon(Dragonborn.Weapon.DLC2NordicWarhammer) }
                 },
 
-                [Keywords["DLC2WeaponMaterialStalhrim"]] = new Dictionary<FormKey, IWeaponGetter?>()
+                [Dragonborn.Keyword.DLC2WeaponMaterialStalhrim] = new Dictionary<FormKey, IWeaponGetter?>()
                 {
-                    { Keywords["WeapTypeBattleaxe"],  LookupWeapon(new FormKey(Constants.Dragonborn,    0x01cdb4)) },
-                    { Keywords["WeapTypeDagger"],     LookupWeapon(new FormKey(Constants.Dragonborn,    0x01cdb5)) },
-                    { Keywords["WeapTypeGreatsword"], LookupWeapon(new FormKey(Constants.Dragonborn,    0x01cdb6)) },
-                    { Keywords["WeapTypeMace"],       LookupWeapon(new FormKey(Constants.Dragonborn,    0x01cdb7)) },
-                    { Keywords["WeapTypeSword"],      LookupWeapon(new FormKey(Constants.Dragonborn,    0x01cdb8)) },
-                    { Keywords["WeapTypeWarAxe"],     LookupWeapon(new FormKey(Constants.Dragonborn,    0x01cdb9)) },
-                    { Keywords["WeapTypeWarhammer"],  LookupWeapon(new FormKey(Constants.Dragonborn,    0x01cdba)) }
+                    { Skyrim.Keyword.WeapTypeBattleaxe,  LookupWeapon(Dragonborn.Weapon.DLC2StalhrimBattleaxe) },
+                    { Skyrim.Keyword.WeapTypeDagger,     LookupWeapon(Dragonborn.Weapon.DLC2StalhrimDagger) },
+                    { Skyrim.Keyword.WeapTypeGreatsword, LookupWeapon(Dragonborn.Weapon.DLC2StalhrimGreatsword) },
+                    { Skyrim.Keyword.WeapTypeMace,       LookupWeapon(Dragonborn.Weapon.DLC2StalhrimMace) },
+                    { Skyrim.Keyword.WeapTypeSword,      LookupWeapon(Dragonborn.Weapon.DLC2StalhrimSword) },
+                    { Skyrim.Keyword.WeapTypeWarAxe,     LookupWeapon(Dragonborn.Weapon.DLC2StalhrimWarAxe) },
+                    { Skyrim.Keyword.WeapTypeWarhammer,  LookupWeapon(Dragonborn.Weapon.DLC2StalhrimWarhammer) }
                 },
 
-                [Keywords["WeapMaterialDaedric"]] = new Dictionary<FormKey, IWeaponGetter?>()
+                [Skyrim.Keyword.WeapMaterialDaedric] = new Dictionary<FormKey, IWeaponGetter?>()
                 {
-                    { Keywords["WeapTypeBattleaxe"],  LookupWeapon(new FormKey(Constants.Skyrim,        0x0139b4)) },
-                    { Keywords["WeapTypeDagger"],     LookupWeapon(new FormKey(Constants.Skyrim,        0x0139b6)) },
-                    { Keywords["WeapTypeGreatsword"], LookupWeapon(new FormKey(Constants.Skyrim,        0x0139b7)) },
-                    { Keywords["WeapTypeMace"],       LookupWeapon(new FormKey(Constants.Skyrim,        0x0139b8)) },
-                    { Keywords["WeapTypeSword"],      LookupWeapon(new FormKey(Constants.Skyrim,        0x0139b9)) },
-                    { Keywords["WeapTypeWarAxe"],     LookupWeapon(new FormKey(Constants.Skyrim,        0x0139b3)) },
-                    { Keywords["WeapTypeWarhammer"],  LookupWeapon(new FormKey(Constants.Skyrim,        0x0139ba)) }
+                    { Skyrim.Keyword.WeapTypeBattleaxe,  LookupWeapon(Skyrim.Weapon.DaedricBattleaxe) },
+                    { Skyrim.Keyword.WeapTypeDagger,     LookupWeapon(Skyrim.Weapon.DaedricDagger) },
+                    { Skyrim.Keyword.WeapTypeGreatsword, LookupWeapon(Skyrim.Weapon.DaedricGreatsword) },
+                    { Skyrim.Keyword.WeapTypeMace,       LookupWeapon(Skyrim.Weapon.DaedricMace) },
+                    { Skyrim.Keyword.WeapTypeSword,      LookupWeapon(Skyrim.Weapon.DaedricSword) },
+                    { Skyrim.Keyword.WeapTypeWarAxe,     LookupWeapon(Skyrim.Weapon.DaedricWarAxe) },
+                    { Skyrim.Keyword.WeapTypeWarhammer,  LookupWeapon(Skyrim.Weapon.DaedricWarhammer) }
                 },
 
-                [Keywords["WeapMaterialDraugr"]] = new Dictionary<FormKey, IWeaponGetter?>()
+                [Skyrim.Keyword.WeapMaterialDraugr] = new Dictionary<FormKey, IWeaponGetter?>()
                 {
-                    { Keywords["WeapTypeBattleaxe"],  LookupWeapon(new FormKey(Constants.Skyrim,        0x01cb64)) },
-                    { Keywords["WeapTypeDagger"],     null                                                         },
-                    { Keywords["WeapTypeGreatsword"], LookupWeapon(new FormKey(Constants.Skyrim,        0x0236a5)) },
-                    { Keywords["WeapTypeMace"],       null                                                         },
-                    { Keywords["WeapTypeSword"],      LookupWeapon(new FormKey(Constants.Skyrim,        0x02c66f)) },
-                    { Keywords["WeapTypeWarAxe"],     LookupWeapon(new FormKey(Constants.Skyrim,        0x02c672)) },
-                    { Keywords["WeapTypeWarhammer"],  null                                                         }
+                    { Skyrim.Keyword.WeapTypeBattleaxe,  LookupWeapon(Skyrim.Weapon.DraugrBattleAxe) },
+                    { Skyrim.Keyword.WeapTypeDagger,     null },
+                    { Skyrim.Keyword.WeapTypeGreatsword, LookupWeapon(Skyrim.Weapon.DraugrGreatsword) },
+                    { Skyrim.Keyword.WeapTypeMace,       null },
+                    { Skyrim.Keyword.WeapTypeSword,      LookupWeapon(Skyrim.Weapon.DraugrSword) },
+                    { Skyrim.Keyword.WeapTypeWarAxe,     LookupWeapon(Skyrim.Weapon.DraugrWarAxe) },
+                    { Skyrim.Keyword.WeapTypeWarhammer,  null }
                 },
 
-                [Keywords["WeapMaterialDraugrHoned"]] = new Dictionary<FormKey, IWeaponGetter?>()
+                [Skyrim.Keyword.WeapMaterialDraugrHoned] = new Dictionary<FormKey, IWeaponGetter?>()
                 {
-                    { Keywords["WeapTypeBattleaxe"],  LookupWeapon(new FormKey(Constants.Skyrim,        0x05bf12)) },
-                    { Keywords["WeapTypeDagger"],     null                                                         },
-                    { Keywords["WeapTypeGreatsword"], LookupWeapon(new FormKey(Constants.Skyrim,        0x05bf13)) },
-                    { Keywords["WeapTypeMace"],       null                                                         },
-                    { Keywords["WeapTypeSword"],      LookupWeapon(new FormKey(Constants.Skyrim,        0x05bf14)) },
-                    { Keywords["WeapTypeWarAxe"],     LookupWeapon(new FormKey(Constants.Skyrim,        0x05bf15)) },
-                    { Keywords["WeapTypeWarhammer"],  null                                                         }
+                    { Skyrim.Keyword.WeapTypeBattleaxe,  LookupWeapon(Skyrim.Weapon.DraugrBattleAxeHoned) },
+                    { Skyrim.Keyword.WeapTypeDagger,     null },
+                    { Skyrim.Keyword.WeapTypeGreatsword, LookupWeapon(Skyrim.Weapon.DraugrGreatswordHoned) },
+                    { Skyrim.Keyword.WeapTypeMace,       null },
+                    { Skyrim.Keyword.WeapTypeSword,      LookupWeapon(Skyrim.Weapon.DraugrSwordHoned) },
+                    { Skyrim.Keyword.WeapTypeWarAxe,     LookupWeapon(Skyrim.Weapon.DraugrWarAxeHoned) },
+                    { Skyrim.Keyword.WeapTypeWarhammer,  null }
                 },
 
-                [Keywords["WeapMaterialDwarven"]] = new Dictionary<FormKey, IWeaponGetter?>()
+                [Skyrim.Keyword.WeapMaterialDwarven] = new Dictionary<FormKey, IWeaponGetter?>()
                 {
-                    { Keywords["WeapTypeBattleaxe"],  LookupWeapon(new FormKey(Constants.Skyrim,        0x013994)) },
-                    { Keywords["WeapTypeDagger"],     LookupWeapon(new FormKey(Constants.Skyrim,        0x013996)) },
-                    { Keywords["WeapTypeGreatsword"], LookupWeapon(new FormKey(Constants.Skyrim,        0x013997)) },
-                    { Keywords["WeapTypeMace"],       LookupWeapon(new FormKey(Constants.Skyrim,        0x013998)) },
-                    { Keywords["WeapTypeSword"],      LookupWeapon(new FormKey(Constants.Skyrim,        0x013999)) },
-                    { Keywords["WeapTypeWarAxe"],     LookupWeapon(new FormKey(Constants.Skyrim,        0x013993)) },
-                    { Keywords["WeapTypeWarhammer"],  LookupWeapon(new FormKey(Constants.Skyrim,        0x01399a)) }
+                    { Skyrim.Keyword.WeapTypeBattleaxe,  LookupWeapon(Skyrim.Weapon.DwarvenBattleaxe) },
+                    { Skyrim.Keyword.WeapTypeDagger,     LookupWeapon(Skyrim.Weapon.DwarvenDagger) },
+                    { Skyrim.Keyword.WeapTypeGreatsword, LookupWeapon(Skyrim.Weapon.DwarvenGreatsword) },
+                    { Skyrim.Keyword.WeapTypeMace,       LookupWeapon(Skyrim.Weapon.DwarvenMace) },
+                    { Skyrim.Keyword.WeapTypeSword,      LookupWeapon(Skyrim.Weapon.DwarvenSword) },
+                    { Skyrim.Keyword.WeapTypeWarAxe,     LookupWeapon(Skyrim.Weapon.DwarvenWarAxe) },
+                    { Skyrim.Keyword.WeapTypeWarhammer,  LookupWeapon(Skyrim.Weapon.DwarvenWarhammer) }
                 },
 
-                [Keywords["WeapMaterialEbony"]] = new Dictionary<FormKey, IWeaponGetter?>()
+                [Skyrim.Keyword.WeapMaterialEbony] = new Dictionary<FormKey, IWeaponGetter?>()
                 {
-                    { Keywords["WeapTypeBattleaxe"],  LookupWeapon(new FormKey(Constants.Skyrim,        0x0139ac)) },
-                    { Keywords["WeapTypeDagger"],     LookupWeapon(new FormKey(Constants.Skyrim,        0x0139ae)) },
-                    { Keywords["WeapTypeGreatsword"], LookupWeapon(new FormKey(Constants.Skyrim,        0x0139af)) },
-                    { Keywords["WeapTypeMace"],       LookupWeapon(new FormKey(Constants.Skyrim,        0x0139b0)) },
-                    { Keywords["WeapTypeSword"],      LookupWeapon(new FormKey(Constants.Skyrim,        0x0139b1)) },
-                    { Keywords["WeapTypeWarAxe"],     LookupWeapon(new FormKey(Constants.Skyrim,        0x0139ab)) },
-                    { Keywords["WeapTypeWarhammer"],  LookupWeapon(new FormKey(Constants.Skyrim,        0x0139b2)) }
+                    { Skyrim.Keyword.WeapTypeBattleaxe,  LookupWeapon(Skyrim.Weapon.EbonyBattleaxe) },
+                    { Skyrim.Keyword.WeapTypeDagger,     LookupWeapon(Skyrim.Weapon.EbonyDagger) },
+                    { Skyrim.Keyword.WeapTypeGreatsword, LookupWeapon(Skyrim.Weapon.EbonyGreatsword) },
+                    { Skyrim.Keyword.WeapTypeMace,       LookupWeapon(Skyrim.Weapon.EbonyMace) },
+                    { Skyrim.Keyword.WeapTypeSword,      LookupWeapon(Skyrim.Weapon.EbonySword) },
+                    { Skyrim.Keyword.WeapTypeWarAxe,     LookupWeapon(Skyrim.Weapon.EbonyWarAxe) },
+                    { Skyrim.Keyword.WeapTypeWarhammer,  LookupWeapon(Skyrim.Weapon.EbonyWarhammer) }
                 },
 
-                [Keywords["WeapMaterialElven"]] = new Dictionary<FormKey, IWeaponGetter?>()
+                [Skyrim.Keyword.WeapMaterialElven] = new Dictionary<FormKey, IWeaponGetter?>()
                 {
-                    { Keywords["WeapTypeBattleaxe"],  LookupWeapon(new FormKey(Constants.Skyrim,        0x01399c)) },
-                    { Keywords["WeapTypeDagger"],     LookupWeapon(new FormKey(Constants.Skyrim,        0x01399e)) },
-                    { Keywords["WeapTypeGreatsword"], LookupWeapon(new FormKey(Constants.Skyrim,        0x01399f)) },
-                    { Keywords["WeapTypeMace"],       LookupWeapon(new FormKey(Constants.Skyrim,        0x013990)) },
-                    { Keywords["WeapTypeSword"],      LookupWeapon(new FormKey(Constants.Skyrim,        0x0139a1)) },
-                    { Keywords["WeapTypeWarAxe"],     LookupWeapon(new FormKey(Constants.Skyrim,        0x01399b)) },
-                    { Keywords["WeapTypeWarhammer"],  LookupWeapon(new FormKey(Constants.Skyrim,        0x0139a2)) }
+                    { Skyrim.Keyword.WeapTypeBattleaxe,  LookupWeapon(Skyrim.Weapon.ElvenBattleaxe) },
+                    { Skyrim.Keyword.WeapTypeDagger,     LookupWeapon(Skyrim.Weapon.ElvenDagger) },
+                    { Skyrim.Keyword.WeapTypeGreatsword, LookupWeapon(Skyrim.Weapon.ElvenGreatsword) },
+                    { Skyrim.Keyword.WeapTypeMace,       LookupWeapon(Skyrim.Weapon.ElvenMace) },
+                    { Skyrim.Keyword.WeapTypeSword,      LookupWeapon(Skyrim.Weapon.ElvenSword) },
+                    { Skyrim.Keyword.WeapTypeWarAxe,     LookupWeapon(Skyrim.Weapon.ElvenWarAxe) },
+                    { Skyrim.Keyword.WeapTypeWarhammer,  LookupWeapon(Skyrim.Weapon.ElvenWarhammer) }
                 },
 
-                [Keywords["WeapMaterialFalmer"]] = new Dictionary<FormKey, IWeaponGetter?>()
+                [Skyrim.Keyword.WeapMaterialFalmer] = new Dictionary<FormKey, IWeaponGetter?>()
                 {
-                    { Keywords["WeapTypeBattleaxe"],  null                                                         },
-                    { Keywords["WeapTypeDagger"],     null                                                         },
-                    { Keywords["WeapTypeGreatsword"], null                                                         },
-                    { Keywords["WeapTypeMace"],       null                                                         },
-                    { Keywords["WeapTypeSword"],      LookupWeapon(new FormKey(Constants.Skyrim,        0x02e6d1)) },
-                    { Keywords["WeapTypeWarAxe"],     LookupWeapon(new FormKey(Constants.Skyrim,        0x0302cd)) },
-                    { Keywords["WeapTypeWarhammer"],  null                                                         }
+                    { Skyrim.Keyword.WeapTypeBattleaxe,  null },
+                    { Skyrim.Keyword.WeapTypeDagger,     null },
+                    { Skyrim.Keyword.WeapTypeGreatsword, null },
+                    { Skyrim.Keyword.WeapTypeMace,       null },
+                    { Skyrim.Keyword.WeapTypeSword,      LookupWeapon(Skyrim.Weapon.FalmerSword) },
+                    { Skyrim.Keyword.WeapTypeWarAxe,     LookupWeapon(Skyrim.Weapon.FalmerWarAxe) },
+                    { Skyrim.Keyword.WeapTypeWarhammer,  null }
                 },
 
-                [Keywords["WeapMaterialFalmerHoned"]] = new Dictionary<FormKey, IWeaponGetter?>()
+                [Skyrim.Keyword.WeapMaterialFalmerHoned] = new Dictionary<FormKey, IWeaponGetter?>()
                 {
-                    { Keywords["WeapTypeBattleaxe"],  null                                                         },
-                    { Keywords["WeapTypeDagger"],     null                                                         },
-                    { Keywords["WeapTypeGreatsword"], null                                                         },
-                    { Keywords["WeapTypeMace"],       null                                                         },
-                    { Keywords["WeapTypeSword"],      LookupWeapon(new FormKey(Constants.Skyrim,        0x06f6ff)) },
-                    { Keywords["WeapTypeWarAxe"],     LookupWeapon(new FormKey(Constants.Skyrim,        0x06f700)) },
-                    { Keywords["WeapTypeWarhammer"],  null                                                         }
+                    { Skyrim.Keyword.WeapTypeBattleaxe,  null },
+                    { Skyrim.Keyword.WeapTypeDagger,     null },
+                    { Skyrim.Keyword.WeapTypeGreatsword, null },
+                    { Skyrim.Keyword.WeapTypeMace,       null },
+                    { Skyrim.Keyword.WeapTypeSword,      LookupWeapon(Skyrim.Weapon.FalmerSwordHoned) },
+                    { Skyrim.Keyword.WeapTypeWarAxe,     LookupWeapon(Skyrim.Weapon.FalmerWarAxeHoned) },
+                    { Skyrim.Keyword.WeapTypeWarhammer,  null }
                 },
 
-                [Keywords["WeapMaterialGlass"]] = new Dictionary<FormKey, IWeaponGetter?>()
+                [Skyrim.Keyword.WeapMaterialGlass] = new Dictionary<FormKey, IWeaponGetter?>()
                 {
-                    { Keywords["WeapTypeBattleaxe"],  LookupWeapon(new FormKey(Constants.Skyrim,        0x0139a4)) },
-                    { Keywords["WeapTypeDagger"],     LookupWeapon(new FormKey(Constants.Skyrim,        0x0139a6)) },
-                    { Keywords["WeapTypeGreatsword"], LookupWeapon(new FormKey(Constants.Skyrim,        0x0139a7)) },
-                    { Keywords["WeapTypeMace"],       LookupWeapon(new FormKey(Constants.Skyrim,        0x0139a8)) },
-                    { Keywords["WeapTypeSword"],      LookupWeapon(new FormKey(Constants.Skyrim,        0x0139a9)) },
-                    { Keywords["WeapTypeWarAxe"],     LookupWeapon(new FormKey(Constants.Skyrim,        0x0139a3)) },
-                    { Keywords["WeapTypeWarhammer"],  LookupWeapon(new FormKey(Constants.Skyrim,        0x0139aa)) }
+                    { Skyrim.Keyword.WeapTypeBattleaxe,  LookupWeapon(Skyrim.Weapon.GlassBattleaxe) },
+                    { Skyrim.Keyword.WeapTypeDagger,     LookupWeapon(Skyrim.Weapon.GlassDagger) },
+                    { Skyrim.Keyword.WeapTypeGreatsword, LookupWeapon(Skyrim.Weapon.GlassGreatsword) },
+                    { Skyrim.Keyword.WeapTypeMace,       LookupWeapon(Skyrim.Weapon.GlassMace) },
+                    { Skyrim.Keyword.WeapTypeSword,      LookupWeapon(Skyrim.Weapon.GlassSword) },
+                    { Skyrim.Keyword.WeapTypeWarAxe,     LookupWeapon(Skyrim.Weapon.GlassWarAxe) },
+                    { Skyrim.Keyword.WeapTypeWarhammer,  LookupWeapon(Skyrim.Weapon.GlassWarhammer) }
                 },
 
-                [Keywords["WeapMaterialImperial"]] = new Dictionary<FormKey, IWeaponGetter?>()
+                [Skyrim.Keyword.WeapMaterialImperial] = new Dictionary<FormKey, IWeaponGetter?>()
                 {
-                    { Keywords["WeapTypeBattleaxe"],  null                                                         },
-                    { Keywords["WeapTypeDagger"],     null                                                         },
-                    { Keywords["WeapTypeGreatsword"], null                                                         },
-                    { Keywords["WeapTypeMace"],       null                                                         },
-                    { Keywords["WeapTypeSword"],      null                                                         },
-                    { Keywords["WeapTypeWarAxe"],     null                                                         },
-                    { Keywords["WeapTypeWarhammer"],  null                                                         }
+                    { Skyrim.Keyword.WeapTypeBattleaxe,  null },
+                    { Skyrim.Keyword.WeapTypeDagger,     null },
+                    { Skyrim.Keyword.WeapTypeGreatsword, null },
+                    { Skyrim.Keyword.WeapTypeMace,       null },
+                    { Skyrim.Keyword.WeapTypeSword,      null },
+                    { Skyrim.Keyword.WeapTypeWarAxe,     null },
+                    { Skyrim.Keyword.WeapTypeWarhammer,  null }
                 },
 
-                [Keywords["WeapMaterialIron"]] = new Dictionary<FormKey, IWeaponGetter?>()
+                [Skyrim.Keyword.WeapMaterialIron] = new Dictionary<FormKey, IWeaponGetter?>()
                 {
-                    { Keywords["WeapTypeBattleaxe"],  LookupWeapon(new FormKey(Constants.Skyrim,        0x013980)) },
-                    { Keywords["WeapTypeDagger"],     LookupWeapon(new FormKey(Constants.Skyrim,        0x01397e)) },
-                    { Keywords["WeapTypeGreatsword"], LookupWeapon(new FormKey(Constants.Skyrim,        0x01359d)) },
-                    { Keywords["WeapTypeMace"],       LookupWeapon(new FormKey(Constants.Skyrim,        0x013982)) },
-                    { Keywords["WeapTypeSword"],      LookupWeapon(new FormKey(Constants.Skyrim,        0x012eb7)) },
-                    { Keywords["WeapTypeWarAxe"],     LookupWeapon(new FormKey(Constants.Skyrim,        0x013790)) },
-                    { Keywords["WeapTypeWarhammer"],  LookupWeapon(new FormKey(Constants.Skyrim,        0x013981)) }
+                    { Skyrim.Keyword.WeapTypeBattleaxe,  LookupWeapon(Skyrim.Weapon.IronBattleaxe) },
+                    { Skyrim.Keyword.WeapTypeDagger,     LookupWeapon(Skyrim.Weapon.IronDagger) },
+                    { Skyrim.Keyword.WeapTypeGreatsword, LookupWeapon(Skyrim.Weapon.IronGreatsword) },
+                    { Skyrim.Keyword.WeapTypeMace,       LookupWeapon(Skyrim.Weapon.IronMace) },
+                    { Skyrim.Keyword.WeapTypeSword,      LookupWeapon(Skyrim.Weapon.IronSword) },
+                    { Skyrim.Keyword.WeapTypeWarAxe,     LookupWeapon(Skyrim.Weapon.IronWarAxe) },
+                    { Skyrim.Keyword.WeapTypeWarhammer,  LookupWeapon(Skyrim.Weapon.IronWarhammer) }
                 },
 
-                [Keywords["WeapMaterialOrcish"]] = new Dictionary<FormKey, IWeaponGetter?>()
+                [Skyrim.Keyword.WeapMaterialOrcish] = new Dictionary<FormKey, IWeaponGetter?>()
                 {
-                    { Keywords["WeapTypeBattleaxe"],  LookupWeapon(new FormKey(Constants.Skyrim,        0x01398c)) },
-                    { Keywords["WeapTypeDagger"],     LookupWeapon(new FormKey(Constants.Skyrim,        0x01398e)) },
-                    { Keywords["WeapTypeGreatsword"], LookupWeapon(new FormKey(Constants.Skyrim,        0x01398f)) },
-                    { Keywords["WeapTypeMace"],       LookupWeapon(new FormKey(Constants.Skyrim,        0x013990)) },
-                    { Keywords["WeapTypeSword"],      LookupWeapon(new FormKey(Constants.Skyrim,        0x013991)) },
-                    { Keywords["WeapTypeWarAxe"],     LookupWeapon(new FormKey(Constants.Skyrim,        0x01398b)) },
-                    { Keywords["WeapTypeWarhammer"],  LookupWeapon(new FormKey(Constants.Skyrim,        0x013992)) }
+                    { Skyrim.Keyword.WeapTypeBattleaxe,  LookupWeapon(Skyrim.Weapon.OrcishBattleaxe) },
+                    { Skyrim.Keyword.WeapTypeDagger,     LookupWeapon(Skyrim.Weapon.OrcishDagger) },
+                    { Skyrim.Keyword.WeapTypeGreatsword, LookupWeapon(Skyrim.Weapon.OrcishGreatsword) },
+                    { Skyrim.Keyword.WeapTypeMace,       LookupWeapon(Skyrim.Weapon.OrcishMace) },
+                    { Skyrim.Keyword.WeapTypeSword,      LookupWeapon(Skyrim.Weapon.OrcishSword) },
+                    { Skyrim.Keyword.WeapTypeWarAxe,     LookupWeapon(Skyrim.Weapon.OrcishWarAxe) },
+                    { Skyrim.Keyword.WeapTypeWarhammer,  LookupWeapon(Skyrim.Weapon.OrcishWarhammer) }
                 },
 
-                [Keywords["WeapMaterialSilver"]] = new Dictionary<FormKey, IWeaponGetter?>()
+                [Skyrim.Keyword.WeapMaterialSilver] = new Dictionary<FormKey, IWeaponGetter?>()
                 {
-                    { Keywords["WeapTypeBattleaxe"],  null                                                        },
-                    { Keywords["WeapTypeDagger"],     null                                                        },
-                    { Keywords["WeapTypeGreatsword"], LookupWeapon(new FormKey(Constants.Skyrim,        0x10c6fb)) },
-                    { Keywords["WeapTypeMace"],       null                                                        },
-                    { Keywords["WeapTypeSword"],      LookupWeapon(new FormKey(Constants.Skyrim,        0x10aa19)) },
-                    { Keywords["WeapTypeWarAxe"],     null                                                        },
-                    { Keywords["WeapTypeWarhammer"],  null                                                        }
+                    { Skyrim.Keyword.WeapTypeBattleaxe,  null },
+                    { Skyrim.Keyword.WeapTypeDagger,     null },
+                    { Skyrim.Keyword.WeapTypeGreatsword, LookupWeapon(Skyrim.Weapon.SilverGreatsword) },
+                    { Skyrim.Keyword.WeapTypeMace,       null },
+                    { Skyrim.Keyword.WeapTypeSword,      LookupWeapon(Skyrim.Weapon.SilverSword) },
+                    { Skyrim.Keyword.WeapTypeWarAxe,     null },
+                    { Skyrim.Keyword.WeapTypeWarhammer,  null }
                 },
 
-                [Keywords["WeapMaterialSteel"]] = new Dictionary<FormKey, IWeaponGetter?>()
+                [Skyrim.Keyword.WeapMaterialSteel] = new Dictionary<FormKey, IWeaponGetter?>()
                 {
-                    { Keywords["WeapTypeBattleaxe"],  LookupWeapon(new FormKey(Constants.Skyrim,        0x013984)) },
-                    { Keywords["WeapTypeDagger"],     LookupWeapon(new FormKey(Constants.Skyrim,        0x013986)) },
-                    { Keywords["WeapTypeGreatsword"], LookupWeapon(new FormKey(Constants.Skyrim,        0x013987)) },
-                    { Keywords["WeapTypeMace"],       LookupWeapon(new FormKey(Constants.Skyrim,        0x013988)) },
-                    { Keywords["WeapTypeSword"],      LookupWeapon(new FormKey(Constants.Skyrim,        0x013989)) },
-                    { Keywords["WeapTypeWarAxe"],     LookupWeapon(new FormKey(Constants.Skyrim,        0x013983)) },
-                    { Keywords["WeapTypeWarhammer"],  LookupWeapon(new FormKey(Constants.Skyrim,        0x01398a)) }
+                    { Skyrim.Keyword.WeapTypeBattleaxe,  LookupWeapon(Skyrim.Weapon.SteelBattleaxe) },
+                    { Skyrim.Keyword.WeapTypeDagger,     LookupWeapon(Skyrim.Weapon.SteelDagger) },
+                    { Skyrim.Keyword.WeapTypeGreatsword, LookupWeapon(Skyrim.Weapon.SteelGreatsword) },
+                    { Skyrim.Keyword.WeapTypeMace,       LookupWeapon(Skyrim.Weapon.SteelMace) },
+                    { Skyrim.Keyword.WeapTypeSword,      LookupWeapon(Skyrim.Weapon.SteelSword) },
+                    { Skyrim.Keyword.WeapTypeWarAxe,     LookupWeapon(Skyrim.Weapon.SteelWarAxe) },
+                    { Skyrim.Keyword.WeapTypeWarhammer,  LookupWeapon(Skyrim.Weapon.SteelWarhammer) }
                 },
 
-                [Keywords["WeapMaterialWood"]] = new Dictionary<FormKey, IWeaponGetter?>()
+                [Skyrim.Keyword.WeapMaterialWood] = new Dictionary<FormKey, IWeaponGetter?>()
                 {
-                    { Keywords["WeapTypeBattleaxe"],  null                                                         },
-                    { Keywords["WeapTypeDagger"],     null                                                         },
-                    { Keywords["WeapTypeGreatsword"], null                                                         },
-                    { Keywords["WeapTypeMace"],       null                                                         },
-                    { Keywords["WeapTypeSword"],      null                                                         },
-                    { Keywords["WeapTypeWarAxe"],     null                                                         },
-                    { Keywords["WeapTypeWarhammer"],  null                                                         }
+                    { Skyrim.Keyword.WeapTypeBattleaxe,  null },
+                    { Skyrim.Keyword.WeapTypeDagger,     null },
+                    { Skyrim.Keyword.WeapTypeGreatsword, null },
+                    { Skyrim.Keyword.WeapTypeMace,       null },
+                    { Skyrim.Keyword.WeapTypeSword,      null },
+                    { Skyrim.Keyword.WeapTypeWarAxe,     null },
+                    { Skyrim.Keyword.WeapTypeWarhammer,  null }
                 }
             };
         }
@@ -910,7 +910,8 @@ namespace TMOPatcher
 
             if (slot["perk"]!.ToString() != "" && slot["perk"]!.ToString() != "null")
             {
-                recipeTemplate.Perk = Perks[slot["perk"]!.ToString()];
+                var a = slot["perk"];
+                recipeTemplate.Perk = Perks[a!.ToString()];
             }
 
             foreach (var item in slot["items"].ToArray())
@@ -945,7 +946,7 @@ namespace TMOPatcher
 
         private bool IsBreakdownRecipe(IConstructibleObjectGetter cobj, dynamic record)
         {
-            if (cobj.WorkbenchKeyword.FormKey != Keywords["CraftingSmelter"] && cobj.WorkbenchKeyword != Keywords["CraftingTanningRack"]) return false;
+            if (cobj.WorkbenchKeyword.FormKey != Skyrim.Keyword.CraftingSmelter && cobj.WorkbenchKeyword != Skyrim.Keyword.CraftingTanningRack) return false;
 
             if (cobj.Items == null) return false;
 
@@ -960,7 +961,7 @@ namespace TMOPatcher
 
         private bool IsCraftingRecipe(IConstructibleObjectGetter cobj, dynamic record)
         {
-            if (cobj.WorkbenchKeyword.FormKey != Keywords["CraftingSmithingForge"] && cobj.WorkbenchKeyword.FormKey != Keywords["CraftingSmithingSkyforge"]) return false;
+            if (cobj.WorkbenchKeyword.FormKey != Skyrim.Keyword.CraftingSmithingForge && cobj.WorkbenchKeyword.FormKey != Skyrim.Keyword.CraftingSmithingSkyforge) return false;
 
             if (cobj.CreatedObject.FormKey == null) return false;
 
@@ -969,7 +970,7 @@ namespace TMOPatcher
 
         private bool IsTemperingRecipe(IConstructibleObjectGetter cobj, dynamic record)
         {
-            if (cobj.WorkbenchKeyword.FormKey != Keywords["CraftingSmithingSharpeningWheel"] && cobj.WorkbenchKeyword.FormKey != Keywords["CraftingSmithingArmorTable"]) return false;
+            if (cobj.WorkbenchKeyword.FormKey != Skyrim.Keyword.CraftingSmithingSharpeningWheel && cobj.WorkbenchKeyword.FormKey != Skyrim.Keyword.CraftingSmithingArmorTable) return false;
 
             if (cobj.CreatedObject.FormKey == null) return false;
 

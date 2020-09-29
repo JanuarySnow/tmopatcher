@@ -1,4 +1,5 @@
 ﻿using Mutagen.Bethesda;
+using Mutagen.Bethesda.FormKeys.SkyrimSE;
 using Mutagen.Bethesda.Skyrim;
 using Mutagen.Bethesda.Synthesis;
 using System;
@@ -23,7 +24,9 @@ namespace TMOPatcher
             State = state;
 
             ModKey[] excludedMods = { "Skyrim.esm", "Update.esm", "Dawnguard.esm", "HearthFires.esm", "Dragonborn.esm", "Unofficial Skyrim Special Edition Patch.esp" };
-            var loadOrder = state.LoadOrder.PriorityOrder.Where(modGetter => !excludedMods.Contains(modGetter.ModKey));
+            var loadOrder = state.LoadOrder.PriorityOrder
+                .OnlyEnabled()
+                .Where(modGetter => !excludedMods.Contains(modGetter.ModKey));
 
             foreach (var record in loadOrder.WinningOverrides<IWeaponGetter>().Where(weapon => ShouldPatchWeapon(weapon)))
             {
@@ -57,7 +60,7 @@ namespace TMOPatcher
 
         private bool ShouldPatchWeapon(IWeaponGetter weapon)
         {
-            var excludedWeaponTypes = new FormKey?[] { Statics.Keywords["WeapTypeStaff"], Statics.Keywords["WeapTypeBow"] };
+            var excludedWeaponTypes = new FormKey?[] { Skyrim.Keyword.WeapTypeStaff, Skyrim.Keyword.WeapTypeBow };
             if (weapon.hasAnyKeyword(excludedWeaponTypes)) return false;
 
             if (weapon.Template.FormKey != null) return false;

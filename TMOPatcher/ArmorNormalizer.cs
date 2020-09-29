@@ -1,4 +1,5 @@
-﻿using Mutagen.Bethesda;
+using Mutagen.Bethesda;
+using Mutagen.Bethesda.FormKeys.SkyrimSE;
 using Mutagen.Bethesda.Skyrim;
 using Mutagen.Bethesda.Synthesis;
 using System;
@@ -23,7 +24,9 @@ namespace TMOPatcher
             State = state;
 
             ModKey[] excludedMods = { "Skyrim.esm", "Update.esm", "Dawnguard.esm", "HearthFires.esm", "Dragonborn.esm", "Unofficial Skyrim Special Edition Patch.esp" };
-            var loadOrder = state.LoadOrder.PriorityOrder.Where(modGetter => !excludedMods.Contains(modGetter.ModKey));
+            var loadOrder = state.LoadOrder.PriorityOrder
+                .OnlyEnabled()
+                .Where(modGetter => !excludedMods.Contains(modGetter.ModKey));
 
             foreach (var record in loadOrder.WinningOverrides<IArmorGetter>().Where(armor => ShouldPatchArmor(armor)))
             {
@@ -41,7 +44,7 @@ namespace TMOPatcher
 
         private bool ShouldPatchArmor(IArmorGetter armor)
         {
-            var excludedArmorTypes = new FormKey?[] { Statics?.Keywords["ArmorClothing"], Statics?.Keywords["ArmorJewelry"] };
+            var excludedArmorTypes = new FormKey?[] { Skyrim.Keyword.ArmorClothing, Skyrim.Keyword.ArmorJewelry };
             if (armor.hasAnyKeyword(excludedArmorTypes)) return false;
 
             if (armor.TemplateArmor.FormKey != null) return false;
@@ -65,8 +68,8 @@ namespace TMOPatcher
                 return null;
             }
 
-            if (armor.BodyTemplate.ArmorType == ArmorType.HeavyArmor) type = Statics.Keywords["ArmorHeavy"];
-            else if (armor.BodyTemplate.ArmorType == ArmorType.LightArmor) type = Statics.Keywords["ArmorLight"];
+            if (armor.BodyTemplate.ArmorType == ArmorType.HeavyArmor) type = Skyrim.Keyword.ArmorHeavy;
+            else if (armor.BodyTemplate.ArmorType == ArmorType.LightArmor) type = Skyrim.Keyword.ArmorLight;
             else
             {
                 Log(armor, "Couldn't determine if the armor was heavy or light.");
