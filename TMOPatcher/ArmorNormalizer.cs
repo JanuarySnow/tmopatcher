@@ -10,20 +10,18 @@ namespace TMOPatcher
 {
     public class ArmorNormalizer
     {
-        public Statics Statics { get; set; }
+        public Statics Statics { get; }
+        public SynthesisState<ISkyrimMod, ISkyrimModGetter> State { get; }
 
-        public ArmorNormalizer(Statics statics)
+        public ArmorNormalizer(Statics statics, SynthesisState<ISkyrimMod, ISkyrimModGetter> state)
         {
             Statics = statics;
+            State = state;
         }
 
-        public SynthesisState<ISkyrimMod, ISkyrimModGetter>? State { get; set; }
-
-        public void RunPatch(SynthesisState<ISkyrimMod, ISkyrimModGetter> state)
+        public void RunPatch()
         {
-            State = state;
-
-            var loadOrder = state.LoadOrder.PriorityOrder
+            var loadOrder = State.LoadOrder.PriorityOrder
                 .OnlyEnabled()
                 .Where(modGetter => !Statics.ExcludedMods.Contains(modGetter.ModKey));
 
@@ -33,7 +31,7 @@ namespace TMOPatcher
                 if (baseArmor == null) continue;
                 if (baseArmor.FormKey == record.FormKey) continue;
 
-                var armor = state.PatchMod.Armors.GetOrAddAsOverride(record);
+                var armor = State.PatchMod.Armors.GetOrAddAsOverride(record);
 
                 armor.ArmorRating = baseArmor.ArmorRating;
                 armor.Value = baseArmor.Value;

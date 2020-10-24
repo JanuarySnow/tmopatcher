@@ -10,20 +10,18 @@ namespace TMOPatcher
 {
     public class WeaponNormalizer
     {
-        public Statics Statics { get; set; }
+        public Statics Statics { get; }
+        public SynthesisState<ISkyrimMod, ISkyrimModGetter> State { get; }
 
-        public WeaponNormalizer(Statics statics) 
+        public WeaponNormalizer(Statics statics, SynthesisState<ISkyrimMod, ISkyrimModGetter> state) 
         {
             Statics = statics;
+            State = state;
         }
 
-        public SynthesisState<ISkyrimMod, ISkyrimModGetter>? State { get; set; }
-
-        public void RunPatch(SynthesisState<ISkyrimMod, ISkyrimModGetter> state)
+        public void RunPatch()
         {
-            State = state;
-
-            var loadOrder = state.LoadOrder.PriorityOrder
+            var loadOrder = State.LoadOrder.PriorityOrder
                 .OnlyEnabled()
                 .Where(modGetter => !Statics.ExcludedMods.Contains(modGetter.ModKey));
 
@@ -33,7 +31,7 @@ namespace TMOPatcher
                 if (baseWeapon == null) continue;
                 if (baseWeapon.FormKey == record.FormKey) continue;
 
-                var weapon = state.PatchMod.Weapons.GetOrAddAsOverride(record);
+                var weapon = State.PatchMod.Weapons.GetOrAddAsOverride(record);
 
                 if (baseWeapon.BasicStats != null && weapon.BasicStats != null)
                 {

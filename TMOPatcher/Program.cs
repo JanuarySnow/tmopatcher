@@ -37,26 +37,26 @@ namespace TMOPatcher
 
             if (ShouldNormalizeArmorStats)
             {
-                var patcher = new ArmorNormalizer(Statics);
-                patcher.RunPatch(state);
+                new ArmorNormalizer(Statics, state)
+                    .RunPatch();
             }
 
             if (ShouldNormalizeWeaponStats)
             {
-                var patcher = new WeaponNormalizer(Statics);
-                patcher.RunPatch(state);
+                new WeaponNormalizer(Statics, state)
+                    .RunPatch();
             }
 
             if (ShouldNormalizeRecipes)
             {
-                var patcher = new RecipeNormalizer(Statics);
-                patcher.RunPatch(state);
+                new RecipeNormalizer(Statics, state)
+                    .RunPatch();
             }
 
             if (ShouldCreateMissingRecipes)
             {
-                var patcher = new RecipeCreator(Statics);
-                patcher.RunPatch(state);
+                new RecipeCreator(Statics, state)
+                    .RunPatch();
             }
         }
     }

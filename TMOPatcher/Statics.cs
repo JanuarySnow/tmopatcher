@@ -265,24 +265,20 @@ namespace TMOPatcher
                 if (material == null) continue;
 
                 var key = new FormKey(material![0]!.ToString(), Convert.ToUInt32(material[1]!.ToString(), 16));
-                RecipeTemplates[key] = new Dictionary<string, Dictionary<FormKey, RecipeTemplate>>();
-                RecipeTemplates[key]["creation"] = new Dictionary<FormKey, RecipeTemplate>();
-                RecipeTemplates[key]["tempering"] = new Dictionary<FormKey, RecipeTemplate>();
-                RecipeTemplates[key]["breakdown"] = new Dictionary<FormKey, RecipeTemplate>();
 
                 foreach (var slot in template["creation"].EmptyIfNull())
                 {
-                    ParseSlot(slot!, key, "creation");
+                    ParseSlot(slot, key, "creation");
                 }
 
                 foreach (var slot in template["tempering"].EmptyIfNull())
                 {
-                    ParseSlot(slot!, key, "tempering");
+                    ParseSlot(slot, key, "tempering");
                 }
 
                 foreach (var slot in template["breakdown"].EmptyIfNull())
                 {
-                    ParseSlot(slot!, key, "breakdown");
+                    ParseSlot(slot, key, "breakdown");
                 }
             }
 
@@ -910,7 +906,7 @@ namespace TMOPatcher
                 Bench = Keywords[slot["bench"]!.ToString()],
             };
 
-            if (slot["perk"]!.ToString() != "" && slot["perk"]!.ToString() != "null")
+            if (!slot["perk"]!.ToString().IsNullOrWhitespace() && slot["perk"]!.ToString() != "null")
             {
                 var a = slot["perk"];
                 recipeTemplate.Perk = Perks[a!.ToString()];
@@ -927,7 +923,7 @@ namespace TMOPatcher
                 });
             }
 
-            RecipeTemplates[key][type][Keywords[slot["slot"]!.ToString()]] = recipeTemplate;
+            RecipeTemplates.GetOrAdd(key).GetOrAdd(type)[Keywords[slot["slot"]!.ToString()]] = recipeTemplate;
         }
 
         private void CacheRecipe(IConstructibleObjectGetter cobj, IMajorRecordCommonGetter record, string type)

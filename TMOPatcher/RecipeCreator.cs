@@ -11,19 +11,18 @@ namespace TMOPatcher
 {
     class RecipeCreator
     {
-        public Statics Statics { get; set; }
+        public Statics Statics { get; }
+        public SynthesisState<ISkyrimMod, ISkyrimModGetter> State { get; }
 
-        public SynthesisState<ISkyrimMod, ISkyrimModGetter>? State { get; set; }
-
-        public RecipeCreator(Statics statics)
+        public RecipeCreator(Statics statics, SynthesisState<ISkyrimMod, ISkyrimModGetter> state)
         {
             Statics = statics;
+            State = state;
         }
 
-        public void RunPatch(SynthesisState<ISkyrimMod, ISkyrimModGetter> state)
+        public void RunPatch()
         {
-            State = state;
-            var loadOrder = state.LoadOrder.PriorityOrder
+            var loadOrder = State.LoadOrder.PriorityOrder
                 .OnlyEnabled()
                 .Where(modGetter => !Statics.ExcludedMods.Contains(modGetter.ModKey));
 
@@ -209,7 +208,8 @@ namespace TMOPatcher
                 return false;
             }
 
-            if (!types[type].TryGetValue(slot, out recipeTemplate) || recipeTemplate == null)
+            if (!types.TryGetValue(type, out var templates)
+                || !templates.TryGetValue(slot, out recipeTemplate))
             {
                 Log(record, $"RecipeCreation({type}): Unable to find template due to Slot({slot})");
                 return false;
