@@ -23,10 +23,9 @@ namespace TMOPatcher
         {
             State = state;
 
-            ModKey[] excludedMods = { "Skyrim.esm", "Update.esm", "Dawnguard.esm", "HearthFires.esm", "Dragonborn.esm", "Unofficial Skyrim Special Edition Patch.esp" };
             var loadOrder = state.LoadOrder.PriorityOrder
                 .OnlyEnabled()
-                .Where(modGetter => !excludedMods.Contains(modGetter.ModKey));
+                .Where(modGetter => !Statics.ExcludedMods.Contains(modGetter.ModKey));
 
             foreach (var record in loadOrder.WinningOverrides<IWeaponGetter>().Where(weapon => ShouldPatchWeapon(weapon)))
             {

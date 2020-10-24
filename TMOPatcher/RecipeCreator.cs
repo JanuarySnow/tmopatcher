@@ -23,10 +23,9 @@ namespace TMOPatcher
         public void RunPatch(SynthesisState<ISkyrimMod, ISkyrimModGetter> state)
         {
             State = state;
-            ModKey[] excludedMods = { Constants.Skyrim, Constants.Update, Constants.Dawnguard, Constants.HearthFires, Constants.Dragonborn, "Unofficial Skyrim Special Edition Patch.esp" };
             var loadOrder = state.LoadOrder.PriorityOrder
                 .OnlyEnabled()
-                .Where(modGetter => !excludedMods.Contains(modGetter.ModKey));
+                .Where(modGetter => !Statics.ExcludedMods.Contains(modGetter.ModKey));
 
             foreach (var armor in loadOrder.WinningOverrides<IArmorGetter>())
             {

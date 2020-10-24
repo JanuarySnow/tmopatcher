@@ -27,6 +27,8 @@ namespace TMOPatcher
 
     public class Statics
     {
+        public static readonly ICollection<ModKey> ExcludedMods = new ModKey[] { Constants.Skyrim, Constants.Update, Constants.Dawnguard, Constants.HearthFires, Constants.Dragonborn, "Unofficial Skyrim Special Edition Patch.esp" }.ToHashSet();
+
         public IReadOnlyList<FormKey> ArmorMaterials { get; set; }
         public IReadOnlyList<FormKey> ArmorSlots { get; set; }
 
