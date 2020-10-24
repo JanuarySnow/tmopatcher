@@ -120,29 +120,29 @@ namespace TMOPatcher
             NormalizeRecipe(cobjGetter, "tempering", recipeTemplate);
         }
 
-        private bool FindRecipeTemplate(dynamic record, string type, IReadOnlyList<FormKey> materials, IReadOnlyList<FormKey> slots, out RecipeTemplate? recipeTemplate)
+        private bool FindRecipeTemplate(IKeywordedGetter record, string type, IReadOnlyList<FormKey> materials, IReadOnlyList<FormKey> slots, out RecipeTemplate? recipeTemplate)
         {
             recipeTemplate = null;
 
-            if (!Extensions.HasAnyKeyword(record, materials, out FormKey? material) || material == null)
+            if (!Extensions.HasAnyKeyword(record, materials, out var material))
             {
                 Log(record, "RecipeNormalization: Unable to determine material");
                 return false;
             }
 
-            if (!Extensions.HasAnyKeyword(record, slots, out FormKey? slot) || slot == null)
+            if (!Extensions.HasAnyKeyword(record, slots, out var slot))
             {
                 Log(record, "RecipeNormalization: Unable to determine slot");
                 return false;
             }
 
-            if (!Statics.RecipeTemplates.TryGetValue((FormKey)material!, out var types))
+            if (!Statics.RecipeTemplates.TryGetValue(material, out var types))
             {
                 Log(record, $"RecipeNormalization: Unable to find template due to Material({material})");
                 return false;
             }
 
-            if (!types[type].TryGetValue((FormKey)slot!, out recipeTemplate) || recipeTemplate == null)
+            if (!types[type].TryGetValue(slot, out recipeTemplate) || recipeTemplate == null)
             {
                 Log(record, $"RecipeNormalization: Unable to find template due to Slot({slot})");
                 return false;

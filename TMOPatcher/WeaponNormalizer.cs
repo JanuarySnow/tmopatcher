@@ -60,7 +60,7 @@ namespace TMOPatcher
         private bool ShouldPatchWeapon(IWeaponGetter weapon)
         {
             var excludedWeaponTypes = new FormKey?[] { Skyrim.Keyword.WeapTypeStaff, Skyrim.Keyword.WeapTypeBow };
-            if (weapon.hasAnyKeyword(excludedWeaponTypes)) return false;
+            if (weapon.HasAnyKeyword(excludedWeaponTypes)) return false;
 
             if (weapon.Template.FormKey != null) return false;
 
@@ -75,33 +75,31 @@ namespace TMOPatcher
 
         private IWeaponGetter? GetBaseWeapon(IWeaponGetter weapon)
         {
-            FormKey? material;
-            FormKey? type;
-
-            if (!weapon.hasAnyKeyword(Statics.WeaponMaterials, out material) || material == null)
+            if (!weapon.HasAnyKeyword(Statics.WeaponMaterials, out var material))
             {
                 Log(weapon, "Couldn't determine the weapon material");
                 return null;
             }
 
-            if (!weapon.hasAnyKeyword(Statics.WeaponTypes, out type) || type == null)
+            if (!weapon.HasAnyKeyword(Statics.WeaponTypes, out var type))
             {
                 Log(weapon, "Couldn't determine the weapon type");
                 return null;
             }
 
-            if (!Statics.BaseWeapons.TryGetValue((FormKey)material, out var weaponTypes))
+            if (!Statics.BaseWeapons.TryGetValue(material, out var weaponTypes))
             {
                 Log(weapon, $"Material({material}) is not valid");
                 return null;
             }
 
-            if (!weaponTypes.TryGetValue((FormKey)type, out var baseWeapon))
+            if (!weaponTypes.TryGetValue(type, out var baseWeapon))
             {
                 Log(weapon, $"WeaponType({type}) is not valid");
+                return null;
             }
 
-            return Statics.BaseWeapons[(FormKey)material][(FormKey)type];
+            return Statics.BaseWeapons[material][type];
         }
     }
 }

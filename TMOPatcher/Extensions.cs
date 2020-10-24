@@ -1,45 +1,17 @@
 ﻿using Mutagen.Bethesda;
 using Mutagen.Bethesda.Skyrim;
+using Noggog;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 
 namespace TMOPatcher
 {
     public static class Extensions
     {
-        public static bool hasKeyword(this IArmorGetter record, FormKey? formKey)
+        public static bool HasKeyword(this IKeywordedGetter record, FormKey? formKey)
         {
-            return HasKeyword(record, formKey);
-        }
-
-        public static bool hasKeyword(this IWeaponGetter record, FormKey? formKey)
-        {
-            return HasKeyword(record, formKey);
-        }
-
-        public static bool hasAnyKeyword(this IWeaponGetter record, FormKey?[] formKeys)
-        {
-            return HasAnyKeyword(record, formKeys);
-        }
-
-        public static bool hasAnyKeyword(this IArmorGetter record, FormKey?[] formKeys)
-        {
-            return HasAnyKeyword(record, formKeys);
-        }
-
-        public static bool hasAnyKeyword(this IArmorGetter record, IReadOnlyList<FormKey> formKeys, out FormKey? outKey)
-        {
-            return HasAnyKeyword(record, formKeys, out outKey);
-        }
-
-        public static bool hasAnyKeyword(this IWeaponGetter record, IReadOnlyList<FormKey> formKeys, out FormKey? outKey)
-        {
-            return HasAnyKeyword(record, formKeys, out outKey);
-        }
-
-        public static bool HasKeyword(dynamic record, FormKey? formKey)
-        {
-            foreach (var kwda in record.Keywords ?? Enumerable.Empty<IFormLink<IKeywordGetter>>())
+            foreach (var kwda in record.Keywords.EmptyIfNull())
             {
                 if (kwda?.FormKey == formKey)
                 {
@@ -50,7 +22,7 @@ namespace TMOPatcher
             return false;
         }
 
-        public static bool HasAnyKeyword(dynamic record, FormKey?[] formKeys)
+        public static bool HasAnyKeyword(this IKeywordedGetter record, FormKey?[] formKeys)
         {
             foreach (var formKey in formKeys)
             {
@@ -63,7 +35,7 @@ namespace TMOPatcher
             return false;
         }
 
-        public static bool HasAnyKeyword(dynamic record, IReadOnlyList<FormKey> formKeys, out FormKey? outKey)
+        public static bool HasAnyKeyword(this IKeywordedGetter record, IReadOnlyList<FormKey> formKeys, [MaybeNullWhen(false)] out FormKey outKey)
         {
             foreach (var formKey in formKeys)
             {
@@ -74,7 +46,7 @@ namespace TMOPatcher
                 }
             }
 
-            outKey = null;
+            outKey = default;
             return false;
         }
 

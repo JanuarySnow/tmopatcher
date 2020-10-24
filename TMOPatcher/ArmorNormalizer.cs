@@ -44,7 +44,7 @@ namespace TMOPatcher
         private bool ShouldPatchArmor(IArmorGetter armor)
         {
             var excludedArmorTypes = new FormKey?[] { Skyrim.Keyword.ArmorClothing, Skyrim.Keyword.ArmorJewelry };
-            if (armor.hasAnyKeyword(excludedArmorTypes)) return false;
+            if (armor.HasAnyKeyword(excludedArmorTypes)) return false;
 
             if (armor.TemplateArmor.FormKey != null) return false;
 
@@ -57,8 +57,6 @@ namespace TMOPatcher
 
         private IArmorGetter? GetBaseArmor(IArmorGetter armor)
         {
-            FormKey? material;
-            FormKey? slot;
             FormKey type;
 
             if (armor.BodyTemplate == null)
@@ -67,21 +65,23 @@ namespace TMOPatcher
                 return null;
             }
 
-            if (armor.BodyTemplate.ArmorType == ArmorType.HeavyArmor) type = Skyrim.Keyword.ArmorHeavy;
-            else if (armor.BodyTemplate.ArmorType == ArmorType.LightArmor) type = Skyrim.Keyword.ArmorLight;
+            if (armor.BodyTemplate.ArmorType == ArmorType.HeavyArmor)
+                type = Skyrim.Keyword.ArmorHeavy;
+            else if (armor.BodyTemplate.ArmorType == ArmorType.LightArmor) 
+                type = Skyrim.Keyword.ArmorLight;
             else
             {
                 Log(armor, "Couldn't determine if the armor was heavy or light.");
                 return null;
             }
 
-            if (!armor.hasAnyKeyword(Statics.ArmorMaterials, out material) || material == null)
+            if (!armor.HasAnyKeyword(Statics.ArmorMaterials, out var material))
             {
                 Log(armor, "Couldn't determine the armor material");
                 return null;
             }
 
-            if (!armor.hasAnyKeyword(Statics.ArmorSlots, out slot) || slot == null)
+            if (!armor.HasAnyKeyword(Statics.ArmorSlots, out var slot))
             {
                 Log(armor, "Couldn't determine the armor slot");
                 return null;
@@ -93,13 +93,13 @@ namespace TMOPatcher
                 return null;
             }
 
-            if (!materials.TryGetValue((FormKey)material, out var slots))
+            if (!materials.TryGetValue(material, out var slots))
             {
                 Log(armor, $"Material({material}) is not valid for this ArmorType({type})");
                 return null;
             }
 
-            if (!slots.TryGetValue((FormKey)slot, out var baseArmor))
+            if (!slots.TryGetValue(slot, out var baseArmor))
             {
                 Log(armor, $"ArmorSlot({slot}): No valid armor slot (Helmet, Cuirass, etc) was found");
                 return null;
