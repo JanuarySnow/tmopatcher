@@ -930,7 +930,7 @@ namespace TMOPatcher
             RecipeTemplates[key][type][Keywords[slot["slot"]!.ToString()]] = recipeTemplate;
         }
 
-        private void CacheRecipe(IConstructibleObjectGetter cobj, dynamic record, string type)
+        private void CacheRecipe(IConstructibleObjectGetter cobj, IMajorRecordCommonGetter record, string type)
         {
             if (IsCraftingRecipe(cobj, record))
             {
@@ -946,7 +946,7 @@ namespace TMOPatcher
             }
         }
 
-        private bool IsBreakdownRecipe(IConstructibleObjectGetter cobj, dynamic record)
+        private bool IsBreakdownRecipe(IConstructibleObjectGetter cobj, IMajorRecordCommonGetter record)
         {
             if (cobj.WorkbenchKeyword.FormKey != Skyrim.Keyword.CraftingSmelter && cobj.WorkbenchKeyword != Skyrim.Keyword.CraftingTanningRack) return false;
 
@@ -961,7 +961,7 @@ namespace TMOPatcher
             return CraftingSupplies.ContainsValue((FormKey)cobj.CreatedObject.FormKey);
         }
 
-        private bool IsCraftingRecipe(IConstructibleObjectGetter cobj, dynamic record)
+        private bool IsCraftingRecipe(IConstructibleObjectGetter cobj, IMajorRecordCommonGetter record)
         {
             if (cobj.WorkbenchKeyword.FormKey != Skyrim.Keyword.CraftingSmithingForge && cobj.WorkbenchKeyword.FormKey != Skyrim.Keyword.CraftingSmithingSkyforge) return false;
 
@@ -970,7 +970,7 @@ namespace TMOPatcher
             return cobj.CreatedObject.FormKey == record.FormKey;
         }
 
-        private bool IsTemperingRecipe(IConstructibleObjectGetter cobj, dynamic record)
+        private bool IsTemperingRecipe(IConstructibleObjectGetter cobj, IMajorRecordCommonGetter record)
         {
             if (cobj.WorkbenchKeyword.FormKey != Skyrim.Keyword.CraftingSmithingSharpeningWheel && cobj.WorkbenchKeyword.FormKey != Skyrim.Keyword.CraftingSmithingArmorTable) return false;
 

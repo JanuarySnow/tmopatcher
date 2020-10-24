@@ -120,7 +120,8 @@ namespace TMOPatcher
             NormalizeRecipe(cobjGetter, "tempering", recipeTemplate);
         }
 
-        private bool FindRecipeTemplate(IKeywordedGetter record, string type, IReadOnlyList<FormKey> materials, IReadOnlyList<FormKey> slots, out RecipeTemplate? recipeTemplate)
+        private bool FindRecipeTemplate<T>(T record, string type, IReadOnlyList<FormKey> materials, IReadOnlyList<FormKey> slots, out RecipeTemplate? recipeTemplate)
+            where T : IKeywordedGetter, IMajorRecordCommonGetter
         {
             recipeTemplate = null;
 

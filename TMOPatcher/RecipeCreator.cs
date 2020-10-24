@@ -119,7 +119,7 @@ namespace TMOPatcher
             }
         }
 
-        private void CreateBreakdownRecipe(dynamic record, RecipeTemplate template)
+        private void CreateBreakdownRecipe(IMajorRecordCommonGetter record, RecipeTemplate template)
         {
             var cobj = State!.PatchMod.ConstructibleObjects.AddNew($"TMOPatch_BreakDown_{record.EditorID}");
 
@@ -151,7 +151,7 @@ namespace TMOPatcher
             }
         }
 
-        private void CreateRecipe(dynamic record, string type, RecipeTemplate template)
+        private void CreateRecipe(IMajorRecordCommonGetter record, string type, RecipeTemplate template)
         {
             var cobj = State!.PatchMod.ConstructibleObjects.AddNew($"TMOPatch_{type}_{record.EditorID}");
 
@@ -186,7 +186,8 @@ namespace TMOPatcher
             }
         }
 
-        private bool FindRecipeTemplate(IKeywordedGetter record, string type, IReadOnlyList<FormKey> materials, IReadOnlyList<FormKey> slots, out RecipeTemplate? recipeTemplate)
+        private bool FindRecipeTemplate<T>(T record, string type, IReadOnlyList<FormKey> materials, IReadOnlyList<FormKey> slots, out RecipeTemplate? recipeTemplate)
+            where T : IKeywordedGetter, IMajorRecordCommonGetter
         {
             recipeTemplate = null;
 
