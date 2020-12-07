@@ -236,22 +236,22 @@ namespace TMOPatcher
             {
                 if (cobj.CreatedObject.FormKey == null) continue;
 
-                if (LinkCache.TryLookup<IArmorGetter>((FormKey)cobj.CreatedObject.FormKey, out var armor))
+                if (cobj.CreatedObject.TryResolve<IArmorGetter>(LinkCache, out var armor))
                 {
                     CacheRecipe(cobj, armor, "armors");
                 }
-                else if (LinkCache.TryLookup<IWeaponGetter>((FormKey)cobj.CreatedObject.FormKey, out var weapon))
+                else if (cobj.CreatedObject.TryResolve<IWeaponGetter>(LinkCache, out var weapon))
                 {
                     CacheRecipe(cobj, weapon, "weapons");
                 }
                 else
                 {
                     if (cobj.Items == null) continue;
-                    if (LinkCache.TryLookup<IArmorGetter>(cobj.Items[0].Item.Item.FormKey, out armor) && armor.FormKey != cobj.CreatedObject.FormKey)
+                    if (cobj.Items[0].Item.Item.TryResolve<IArmorGetter>(LinkCache, out armor) && armor.FormKey != cobj.CreatedObject.FormKey)
                     {
                         CacheRecipe(cobj, armor, "armors");
                     }
-                    else if (LinkCache.TryLookup<IWeaponGetter>(cobj.Items[0].Item.Item.FormKey, out weapon) && weapon.FormKey != cobj.CreatedObject.FormKey)
+                    else if (cobj.Items[0].Item.Item.TryResolve<IWeaponGetter>(LinkCache, out weapon) && weapon.FormKey != cobj.CreatedObject.FormKey)
                     {
                         CacheRecipe(cobj, weapon, "weapons");
                     }
@@ -977,13 +977,13 @@ namespace TMOPatcher
 
         private IWeaponGetter? LookupWeapon(FormKey formKey)
         {
-            LinkCache.TryLookup<IWeaponGetter>(formKey, out var weapon);
+            LinkCache.TryResolve<IWeaponGetter>(formKey, out var weapon);
             return weapon;
         }
 
         private IArmorGetter? LookupArmor(FormKey formKey)
         {
-            LinkCache.TryLookup<IArmorGetter>(formKey, out var armor);
+            LinkCache.TryResolve<IArmorGetter>(formKey, out var armor);
             return armor;
         }
     }
