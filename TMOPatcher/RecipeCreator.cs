@@ -12,9 +12,9 @@ namespace TMOPatcher
     class RecipeCreator
     {
         public Statics Statics { get; }
-        public SynthesisState<ISkyrimMod, ISkyrimModGetter> State { get; }
+        public IPatcherState<ISkyrimMod, ISkyrimModGetter> State { get; }
 
-        public RecipeCreator(Statics statics, SynthesisState<ISkyrimMod, ISkyrimModGetter> state)
+        public RecipeCreator(Statics statics, IPatcherState<ISkyrimMod, ISkyrimModGetter> state)
         {
             Statics = statics;
             State = state;

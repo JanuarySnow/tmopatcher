@@ -1,4 +1,4 @@
-﻿using Mutagen.Bethesda;
+using Mutagen.Bethesda;
 using Mutagen.Bethesda.Skyrim;
 using Mutagen.Bethesda.Synthesis;
 using Newtonsoft.Json.Linq;
@@ -60,10 +60,10 @@ namespace TMOPatcher
                 ["tempering"] = new Dictionary<FormKey, IConstructibleObjectGetter>() { }
             },
         };
-        public SynthesisState<ISkyrimMod, ISkyrimModGetter> State { get; set; }
+        public IPatcherState<ISkyrimMod, ISkyrimModGetter> State { get; set; }
         private ILinkCache LinkCache { get; }
 
-        public Statics(SynthesisState<ISkyrimMod, ISkyrimModGetter> state)
+        public Statics(IPatcherState<ISkyrimMod, ISkyrimModGetter> state)
         {
             State = state;
 
@@ -209,7 +209,7 @@ namespace TMOPatcher
             };
 
             var templates = new List<JObject>();
-            var files = Directory.GetFiles("data");
+            var files = Directory.GetFiles(state.ExtraSettingsDataPath);
             LinkCache = State.LoadOrder.ToImmutableLinkCache();
 
             foreach (var file in files)
@@ -912,7 +912,7 @@ namespace TMOPatcher
                 recipeTemplate.Perk = Perks[a!.ToString()];
             }
 
-            foreach (var item in slot["items"].ToArray())
+            foreach (var item in slot["items"]!.ToArray())
             {
                 if (item == null) throw new Exception("More mistakes were made");
 

@@ -11,9 +11,9 @@ namespace TMOPatcher
     public class ArmorNormalizer
     {
         public Statics Statics { get; }
-        public SynthesisState<ISkyrimMod, ISkyrimModGetter> State { get; }
+        public IPatcherState<ISkyrimMod, ISkyrimModGetter> State { get; }
 
-        public ArmorNormalizer(Statics statics, SynthesisState<ISkyrimMod, ISkyrimModGetter> state)
+        public ArmorNormalizer(Statics statics, IPatcherState<ISkyrimMod, ISkyrimModGetter> state)
         {
             Statics = statics;
             State = state;

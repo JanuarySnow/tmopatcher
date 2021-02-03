@@ -16,22 +16,22 @@ namespace TMOPatcher
 
         public static async Task<int> Main(string[] args)
         {
-            return await SynthesisPipeline.Instance.Patch<ISkyrimMod, ISkyrimModGetter>(
-                args: args,
-                patcher: RunPatch,
-                new UserPreferences()
+            return await SynthesisPipeline.Instance
+                .AddPatch<ISkyrimMod, ISkyrimModGetter>(RunPatch, new PatcherPreferences()
                 {
-                    IncludeDisabledMods = true,
+                    IncludeDisabledMods = true
+                })
+                .Run(args, new RunPreferences()
+                {
                     ActionsForEmptyArgs = new RunDefaultPatcher()
                     {
                         IdentifyingModKey = "TMOPatch.esp",
                         TargetRelease = GameRelease.SkyrimSE
                     }
-                }
-            );
+                });
         }
 
-        public static async Task RunPatch(SynthesisState<ISkyrimMod, ISkyrimModGetter> state)
+        public static async Task RunPatch(IPatcherState<ISkyrimMod, ISkyrimModGetter> state)
         {
             Statics = new Statics(state);
 

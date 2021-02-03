@@ -14,9 +14,9 @@ namespace TMOPatcher
     {
         public Statics Statics { get; }
 
-        public SynthesisState<ISkyrimMod, ISkyrimModGetter> State { get; }
+        public IPatcherState<ISkyrimMod, ISkyrimModGetter> State { get; }
 
-        public RecipeNormalizer(Statics statics, SynthesisState<ISkyrimMod, ISkyrimModGetter> state)
+        public RecipeNormalizer(Statics statics, IPatcherState<ISkyrimMod, ISkyrimModGetter> state)
         {
             Statics = statics;
             State = state;
