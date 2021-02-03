@@ -234,7 +234,7 @@ namespace TMOPatcher
 
             foreach (var cobj in state.LoadOrder.PriorityOrder.WinningOverrides<IConstructibleObjectGetter>())
             {
-                if (cobj.CreatedObject.FormKey == null) continue;
+                if (cobj.CreatedObject.FormKey.IsNull) continue;
 
                 if (cobj.CreatedObject.TryResolve<IArmorGetter>(LinkCache, out var armor))
                 {
@@ -952,7 +952,7 @@ namespace TMOPatcher
 
             if (cobj.Items[0].Item.Item.FormKey != record.FormKey) return false;
 
-            if (cobj.CreatedObject.FormKey == null) return false;
+            if (cobj.CreatedObject.IsNull) return false;
 
             return CraftingSupplies.ContainsValue((FormKey)cobj.CreatedObject.FormKey);
         }
@@ -961,7 +961,7 @@ namespace TMOPatcher
         {
             if (cobj.WorkbenchKeyword.FormKey != Skyrim.Keyword.CraftingSmithingForge && cobj.WorkbenchKeyword.FormKey != Skyrim.Keyword.CraftingSmithingSkyforge) return false;
 
-            if (cobj.CreatedObject.FormKey == null) return false;
+            if (cobj.CreatedObject.IsNull) return false;
 
             return cobj.CreatedObject.FormKey == record.FormKey;
         }
@@ -970,7 +970,7 @@ namespace TMOPatcher
         {
             if (cobj.WorkbenchKeyword.FormKey != Skyrim.Keyword.CraftingSmithingSharpeningWheel && cobj.WorkbenchKeyword.FormKey != Skyrim.Keyword.CraftingSmithingArmorTable) return false;
 
-            if (cobj.CreatedObject.FormKey == null) return false;
+            if (cobj.CreatedObject.IsNull) return false;
 
             return cobj.CreatedObject.FormKey == record.FormKey;
         }

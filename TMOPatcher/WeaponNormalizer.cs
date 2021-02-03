@@ -60,7 +60,7 @@ namespace TMOPatcher
             var excludedWeaponTypes = new FormKey?[] { Skyrim.Keyword.WeapTypeStaff, Skyrim.Keyword.WeapTypeBow };
             if (weapon.HasAnyKeyword(excludedWeaponTypes)) return false;
 
-            if (weapon.Template.FormKey != null) return false;
+            if (!weapon.Template.IsNull) return false;
 
             if (weapon.Data == null) return false;
 

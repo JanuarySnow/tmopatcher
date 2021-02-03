@@ -44,7 +44,7 @@ namespace TMOPatcher
             var excludedArmorTypes = new FormKey?[] { Skyrim.Keyword.ArmorClothing, Skyrim.Keyword.ArmorJewelry };
             if (armor.HasAnyKeyword(excludedArmorTypes)) return false;
 
-            if (armor.TemplateArmor.FormKey != null) return false;
+            if (!armor.TemplateArmor.IsNull) return false;
 
             if (armor.BodyTemplate?.Flags.HasFlag(BodyTemplate.Flag.NonPlayable) == true) return false;
 
