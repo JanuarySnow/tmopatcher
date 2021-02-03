@@ -11,22 +11,20 @@ namespace TMOPatcher
 {
     class RecipeCreator
     {
-        public Statics Statics { get; set; }
+        public Statics Statics { get; }
+        public IPatcherState<ISkyrimMod, ISkyrimModGetter> State { get; }
 
-        public SynthesisState<ISkyrimMod, ISkyrimModGetter>? State { get; set; }
-
-        public RecipeCreator(Statics statics)
+        public RecipeCreator(Statics statics, IPatcherState<ISkyrimMod, ISkyrimModGetter> state)
         {
             Statics = statics;
+            State = state;
         }
 
-        public void RunPatch(SynthesisState<ISkyrimMod, ISkyrimModGetter> state)
+        public void RunPatch()
         {
-            State = state;
-            ModKey[] excludedMods = { Constants.Skyrim, Constants.Update, Constants.Dawnguard, Constants.HearthFires, Constants.Dragonborn, "Unofficial Skyrim Special Edition Patch.esp" };
-            var loadOrder = state.LoadOrder.PriorityOrder
+            var loadOrder = State.LoadOrder.PriorityOrder
                 .OnlyEnabled()
-                .Where(modGetter => !excludedMods.Contains(modGetter.ModKey));
+                .Where(modGetter => !Statics.ExcludedMods.Contains(modGetter.ModKey));
 
             foreach (var armor in loadOrder.WinningOverrides<IArmorGetter>())
             {
@@ -34,8 +32,8 @@ namespace TMOPatcher
                 if (armor.BodyTemplate == null) continue;
                 if (armor.BodyTemplate.ArmorType == ArmorType.Clothing) continue;
                 if (armor.BodyTemplate.Flags.HasFlag(BodyTemplate.Flag.NonPlayable)) continue;
-                if (armor.hasKeyword(Skyrim.Keyword.ArmorClothing)) continue;
-                if (armor.hasKeyword(Skyrim.Keyword.ArmorJewelry)) continue;
+                if (armor.HasKeyword(Skyrim.Keyword.ArmorClothing)) continue;
+                if (armor.HasKeyword(Skyrim.Keyword.ArmorJewelry)) continue;
                 
                 CreateMissingRecipesForArmors(armor);
             }
@@ -51,7 +49,7 @@ namespace TMOPatcher
         private void CreateMissingRecipesForArmors(IArmorGetter armor)
         {
             if (!Statics.Recipes["armors"]["breakdown"].TryGetValue(armor.FormKey, out var cobjGetter) || cobjGetter == null) {
-                if (armor.hasKeyword(Skyrim.Keyword.MagicDisallowEnchanting)) return;
+                if (armor.HasKeyword(Skyrim.Keyword.MagicDisallowEnchanting)) return;
 
                 if (!FindRecipeTemplate(armor, "breakdown", Statics.ArmorMaterials, Statics.ArmorSlots, out var recipeTemplate) || recipeTemplate == null) {
                     return;
@@ -62,7 +60,7 @@ namespace TMOPatcher
 
             if (!Statics.Recipes["armors"]["creation"].TryGetValue(armor.FormKey, out cobjGetter) || cobjGetter == null)
             {
-                if (armor.hasKeyword(Skyrim.Keyword.MagicDisallowEnchanting)) return;
+                if (armor.HasKeyword(Skyrim.Keyword.MagicDisallowEnchanting)) return;
 
                 if (!FindRecipeTemplate(armor, "creation", Statics.ArmorMaterials, Statics.ArmorSlots, out var recipeTemplate) || recipeTemplate == null)
                 {
@@ -87,7 +85,7 @@ namespace TMOPatcher
         {
             if (!Statics.Recipes["weapons"]["breakdown"].TryGetValue(weapon.FormKey, out var cobjGetter) || cobjGetter == null)
             {
-                if (weapon.hasKeyword(Skyrim.Keyword.MagicDisallowEnchanting)) return;
+                if (weapon.HasKeyword(Skyrim.Keyword.MagicDisallowEnchanting)) return;
 
                 if (!FindRecipeTemplate(weapon, "breakdown", Statics.ArmorMaterials, Statics.WeaponTypes, out var recipeTemplate) || recipeTemplate == null)
                 {
@@ -99,7 +97,7 @@ namespace TMOPatcher
 
             if (!Statics.Recipes["weapons"]["creation"].TryGetValue(weapon.FormKey, out cobjGetter) || cobjGetter == null)
             {
-                if (weapon.hasKeyword(Skyrim.Keyword.MagicDisallowEnchanting)) return;
+                if (weapon.HasKeyword(Skyrim.Keyword.MagicDisallowEnchanting)) return;
 
                 if (!FindRecipeTemplate(weapon, "creation", Statics.WeaponMaterials, Statics.WeaponTypes, out var recipeTemplate) || recipeTemplate == null)
                 {
@@ -120,7 +118,7 @@ namespace TMOPatcher
             }
         }
 
-        private void CreateBreakdownRecipe(dynamic record, RecipeTemplate template)
+        private void CreateBreakdownRecipe(IMajorRecordCommonGetter record, RecipeTemplate template)
         {
             var cobj = State!.PatchMod.ConstructibleObjects.AddNew($"TMOPatch_BreakDown_{record.EditorID}");
 
@@ -152,7 +150,7 @@ namespace TMOPatcher
             }
         }
 
-        private void CreateRecipe(dynamic record, string type, RecipeTemplate template)
+        private void CreateRecipe(IMajorRecordCommonGetter record, string type, RecipeTemplate template)
         {
             var cobj = State!.PatchMod.ConstructibleObjects.AddNew($"TMOPatch_{type}_{record.EditorID}");
 
@@ -187,29 +185,31 @@ namespace TMOPatcher
             }
         }
 
-        private bool FindRecipeTemplate(dynamic record, string type, IReadOnlyList<FormKey> materials, IReadOnlyList<FormKey> slots, out RecipeTemplate? recipeTemplate)
+        private bool FindRecipeTemplate<T>(T record, string type, IReadOnlyList<FormKey> materials, IReadOnlyList<FormKey> slots, out RecipeTemplate? recipeTemplate)
+            where T : IKeywordedGetter, IMajorRecordCommonGetter
         {
             recipeTemplate = null;
 
-            if (!Extensions.HasAnyKeyword(record, materials, out FormKey? material) || material == null)
+            if (!Extensions.HasAnyKeyword(record, materials, out var material))
             {
                 Log(record, $"RecipeCreation({type}): Unable to determine material");
                 return false;
             }
 
-            if (!Extensions.HasAnyKeyword(record, slots, out FormKey? slot) || slot == null)
+            if (!Extensions.HasAnyKeyword(record, slots, out var slot))
             {
                 Log(record, $"RecipeCreation({type}): Unable to determine slot");
                 return false;
             }
 
-            if (!Statics.RecipeTemplates.TryGetValue((FormKey)material!, out var types))
+            if (!Statics.RecipeTemplates.TryGetValue(material, out var types))
             {
                 Log(record, $"RecipeCreation({type}): Unable to find template due to Material({material})");
                 return false;
             }
 
-            if (!types[type].TryGetValue((FormKey)slot!, out recipeTemplate) || recipeTemplate == null)
+            if (!types.TryGetValue(type, out var templates)
+                || !templates.TryGetValue(slot, out recipeTemplate))
             {
                 Log(record, $"RecipeCreation({type}): Unable to find template due to Slot({slot})");
                 return false;

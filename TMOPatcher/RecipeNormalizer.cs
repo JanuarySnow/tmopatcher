@@ -1,9 +1,10 @@
-﻿using Mutagen.Bethesda;
+using Mutagen.Bethesda;
 using Mutagen.Bethesda.FormKeys.SkyrimSE;
 using Mutagen.Bethesda.Skyrim;
 using Mutagen.Bethesda.Synthesis;
 using Noggog;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using static TMOPatcher.Helpers;
 
@@ -11,22 +12,21 @@ namespace TMOPatcher
 {
     class RecipeNormalizer
     {
-        public Statics Statics { get; set; }
+        public Statics Statics { get; }
 
-        public SynthesisState<ISkyrimMod, ISkyrimModGetter>? State { get; set; }
+        public IPatcherState<ISkyrimMod, ISkyrimModGetter> State { get; }
 
-        public RecipeNormalizer(Statics statics)
+        public RecipeNormalizer(Statics statics, IPatcherState<ISkyrimMod, ISkyrimModGetter> state)
         {
             Statics = statics;
+            State = state;
         }
 
-        public void RunPatch(SynthesisState<ISkyrimMod, ISkyrimModGetter> state)
+        public void RunPatch()
         {
-            State = state;
-            ModKey[] excludedMods = { "Skyrim.esm", "Update.esm", "Dawnguard.esm", "HearthFires.esm", "Dragonborn.esm", "Unofficial Skyrim Special Edition Patch.esp" };
-            var loadOrder = state.LoadOrder.PriorityOrder
+            var loadOrder = State.LoadOrder.PriorityOrder
                 .OnlyEnabled()
-                .Where(modGetter => !excludedMods.Contains(modGetter.ModKey));
+                .Where(modGetter => !Statics.ExcludedMods.Contains(modGetter.ModKey));
 
             foreach (var armor in loadOrder.WinningOverrides<IArmorGetter>())
             {
@@ -48,7 +48,7 @@ namespace TMOPatcher
             Statics.Recipes["armors"]["breakdown"].TryGetValue(armor.FormKey, out var cobjGetter);
             if (cobjGetter == null) return;
 
-            if (!FindRecipeTemplate(armor, "breakdown", Statics.ArmorMaterials, Statics.ArmorSlots, out var recipeTemplate) || recipeTemplate == null)
+            if (!FindRecipeTemplate(armor, "breakdown", Statics.ArmorMaterials, Statics.ArmorSlots, out var recipeTemplate))
             {
                 return;
             }
@@ -61,7 +61,7 @@ namespace TMOPatcher
             Statics.Recipes["armors"]["creation"].TryGetValue(armor.FormKey, out var cobjGetter);
             if (cobjGetter == null) return;
 
-            if (!FindRecipeTemplate(armor, "creation", Statics.ArmorMaterials, Statics.ArmorSlots, out var recipeTemplate) || recipeTemplate == null)
+            if (!FindRecipeTemplate(armor, "creation", Statics.ArmorMaterials, Statics.ArmorSlots, out var recipeTemplate))
             {
                 return;
             }
@@ -74,7 +74,7 @@ namespace TMOPatcher
             Statics.Recipes["armors"]["tempering"].TryGetValue(armor.FormKey, out var cobjGetter);
             if (cobjGetter == null) return;
 
-            if (!FindRecipeTemplate(armor, "tempering", Statics.ArmorMaterials, Statics.ArmorSlots, out var recipeTemplate) || recipeTemplate == null)
+            if (!FindRecipeTemplate(armor, "tempering", Statics.ArmorMaterials, Statics.ArmorSlots, out var recipeTemplate))
             {
                 return;
             }
@@ -87,7 +87,7 @@ namespace TMOPatcher
             Statics.Recipes["weapons"]["breakdown"].TryGetValue(weapon.FormKey, out var cobjGetter);
             if (cobjGetter == null) return;
 
-            if (!FindRecipeTemplate(weapon, "breakdown", Statics.WeaponMaterials, Statics.WeaponTypes, out var recipeTemplate) || recipeTemplate == null)
+            if (!FindRecipeTemplate(weapon, "breakdown", Statics.WeaponMaterials, Statics.WeaponTypes, out var recipeTemplate))
             {
                 return;
             }
@@ -100,7 +100,7 @@ namespace TMOPatcher
             Statics.Recipes["weapons"]["creation"].TryGetValue(weapon.FormKey, out var cobjGetter);
             if (cobjGetter == null) return;
 
-            if (!FindRecipeTemplate(weapon, "creation", Statics.WeaponMaterials, Statics.WeaponTypes, out var recipeTemplate) || recipeTemplate == null)
+            if (!FindRecipeTemplate(weapon, "creation", Statics.WeaponMaterials, Statics.WeaponTypes, out var recipeTemplate))
             {
                 return;
             }
@@ -113,7 +113,7 @@ namespace TMOPatcher
             Statics.Recipes["weapons"]["tempering"].TryGetValue(weapon.FormKey, out var cobjGetter);
             if (cobjGetter == null) return;
 
-            if (!FindRecipeTemplate(weapon, "tempering", Statics.WeaponMaterials, Statics.WeaponTypes, out var recipeTemplate) || recipeTemplate == null)
+            if (!FindRecipeTemplate(weapon, "tempering", Statics.WeaponMaterials, Statics.WeaponTypes, out var recipeTemplate))
             {
                 return;
             }
@@ -121,29 +121,31 @@ namespace TMOPatcher
             NormalizeRecipe(cobjGetter, "tempering", recipeTemplate);
         }
 
-        private bool FindRecipeTemplate(dynamic record, string type, IReadOnlyList<FormKey> materials, IReadOnlyList<FormKey> slots, out RecipeTemplate? recipeTemplate)
+        private bool FindRecipeTemplate<T>(T record, string type, IReadOnlyList<FormKey> materials, IReadOnlyList<FormKey> slots, [MaybeNullWhen(false)] out RecipeTemplate recipeTemplate)
+            where T : IKeywordedGetter, IMajorRecordCommonGetter
         {
             recipeTemplate = null;
 
-            if (!Extensions.HasAnyKeyword(record, materials, out FormKey? material) || material == null)
+            if (!Extensions.HasAnyKeyword(record, materials, out var material))
             {
                 Log(record, "RecipeNormalization: Unable to determine material");
                 return false;
             }
 
-            if (!Extensions.HasAnyKeyword(record, slots, out FormKey? slot) || slot == null)
+            if (!Extensions.HasAnyKeyword(record, slots, out var slot))
             {
                 Log(record, "RecipeNormalization: Unable to determine slot");
                 return false;
             }
 
-            if (!Statics.RecipeTemplates.TryGetValue((FormKey)material!, out var types))
+            if (!Statics.RecipeTemplates.TryGetValue(material, out var types))
             {
                 Log(record, $"RecipeNormalization: Unable to find template due to Material({material})");
                 return false;
             }
 
-            if (!types[type].TryGetValue((FormKey)slot!, out recipeTemplate) || recipeTemplate == null)
+            if (!types.TryGetValue(type, out var templates)
+                || !templates.TryGetValue(slot, out recipeTemplate))
             {
                 Log(record, $"RecipeNormalization: Unable to find template due to Slot({slot})");
                 return false;
@@ -154,7 +156,7 @@ namespace TMOPatcher
 
         private void NormalizeRecipe(IConstructibleObjectGetter cobjGetter, string type, RecipeTemplate template)
         {
-            var cobj = State!.PatchMod.ConstructibleObjects.GetOrAddAsOverride(cobjGetter);
+            var cobj = State.PatchMod.ConstructibleObjects.GetOrAddAsOverride(cobjGetter);
 
             cobj.WorkbenchKeyword = template.Bench;
             cobj.CreatedObjectCount = 1;
@@ -219,7 +221,7 @@ namespace TMOPatcher
 
         private void NormalizeBreakdownRecipe(IConstructibleObjectGetter cobjGetter, RecipeTemplate template)
         {
-            var cobj = State!.PatchMod.ConstructibleObjects.GetOrAddAsOverride(cobjGetter);
+            var cobj = State.PatchMod.ConstructibleObjects.GetOrAddAsOverride(cobjGetter);
 
             cobj.WorkbenchKeyword = template.Bench;
             cobj.CreatedObject = template.Items[0].Record;

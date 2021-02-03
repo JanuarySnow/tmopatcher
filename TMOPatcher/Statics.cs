@@ -1,4 +1,4 @@
-﻿using Mutagen.Bethesda;
+using Mutagen.Bethesda;
 using Mutagen.Bethesda.Skyrim;
 using Mutagen.Bethesda.Synthesis;
 using Newtonsoft.Json.Linq;
@@ -27,6 +27,8 @@ namespace TMOPatcher
 
     public class Statics
     {
+        public static readonly ICollection<ModKey> ExcludedMods = new ModKey[] { Constants.Skyrim, Constants.Update, Constants.Dawnguard, Constants.HearthFires, Constants.Dragonborn, "Unofficial Skyrim Special Edition Patch.esp" }.ToHashSet();
+
         public IReadOnlyList<FormKey> ArmorMaterials { get; set; }
         public IReadOnlyList<FormKey> ArmorSlots { get; set; }
 
@@ -58,10 +60,10 @@ namespace TMOPatcher
                 ["tempering"] = new Dictionary<FormKey, IConstructibleObjectGetter>() { }
             },
         };
-        public SynthesisState<ISkyrimMod, ISkyrimModGetter> State { get; set; }
+        public IPatcherState<ISkyrimMod, ISkyrimModGetter> State { get; set; }
         private ILinkCache LinkCache { get; }
 
-        public Statics(SynthesisState<ISkyrimMod, ISkyrimModGetter> state)
+        public Statics(IPatcherState<ISkyrimMod, ISkyrimModGetter> state)
         {
             State = state;
 
@@ -207,7 +209,7 @@ namespace TMOPatcher
             };
 
             var templates = new List<JObject>();
-            var files = Directory.GetFiles("data");
+            var files = Directory.GetFiles(state.ExtraSettingsDataPath);
             LinkCache = State.LoadOrder.ToImmutableLinkCache();
 
             foreach (var file in files)
@@ -232,7 +234,7 @@ namespace TMOPatcher
 
             foreach (var cobj in state.LoadOrder.PriorityOrder.WinningOverrides<IConstructibleObjectGetter>())
             {
-                if (cobj.CreatedObject.FormKey == null) continue;
+                if (cobj.CreatedObject.FormKey.IsNull) continue;
 
                 if (cobj.CreatedObject.TryResolve<IArmorGetter>(LinkCache, out var armor))
                 {
@@ -263,24 +265,20 @@ namespace TMOPatcher
                 if (material == null) continue;
 
                 var key = new FormKey(material![0]!.ToString(), Convert.ToUInt32(material[1]!.ToString(), 16));
-                RecipeTemplates[key] = new Dictionary<string, Dictionary<FormKey, RecipeTemplate>>();
-                RecipeTemplates[key]["creation"] = new Dictionary<FormKey, RecipeTemplate>();
-                RecipeTemplates[key]["tempering"] = new Dictionary<FormKey, RecipeTemplate>();
-                RecipeTemplates[key]["breakdown"] = new Dictionary<FormKey, RecipeTemplate>();
 
                 foreach (var slot in template["creation"].EmptyIfNull())
                 {
-                    ParseSlot(slot!, key, "creation");
+                    ParseSlot(slot, key, "creation");
                 }
 
                 foreach (var slot in template["tempering"].EmptyIfNull())
                 {
-                    ParseSlot(slot!, key, "tempering");
+                    ParseSlot(slot, key, "tempering");
                 }
 
                 foreach (var slot in template["breakdown"].EmptyIfNull())
                 {
-                    ParseSlot(slot!, key, "breakdown");
+                    ParseSlot(slot, key, "breakdown");
                 }
             }
 
@@ -908,13 +906,13 @@ namespace TMOPatcher
                 Bench = Keywords[slot["bench"]!.ToString()],
             };
 
-            if (slot["perk"]!.ToString() != "" && slot["perk"]!.ToString() != "null")
+            if (!slot["perk"]!.ToString().IsNullOrWhitespace() && slot["perk"]!.ToString() != "null")
             {
                 var a = slot["perk"];
                 recipeTemplate.Perk = Perks[a!.ToString()];
             }
 
-            foreach (var item in slot["items"].ToArray())
+            foreach (var item in slot["items"]!.ToArray())
             {
                 if (item == null) throw new Exception("More mistakes were made");
 
@@ -925,10 +923,10 @@ namespace TMOPatcher
                 });
             }
 
-            RecipeTemplates[key][type][Keywords[slot["slot"]!.ToString()]] = recipeTemplate;
+            RecipeTemplates.GetOrAdd(key).GetOrAdd(type)[Keywords[slot["slot"]!.ToString()]] = recipeTemplate;
         }
 
-        private void CacheRecipe(IConstructibleObjectGetter cobj, dynamic record, string type)
+        private void CacheRecipe(IConstructibleObjectGetter cobj, IMajorRecordCommonGetter record, string type)
         {
             if (IsCraftingRecipe(cobj, record))
             {
@@ -944,7 +942,7 @@ namespace TMOPatcher
             }
         }
 
-        private bool IsBreakdownRecipe(IConstructibleObjectGetter cobj, dynamic record)
+        private bool IsBreakdownRecipe(IConstructibleObjectGetter cobj, IMajorRecordCommonGetter record)
         {
             if (cobj.WorkbenchKeyword.FormKey != Skyrim.Keyword.CraftingSmelter && cobj.WorkbenchKeyword != Skyrim.Keyword.CraftingTanningRack) return false;
 
@@ -954,25 +952,25 @@ namespace TMOPatcher
 
             if (cobj.Items[0].Item.Item.FormKey != record.FormKey) return false;
 
-            if (cobj.CreatedObject.FormKey == null) return false;
+            if (cobj.CreatedObject.IsNull) return false;
 
             return CraftingSupplies.ContainsValue((FormKey)cobj.CreatedObject.FormKey);
         }
 
-        private bool IsCraftingRecipe(IConstructibleObjectGetter cobj, dynamic record)
+        private bool IsCraftingRecipe(IConstructibleObjectGetter cobj, IMajorRecordCommonGetter record)
         {
             if (cobj.WorkbenchKeyword.FormKey != Skyrim.Keyword.CraftingSmithingForge && cobj.WorkbenchKeyword.FormKey != Skyrim.Keyword.CraftingSmithingSkyforge) return false;
 
-            if (cobj.CreatedObject.FormKey == null) return false;
+            if (cobj.CreatedObject.IsNull) return false;
 
             return cobj.CreatedObject.FormKey == record.FormKey;
         }
 
-        private bool IsTemperingRecipe(IConstructibleObjectGetter cobj, dynamic record)
+        private bool IsTemperingRecipe(IConstructibleObjectGetter cobj, IMajorRecordCommonGetter record)
         {
             if (cobj.WorkbenchKeyword.FormKey != Skyrim.Keyword.CraftingSmithingSharpeningWheel && cobj.WorkbenchKeyword.FormKey != Skyrim.Keyword.CraftingSmithingArmorTable) return false;
 
-            if (cobj.CreatedObject.FormKey == null) return false;
+            if (cobj.CreatedObject.IsNull) return false;
 
             return cobj.CreatedObject.FormKey == record.FormKey;
         }
