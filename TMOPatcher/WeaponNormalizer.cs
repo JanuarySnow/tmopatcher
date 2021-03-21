@@ -3,6 +3,7 @@ using Mutagen.Bethesda.FormKeys.SkyrimSE;
 using Mutagen.Bethesda.Skyrim;
 using Mutagen.Bethesda.Synthesis;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using static TMOPatcher.Helpers;
 
@@ -57,7 +58,7 @@ namespace TMOPatcher
 
         private bool ShouldPatchWeapon(IWeaponGetter weapon)
         {
-            var excludedWeaponTypes = new FormKey?[] { Skyrim.Keyword.WeapTypeStaff, Skyrim.Keyword.WeapTypeBow };
+            var excludedWeaponTypes = new HashSet<IFormLinkGetter<IKeywordGetter>>() { Skyrim.Keyword.WeapTypeStaff, Skyrim.Keyword.WeapTypeBow };
             if (weapon.HasAnyKeyword(excludedWeaponTypes)) return false;
 
             if (!weapon.Template.IsNull) return false;
@@ -73,13 +74,13 @@ namespace TMOPatcher
 
         private IWeaponGetter? GetBaseWeapon(IWeaponGetter weapon)
         {
-            if (!weapon.HasAnyKeyword(Statics.WeaponMaterials, out var material))
+            if (!weapon.TryHasAnyKeyword(Statics.WeaponMaterials, out var material))
             {
                 Log(weapon, "Couldn't determine the weapon material");
                 return null;
             }
 
-            if (!weapon.HasAnyKeyword(Statics.WeaponTypes, out var type))
+            if (!weapon.TryHasAnyKeyword(Statics.WeaponTypes, out var type))
             {
                 Log(weapon, "Couldn't determine the weapon type");
                 return null;

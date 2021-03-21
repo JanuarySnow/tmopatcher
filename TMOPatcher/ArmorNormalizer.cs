@@ -3,6 +3,7 @@ using Mutagen.Bethesda.FormKeys.SkyrimSE;
 using Mutagen.Bethesda.Skyrim;
 using Mutagen.Bethesda.Synthesis;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using static TMOPatcher.Helpers;
 
@@ -41,7 +42,7 @@ namespace TMOPatcher
 
         private bool ShouldPatchArmor(IArmorGetter armor)
         {
-            var excludedArmorTypes = new FormKey?[] { Skyrim.Keyword.ArmorClothing, Skyrim.Keyword.ArmorJewelry };
+            var excludedArmorTypes = new HashSet<IFormLinkGetter<IKeywordGetter>>() { Skyrim.Keyword.ArmorClothing, Skyrim.Keyword.ArmorJewelry };
             if (armor.HasAnyKeyword(excludedArmorTypes)) return false;
 
             if (!armor.TemplateArmor.IsNull) return false;
@@ -55,7 +56,7 @@ namespace TMOPatcher
 
         private IArmorGetter? GetBaseArmor(IArmorGetter armor)
         {
-            FormKey type;
+            IFormLinkGetter<IKeywordGetter> type;
 
             if (armor.BodyTemplate == null)
             {
@@ -73,13 +74,13 @@ namespace TMOPatcher
                 return null;
             }
 
-            if (!armor.HasAnyKeyword(Statics.ArmorMaterials, out var material))
+            if (!armor.TryHasAnyKeyword(Statics.ArmorMaterials, out var material))
             {
                 Log(armor, "Couldn't determine the armor material");
                 return null;
             }
 
-            if (!armor.HasAnyKeyword(Statics.ArmorSlots, out var slot))
+            if (!armor.TryHasAnyKeyword(Statics.ArmorSlots, out var slot))
             {
                 Log(armor, "Couldn't determine the armor slot");
                 return null;

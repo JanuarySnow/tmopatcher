@@ -118,13 +118,13 @@ namespace TMOPatcher
             }
         }
 
-        private void CreateBreakdownRecipe(IMajorRecordCommonGetter record, RecipeTemplate template)
+        private void CreateBreakdownRecipe(IItemGetter record, RecipeTemplate template)
         {
             var cobj = State!.PatchMod.ConstructibleObjects.AddNew($"TMOPatch_BreakDown_{record.EditorID}");
 
-            cobj.CreatedObject = template.Items[0].Record;
+            cobj.CreatedObject.SetTo(template.Items[0].Record);
             cobj.CreatedObjectCount = (ushort)template.Items[0].Count;
-            cobj.WorkbenchKeyword = template.Bench;
+            cobj.WorkbenchKeyword.SetTo(template.Bench);
 
             cobj.Items = new ExtendedList<ContainerEntry>();
             cobj.Items.Add(new ContainerEntry()
@@ -132,7 +132,7 @@ namespace TMOPatcher
                 Item = new ContainerItem()
                 {
                     Count = 1,
-                    Item = record.FormKey
+                    Item = record.AsLink()
                 }
             });
 
@@ -143,20 +143,20 @@ namespace TMOPatcher
                     ComparisonValue = 1,
                     Data = new FunctionConditionData()
                     {
-                        Function = (ushort)ConditionData.Function.HasPerk,
-                        ParameterOneRecord = (FormKey)template.Perk
+                        Function = ConditionData.Function.HasPerk,
+                        ParameterOneRecord = template.Perk.AsSetter()
                     }
                 });
             }
         }
 
-        private void CreateRecipe(IMajorRecordCommonGetter record, string type, RecipeTemplate template)
+        private void CreateRecipe(IConstructibleGetter record, string type, RecipeTemplate template)
         {
             var cobj = State!.PatchMod.ConstructibleObjects.AddNew($"TMOPatch_{type}_{record.EditorID}");
 
-            cobj.CreatedObject = record.FormKey;
+            cobj.CreatedObject.SetTo(record);
             cobj.CreatedObjectCount = 1;
-            cobj.WorkbenchKeyword = template.Bench;
+            cobj.WorkbenchKeyword.SetTo(template.Bench);
 
             cobj.Items = new ExtendedList<ContainerEntry>();
             foreach (var item in template.Items)
@@ -166,7 +166,7 @@ namespace TMOPatcher
                     Item = new ContainerItem()
                     {
                         Count = item.Count,
-                        Item = item.Record
+                        Item = item.Record.AsSetter()
                     }
                 });
             }
@@ -178,25 +178,25 @@ namespace TMOPatcher
                     ComparisonValue = 1,
                     Data = new FunctionConditionData()
                     {
-                        Function = (ushort)ConditionData.Function.HasPerk,
-                        ParameterOneRecord = (FormKey)template.Perk
+                        Function = ConditionData.Function.HasPerk,
+                        ParameterOneRecord = template.Perk.AsSetter()
                     }
                 });
             }
         }
 
-        private bool FindRecipeTemplate<T>(T record, string type, IReadOnlyList<FormKey> materials, IReadOnlyList<FormKey> slots, out RecipeTemplate? recipeTemplate)
-            where T : IKeywordedGetter, IMajorRecordCommonGetter
+        private bool FindRecipeTemplate<T>(T record, string type, HashSet<IFormLinkGetter<IKeywordGetter>> materials, HashSet<IFormLinkGetter<IKeywordGetter>> slots, out RecipeTemplate? recipeTemplate)
+            where T : IKeywordedGetter<IKeywordGetter>, IMajorRecordCommonGetter
         {
             recipeTemplate = null;
 
-            if (!Extensions.HasAnyKeyword(record, materials, out var material))
+            if (!Extensions.TryHasAnyKeyword(record, materials, out var material))
             {
                 Log(record, $"RecipeCreation({type}): Unable to determine material");
                 return false;
             }
 
-            if (!Extensions.HasAnyKeyword(record, slots, out var slot))
+            if (!Extensions.TryHasAnyKeyword(record, slots, out var slot))
             {
                 Log(record, $"RecipeCreation({type}): Unable to determine slot");
                 return false;

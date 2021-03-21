@@ -121,18 +121,18 @@ namespace TMOPatcher
             NormalizeRecipe(cobjGetter, "tempering", recipeTemplate);
         }
 
-        private bool FindRecipeTemplate<T>(T record, string type, IReadOnlyList<FormKey> materials, IReadOnlyList<FormKey> slots, [MaybeNullWhen(false)] out RecipeTemplate recipeTemplate)
-            where T : IKeywordedGetter, IMajorRecordCommonGetter
+        private bool FindRecipeTemplate<T>(T record, string type, HashSet<IFormLinkGetter<IKeywordGetter>> materials, HashSet<IFormLinkGetter<IKeywordGetter>> slots, [MaybeNullWhen(false)] out RecipeTemplate recipeTemplate)
+            where T : IKeywordedGetter<IKeywordGetter>, IMajorRecordCommonGetter
         {
             recipeTemplate = null;
 
-            if (!Extensions.HasAnyKeyword(record, materials, out var material))
+            if (!Extensions.TryHasAnyKeyword(record, materials, out var material))
             {
                 Log(record, "RecipeNormalization: Unable to determine material");
                 return false;
             }
 
-            if (!Extensions.HasAnyKeyword(record, slots, out var slot))
+            if (!Extensions.TryHasAnyKeyword(record, slots, out var slot))
             {
                 Log(record, "RecipeNormalization: Unable to determine slot");
                 return false;
@@ -158,7 +158,7 @@ namespace TMOPatcher
         {
             var cobj = State.PatchMod.ConstructibleObjects.GetOrAddAsOverride(cobjGetter);
 
-            cobj.WorkbenchKeyword = template.Bench;
+            cobj.WorkbenchKeyword.SetTo(template.Bench);
             cobj.CreatedObjectCount = 1;
 
             if (cobj.Items == null)
@@ -174,7 +174,7 @@ namespace TMOPatcher
                     Item = new ContainerItem()
                     {
                         Count = item.Count,
-                        Item = item.Record
+                        Item = item.Record.AsSetter()
                     }
                 });
             }
@@ -190,7 +190,7 @@ namespace TMOPatcher
                     Flags = Condition.Flag.OR,
                     Data = new FunctionConditionData()
                     {
-                        Function = (ushort)ConditionData.Function.EPTemperingItemIsEnchanted
+                        Function = ConditionData.Function.EPTemperingItemIsEnchanted
                     }
                 });
 
@@ -199,7 +199,7 @@ namespace TMOPatcher
                     ComparisonValue = 1,
                     Data = new FunctionConditionData()
                     {
-                        Function = (ushort)ConditionData.Function.HasPerk,
+                        Function = ConditionData.Function.HasPerk,
                         ParameterOneRecord = Skyrim.Perk.ArcaneBlacksmith
                     }
                 });
@@ -212,8 +212,8 @@ namespace TMOPatcher
                     ComparisonValue = 1,
                     Data = new FunctionConditionData()
                     {
-                        Function = (ushort)ConditionData.Function.HasPerk,
-                        ParameterOneRecord = (FormKey)template.Perk
+                        Function = ConditionData.Function.HasPerk,
+                        ParameterOneRecord = template.Perk.AsSetter()
                     }
                 });
             }
@@ -223,8 +223,8 @@ namespace TMOPatcher
         {
             var cobj = State.PatchMod.ConstructibleObjects.GetOrAddAsOverride(cobjGetter);
 
-            cobj.WorkbenchKeyword = template.Bench;
-            cobj.CreatedObject = template.Items[0].Record;
+            cobj.WorkbenchKeyword.SetTo(template.Bench);
+            cobj.CreatedObject.SetTo(template.Items[0].Record);
             cobj.CreatedObjectCount = (ushort)template.Items[0].Count;
 
             cobj.Conditions.Clear();
@@ -236,8 +236,8 @@ namespace TMOPatcher
                     ComparisonValue = 1,
                     Data = new FunctionConditionData()
                     {
-                        Function = (ushort)ConditionData.Function.HasPerk,
-                        ParameterOneRecord = (FormKey)template.Perk
+                        Function = ConditionData.Function.HasPerk,
+                        ParameterOneRecord = template.Perk.AsSetter()
                     }
                 });
             }

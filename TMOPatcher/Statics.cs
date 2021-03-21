@@ -14,13 +14,13 @@ namespace TMOPatcher
     public class RecipeTemplate
     {
         public List<Item> Items = new List<Item>();
-        public FormKey? Perk;
-        public FormKey Bench;
+        public IFormLinkNullableGetter<IPerkGetter> Perk = FormLinkNullable<IPerkGetter>.Null;
+        public IFormLinkGetter<IKeywordGetter> Bench = FormLink<IKeywordGetter>.Null;
     }
 
     public class Item
     {
-        public FormKey Record;
+        public IFormLinkGetter<IConstructibleGetter> Record = FormLink<IConstructibleGetter>.Null;
         public int Count;
     }
 
@@ -29,20 +29,21 @@ namespace TMOPatcher
     {
         public static readonly ICollection<ModKey> ExcludedMods = new ModKey[] { Constants.Skyrim, Constants.Update, Constants.Dawnguard, Constants.HearthFires, Constants.Dragonborn, "Unofficial Skyrim Special Edition Patch.esp" }.ToHashSet();
 
-        public IReadOnlyList<FormKey> ArmorMaterials { get; set; }
-        public IReadOnlyList<FormKey> ArmorSlots { get; set; }
+        public HashSet<IFormLinkGetter<IKeywordGetter>> ArmorMaterials { get; set; }
+        public HashSet<IFormLinkGetter<IKeywordGetter>> ArmorSlots { get; set; }
 
-        public IReadOnlyList<FormKey> WeaponMaterials { get; set; }
-        public IReadOnlyList<FormKey> WeaponTypes { get; set; }
+        public HashSet<IFormLinkGetter<IKeywordGetter>> WeaponMaterials { get; set; }
+        public HashSet<IFormLinkGetter<IKeywordGetter>> WeaponTypes { get; set; }
 
 
-        public Dictionary<FormKey, Dictionary<FormKey, Dictionary<FormKey, IArmorGetter?>>> BaseArmors;
-        public Dictionary<FormKey, Dictionary<FormKey, IWeaponGetter?>> BaseWeapons;
-        public Dictionary<FormKey, Dictionary<string, Dictionary<FormKey, RecipeTemplate>>> RecipeTemplates = new Dictionary<FormKey, Dictionary<string, Dictionary<FormKey, RecipeTemplate>>>();
+        public Dictionary<IFormLinkGetter<IKeywordGetter>, Dictionary<IFormLinkGetter<IKeywordGetter>, Dictionary<IFormLinkGetter<IKeywordGetter>, IArmorGetter?>>> BaseArmors;
+        public Dictionary<IFormLinkGetter<IKeywordGetter>, Dictionary<IFormLinkGetter<IKeywordGetter>, IWeaponGetter?>> BaseWeapons;
+        public Dictionary<IFormLinkGetter<IKeywordGetter>, Dictionary<string, Dictionary<IFormLinkGetter<IKeywordGetter>, RecipeTemplate>>> RecipeTemplates = new Dictionary<IFormLinkGetter<IKeywordGetter>, Dictionary<string, Dictionary<IFormLinkGetter<IKeywordGetter>, RecipeTemplate>>>();
 
-        public Dictionary<string, FormKey> CraftingSupplies;
-        public Dictionary<string, FormKey> Keywords = new Dictionary<string, FormKey>();
-        public Dictionary<string, FormKey> Perks = new Dictionary<string, FormKey>();
+        public Dictionary<string, IFormLinkGetter<IConstructibleGetter>> CraftingSupplies;
+        public HashSet<IFormLinkGetter<IConstructibleGetter>> CraftingSupplyLookup;
+        public Dictionary<string, IFormLinkGetter<IKeywordGetter>> Keywords = new Dictionary<string, IFormLinkGetter<IKeywordGetter>>();
+        public Dictionary<string, IFormLinkGetter<IPerkGetter>> Perks = new Dictionary<string, IFormLinkGetter<IPerkGetter>>();
 
         public Dictionary<string, Dictionary<string, Dictionary<FormKey, IConstructibleObjectGetter>>> Recipes = new Dictionary<string, Dictionary<string, Dictionary<FormKey, IConstructibleObjectGetter>>>()
         {
@@ -67,7 +68,7 @@ namespace TMOPatcher
         {
             State = state;
 
-            ArmorSlots = new FormKey[]
+            ArmorSlots = new HashSet<IFormLinkGetter<IKeywordGetter>>()
             {
                 Skyrim.Keyword.ArmorBoots,
                 Skyrim.Keyword.ArmorCuirass,
@@ -76,7 +77,7 @@ namespace TMOPatcher
                 Skyrim.Keyword.ArmorShield,
             };
 
-            ArmorMaterials = new FormKey[]
+            ArmorMaterials = new HashSet<IFormLinkGetter<IKeywordGetter>>()
             {
                 Update.Keyword.ArmorMaterialBearStormcloak,
                 Update.Keyword.ArmorMaterialBlades,
@@ -125,7 +126,7 @@ namespace TMOPatcher
                 Dragonborn.Keyword.DLC2ArmorMaterialStalhrimLight,
             };
 
-            WeaponMaterials = new FormKey[]
+            WeaponMaterials = new HashSet<IFormLinkGetter<IKeywordGetter>>()
             {
                 Dawnguard.Keyword.DLC1WeapMaterialDragonbone,
                 Dragonborn.Keyword.DLC2WeaponMaterialNordic,
@@ -147,7 +148,8 @@ namespace TMOPatcher
                 Skyrim.Keyword.WeapMaterialWood,
             };
 
-            WeaponTypes = new FormKey[] {
+            WeaponTypes = new HashSet<IFormLinkGetter<IKeywordGetter>>()
+            {
                 Skyrim.Keyword.WeapTypeBattleaxe,
                 Skyrim.Keyword.WeapTypeBow,
                 Skyrim.Keyword.WeapTypeDagger,
@@ -159,7 +161,7 @@ namespace TMOPatcher
                 Skyrim.Keyword.WeapTypeWarhammer,
             };
 
-            CraftingSupplies = new Dictionary<string, FormKey>()
+            CraftingSupplies = new Dictionary<string, IFormLinkGetter<IConstructibleGetter>>()
             {
                 { nameof(Skyrim.Ingestible.Ale),                  Skyrim.Ingestible.Ale },
                 { nameof(Skyrim.MiscItem.BearCavePelt),           Skyrim.MiscItem.BearCavePelt },
@@ -207,6 +209,7 @@ namespace TMOPatcher
                 { nameof(Skyrim.Weapon.DraugrSwordHoned),         Skyrim.Weapon.DraugrSwordHoned },
                 { nameof(Skyrim.Weapon.DraugrWarAxeHoned),        Skyrim.Weapon.DraugrWarAxeHoned },
             };
+            CraftingSupplyLookup = CraftingSupplies.Values.ToHashSet();
 
             var templates = new List<JObject>();
             var files = Directory.GetFiles(state.ExtraSettingsDataPath);
@@ -222,14 +225,14 @@ namespace TMOPatcher
             {
                 if (kwda.EditorID == null) continue;
 
-                Keywords[kwda.EditorID] = kwda.FormKey;
+                Keywords[kwda.EditorID] = kwda.AsLink();
             }
 
             foreach (var perk in state.LoadOrder.PriorityOrder.WinningOverrides<IPerkGetter>())
             {
                 if (perk.EditorID == null) continue;
 
-                Perks[perk.EditorID] = perk.FormKey;
+                Perks[perk.EditorID] = perk.AsLink();
             }
 
             foreach (var cobj in state.LoadOrder.PriorityOrder.WinningOverrides<IConstructibleObjectGetter>())
@@ -264,7 +267,7 @@ namespace TMOPatcher
 
                 if (material == null) continue;
 
-                var key = new FormKey(material![0]!.ToString(), Convert.ToUInt32(material[1]!.ToString(), 16));
+                var key = new FormKey(material![0]!.ToString(), Convert.ToUInt32(material[1]!.ToString(), 16)).AsLinkGetter<IKeywordGetter>();
 
                 foreach (var slot in template["creation"].EmptyIfNull())
                 {
@@ -282,11 +285,11 @@ namespace TMOPatcher
                 }
             }
 
-            BaseArmors = new Dictionary<FormKey, Dictionary<FormKey, Dictionary<FormKey, IArmorGetter?>>>()
+            BaseArmors = new()
             {
-                [Skyrim.Keyword.ArmorHeavy] = new Dictionary<FormKey, Dictionary<FormKey, IArmorGetter?>>()
+                [Skyrim.Keyword.ArmorHeavy] = new()
                 {
-                    [Update.Keyword.ArmorMaterialBlades] = new Dictionary<FormKey, IArmorGetter?>()
+                    [Update.Keyword.ArmorMaterialBlades] = new()
                     {
                         { Skyrim.Keyword.ArmorBoots,      LookupArmor(Skyrim.Armor.ArmorBladesBoots) },
                         { Skyrim.Keyword.ArmorCuirass,    LookupArmor(Skyrim.Armor.ArmorBladesCuirass) },
@@ -295,7 +298,7 @@ namespace TMOPatcher
                         { Skyrim.Keyword.ArmorShield,     LookupArmor(Skyrim.Armor.ArmorBladesShield) },
                     },
 
-                    [Skyrim.Keyword.ArmorMaterialDaedric] = new Dictionary<FormKey, IArmorGetter?>()
+                    [Skyrim.Keyword.ArmorMaterialDaedric] = new()
                     {
                         { Skyrim.Keyword.ArmorBoots,      LookupArmor(Skyrim.Armor.ArmorDaedricBoots) },
                         { Skyrim.Keyword.ArmorCuirass,    LookupArmor(Skyrim.Armor.ArmorDaedricCuirass) },
@@ -304,7 +307,7 @@ namespace TMOPatcher
                         { Skyrim.Keyword.ArmorShield,     LookupArmor(Skyrim.Armor.ArmorDaedricShield) }
                     },
 
-                    [Skyrim.Keyword.ArmorMaterialDragonplate] = new Dictionary<FormKey, IArmorGetter?>()
+                    [Skyrim.Keyword.ArmorMaterialDragonplate] = new()
                     {
                         { Skyrim.Keyword.ArmorBoots,      LookupArmor(Skyrim.Armor.ArmorDragonplateBoots) },
                         { Skyrim.Keyword.ArmorCuirass,    LookupArmor(Skyrim.Armor.ArmorDragonplateCuirass) },
@@ -313,7 +316,7 @@ namespace TMOPatcher
                         { Skyrim.Keyword.ArmorShield,     LookupArmor(Skyrim.Armor.ArmorDragonplateShield) }
                     },
 
-                    [Skyrim.Keyword.ArmorMaterialDwarven] = new Dictionary<FormKey, IArmorGetter?>()
+                    [Skyrim.Keyword.ArmorMaterialDwarven] = new()
                     {
                         { Skyrim.Keyword.ArmorBoots,      LookupArmor(Skyrim.Armor.ArmorDwarvenBoots) },
                         { Skyrim.Keyword.ArmorCuirass,    LookupArmor(Skyrim.Armor.ArmorDwarvenCuirass) },
@@ -322,7 +325,7 @@ namespace TMOPatcher
                         { Skyrim.Keyword.ArmorShield,     LookupArmor(Skyrim.Armor.ArmorDwarvenShield) }
                     },
 
-                    [Skyrim.Keyword.ArmorMaterialEbony] = new Dictionary<FormKey, IArmorGetter?>()
+                    [Skyrim.Keyword.ArmorMaterialEbony] = new()
                     {
                         { Skyrim.Keyword.ArmorBoots,      LookupArmor(Skyrim.Armor.ArmorEbonyBoots) },
                         { Skyrim.Keyword.ArmorCuirass,    LookupArmor(Skyrim.Armor.ArmorEbonyCuirass) },
@@ -331,7 +334,7 @@ namespace TMOPatcher
                         { Skyrim.Keyword.ArmorShield,     LookupArmor(Skyrim.Armor.ArmorEbonyShield) }
                     },
 
-                    [Update.Keyword.ArmorMaterialFalmer] = new Dictionary<FormKey, IArmorGetter?>()
+                    [Update.Keyword.ArmorMaterialFalmer] = new()
                     {
                         { Skyrim.Keyword.ArmorBoots,      LookupArmor(Skyrim.Armor.ArmorFalmerBoots) },
                         { Skyrim.Keyword.ArmorCuirass,    LookupArmor(Skyrim.Armor.ArmorFalmerCuirass) },
@@ -340,7 +343,7 @@ namespace TMOPatcher
                         { Skyrim.Keyword.ArmorShield,     LookupArmor(Skyrim.Armor.ArmorFalmerShield) }
                     },
 
-                    [Skyrim.Keyword.ArmorMaterialImperialHeavy] = new Dictionary<FormKey, IArmorGetter?>()
+                    [Skyrim.Keyword.ArmorMaterialImperialHeavy] = new()
                     {
                         { Skyrim.Keyword.ArmorBoots,      LookupArmor(Skyrim.Armor.ArmorImperialBoots) },
                         { Skyrim.Keyword.ArmorCuirass,    LookupArmor(Skyrim.Armor.ArmorImperialCuirass) },
@@ -349,7 +352,7 @@ namespace TMOPatcher
                         { Skyrim.Keyword.ArmorShield,     LookupArmor(Skyrim.Armor.ArmorImperialShield) }
                     },
 
-                    [Skyrim.Keyword.ArmorMaterialIron] = new Dictionary<FormKey, IArmorGetter?>()
+                    [Skyrim.Keyword.ArmorMaterialIron] = new()
                     {
                         { Skyrim.Keyword.ArmorBoots,      LookupArmor(Skyrim.Armor.ArmorIronBoots) },
                         { Skyrim.Keyword.ArmorCuirass,    LookupArmor(Skyrim.Armor.ArmorIronCuirass) },
@@ -358,7 +361,7 @@ namespace TMOPatcher
                         { Skyrim.Keyword.ArmorShield,     LookupArmor(Skyrim.Armor.ArmorIronShield) }
                     },
 
-                    [Skyrim.Keyword.ArmorMaterialIronBanded] = new Dictionary<FormKey, IArmorGetter?>()
+                    [Skyrim.Keyword.ArmorMaterialIronBanded] = new()
                     {
                         { Skyrim.Keyword.ArmorBoots,      null                                                 },
                         { Skyrim.Keyword.ArmorCuirass,    LookupArmor(Skyrim.Armor.ArmorIronBandedCuirass) },
@@ -367,7 +370,7 @@ namespace TMOPatcher
                         { Skyrim.Keyword.ArmorShield,     LookupArmor(Skyrim.Armor.ArmorIronBandedShield) }
                     },
 
-                    [Skyrim.Keyword.ArmorMaterialOrcish] = new Dictionary<FormKey, IArmorGetter?>()
+                    [Skyrim.Keyword.ArmorMaterialOrcish] = new()
                     {
                         { Skyrim.Keyword.ArmorBoots,      LookupArmor(Skyrim.Armor.ArmorOrcishBoots) },
                         { Skyrim.Keyword.ArmorCuirass,    LookupArmor(Skyrim.Armor.ArmorOrcishCuirass) },
@@ -376,7 +379,7 @@ namespace TMOPatcher
                         { Skyrim.Keyword.ArmorShield,     LookupArmor(Skyrim.Armor.ArmorOrcishShield) }
                     },
 
-                    [Skyrim.Keyword.ArmorMaterialSteel] = new Dictionary<FormKey, IArmorGetter?>()
+                    [Skyrim.Keyword.ArmorMaterialSteel] = new()
                     {
                         { Skyrim.Keyword.ArmorBoots,      LookupArmor(Skyrim.Armor.ArmorSteelBootsA) },
                         { Skyrim.Keyword.ArmorCuirass,    LookupArmor(Skyrim.Armor.ArmorSteelCuirassA) },
@@ -385,7 +388,7 @@ namespace TMOPatcher
                         { Skyrim.Keyword.ArmorShield,     LookupArmor(Skyrim.Armor.ArmorSteelShield) }
                     },
 
-                    [Skyrim.Keyword.ArmorMaterialSteelPlate] = new Dictionary<FormKey, IArmorGetter?>()
+                    [Skyrim.Keyword.ArmorMaterialSteelPlate] = new()
                     {
                         { Skyrim.Keyword.ArmorBoots,      LookupArmor(Skyrim.Armor.ArmorSteelPlateBoots) },
                         { Skyrim.Keyword.ArmorCuirass,    LookupArmor(Skyrim.Armor.ArmorSteelPlateCuirass) },
@@ -394,7 +397,7 @@ namespace TMOPatcher
                         { Skyrim.Keyword.ArmorShield,     null                                                 }
                     },
 
-                    [Dawnguard.Keyword.DLC1ArmorMaterialDawnguard] = new Dictionary<FormKey, IArmorGetter?>()
+                    [Dawnguard.Keyword.DLC1ArmorMaterialDawnguard] = new()
                     {
                         { Skyrim.Keyword.ArmorBoots,      LookupArmor(Dawnguard.Armor.DLC1ArmorDawnguardBootsHeavy) },
                         { Skyrim.Keyword.ArmorCuirass,    LookupArmor(Dawnguard.Armor.DLC1ArmorDawnguardCuirassHeavy1) },
@@ -403,7 +406,7 @@ namespace TMOPatcher
                         { Skyrim.Keyword.ArmorShield,     LookupArmor(Dawnguard.Armor.DLC1ArmorDawnguardShield) }
                     },
 
-                    [Dawnguard.Keyword.DLC1ArmorMaterialFalmerHardened] = new Dictionary<FormKey, IArmorGetter?>()
+                    [Dawnguard.Keyword.DLC1ArmorMaterialFalmerHardened] = new()
                     {
                         { Skyrim.Keyword.ArmorBoots,      LookupArmor(Dawnguard.Armor.DLC1ArmorFalmerHardenedBoots) },
                         { Skyrim.Keyword.ArmorCuirass,    LookupArmor(Dawnguard.Armor.DLC1ArmorFalmerHardenedCuirass) },
@@ -412,7 +415,7 @@ namespace TMOPatcher
                         { Skyrim.Keyword.ArmorShield,     null }
                     },
 
-                    [Dawnguard.Keyword.DLC1ArmorMaterialHunter] = new Dictionary<FormKey, IArmorGetter?>()
+                    [Dawnguard.Keyword.DLC1ArmorMaterialHunter] = new()
                     {
                         { Skyrim.Keyword.ArmorBoots,      LookupArmor(Dawnguard.Armor.DLC1ArmorHunterBoots) },
                         { Skyrim.Keyword.ArmorCuirass,    LookupArmor(Dawnguard.Armor.DLC1ArmorHunterCuirass) },
@@ -421,7 +424,7 @@ namespace TMOPatcher
                         { Skyrim.Keyword.ArmorShield,     null }
                     },
 
-                    [Dawnguard.Keyword.DLC1ArmorMaterielFalmerHeavy] = new Dictionary<FormKey, IArmorGetter?>()
+                    [Dawnguard.Keyword.DLC1ArmorMaterielFalmerHeavy] = new()
                     {
                         { Skyrim.Keyword.ArmorBoots,      LookupArmor(Dawnguard.Armor.DLC1ArmorFalmerHeavyBoots) },
                         { Skyrim.Keyword.ArmorCuirass,    LookupArmor(Dawnguard.Armor.DLC1ArmorFalmerHeavyCuirass) },
@@ -430,7 +433,7 @@ namespace TMOPatcher
                         { Skyrim.Keyword.ArmorShield,     null                                                 }
                     },
 
-                    [Dragonborn.Keyword.DLC2ArmorMaterialBonemoldHeavy] = new Dictionary<FormKey, IArmorGetter?>()
+                    [Dragonborn.Keyword.DLC2ArmorMaterialBonemoldHeavy] = new()
                     {
                         { Skyrim.Keyword.ArmorBoots,      LookupArmor(Dragonborn.Armor.DLC2ArmorBonemoldBoots) },
                         { Skyrim.Keyword.ArmorCuirass,    LookupArmor(Dragonborn.Armor.DLC2ArmorBonemoldCuirassVariant02) },
@@ -439,7 +442,7 @@ namespace TMOPatcher
                         { Skyrim.Keyword.ArmorShield,     LookupArmor(Dragonborn.Armor.DLC2ArmorBonemoldShield) }
                     },
 
-                    [Dragonborn.Keyword.DLC2ArmorMaterialChitinHeavy] = new Dictionary<FormKey, IArmorGetter?>()
+                    [Dragonborn.Keyword.DLC2ArmorMaterialChitinHeavy] = new()
                     {
                         { Skyrim.Keyword.ArmorBoots,      LookupArmor(Dragonborn.Armor.DLC2ArmorChitinHeavyBoots) },
                         { Skyrim.Keyword.ArmorCuirass,    LookupArmor(Dragonborn.Armor.DLC2ArmorChitinHeavyCuirass) },
@@ -448,7 +451,7 @@ namespace TMOPatcher
                         { Skyrim.Keyword.ArmorShield,     null                                                 }
                     },
 
-                    [Dragonborn.Keyword.DLC2ArmorMaterialNordicHeavy] = new Dictionary<FormKey, IArmorGetter?>()
+                    [Dragonborn.Keyword.DLC2ArmorMaterialNordicHeavy] = new()
                     {
                         { Skyrim.Keyword.ArmorBoots,      LookupArmor(Dragonborn.Armor.DLC2ArmorNordicHeavyBoots) },
                         { Skyrim.Keyword.ArmorCuirass,    LookupArmor(Dragonborn.Armor.DLC2ArmorNordicHeavyCuirass) },
@@ -457,7 +460,7 @@ namespace TMOPatcher
                         { Skyrim.Keyword.ArmorShield,     LookupArmor(Dragonborn.Armor.DLC2ArmorNordicShield) }
                     },
 
-                    [Dragonborn.Keyword.DLC2ArmorMaterialStalhrimHeavy] = new Dictionary<FormKey, IArmorGetter?>()
+                    [Dragonborn.Keyword.DLC2ArmorMaterialStalhrimHeavy] = new()
                     {
                         { Skyrim.Keyword.ArmorBoots,      LookupArmor(Dragonborn.Armor.DLC2ArmorStalhrimHeavyBoots) },
                         { Skyrim.Keyword.ArmorCuirass,    LookupArmor(Dragonborn.Armor.DLC2ArmorStalhrimHeavyCuirass) },
@@ -467,9 +470,9 @@ namespace TMOPatcher
                     }
                 },
 
-                [Skyrim.Keyword.ArmorLight] = new Dictionary<FormKey, Dictionary<FormKey, IArmorGetter?>>()
+                [Skyrim.Keyword.ArmorLight] = new()
                 {
-                    [Update.Keyword.ArmorMaterialBearStormcloak] = new Dictionary<FormKey, IArmorGetter?>()
+                    [Update.Keyword.ArmorMaterialBearStormcloak] = new()
                     {
                         { Skyrim.Keyword.ArmorBoots,      LookupArmor(Skyrim.Armor.ArmorStormcloakBearBoots) },
                         { Skyrim.Keyword.ArmorCuirass,    LookupArmor(Skyrim.Armor.ArmorStormcloakBearCuirass) },
@@ -478,7 +481,7 @@ namespace TMOPatcher
                         { Skyrim.Keyword.ArmorShield,     null                                                 }
                     },
 
-                    [Skyrim.Keyword.ArmorMaterialDragonscale] = new Dictionary<FormKey, IArmorGetter?>()
+                    [Skyrim.Keyword.ArmorMaterialDragonscale] = new()
                     {
                         { Skyrim.Keyword.ArmorBoots,      LookupArmor(Skyrim.Armor.ArmorDragonscaleBoots) },
                         { Skyrim.Keyword.ArmorCuirass,    LookupArmor(Skyrim.Armor.ArmorDragonscaleCuirass) },
@@ -487,7 +490,7 @@ namespace TMOPatcher
                         { Skyrim.Keyword.ArmorShield,     LookupArmor(Skyrim.Armor.ArmorDragonscaleShield) }
                     },
 
-                    [Skyrim.Keyword.ArmorMaterialElven] = new Dictionary<FormKey, IArmorGetter?>()
+                    [Skyrim.Keyword.ArmorMaterialElven] = new()
                     {
                         { Skyrim.Keyword.ArmorBoots,      LookupArmor(Skyrim.Armor.ArmorElvenBoots) },
                         { Skyrim.Keyword.ArmorCuirass,    LookupArmor(Skyrim.Armor.ArmorElvenCuirass) },
@@ -496,7 +499,7 @@ namespace TMOPatcher
                         { Skyrim.Keyword.ArmorShield,     LookupArmor(Skyrim.Armor.ArmorElvenShield) }
                     },
 
-                    [Skyrim.Keyword.ArmorMaterialElvenGilded] = new Dictionary<FormKey, IArmorGetter?>()
+                    [Skyrim.Keyword.ArmorMaterialElvenGilded] = new()
                     {
                         { Skyrim.Keyword.ArmorBoots,      null },
                         { Skyrim.Keyword.ArmorCuirass,    LookupArmor(Skyrim.Armor.ArmorElvenGildedCuirass) },
@@ -505,7 +508,7 @@ namespace TMOPatcher
                         { Skyrim.Keyword.ArmorShield,     null }
                     },
 
-                    [Update.Keyword.ArmorMaterialForsworn] = new Dictionary<FormKey, IArmorGetter?>()
+                    [Update.Keyword.ArmorMaterialForsworn] = new()
                     {
                         { Skyrim.Keyword.ArmorBoots,      LookupArmor(Skyrim.Armor.ForswornBoots) },
                         { Skyrim.Keyword.ArmorCuirass,    LookupArmor(Skyrim.Armor.ForswornCuirass) },
@@ -514,7 +517,7 @@ namespace TMOPatcher
                         { Skyrim.Keyword.ArmorShield,     null                                                 }
                     },
 
-                    [Update.Keyword.ArmorMaterialMS02Forsworn] = new Dictionary<FormKey, IArmorGetter?>()
+                    [Update.Keyword.ArmorMaterialMS02Forsworn] = new()
                     {
                         { Skyrim.Keyword.ArmorBoots,      LookupArmor(Skyrim.Armor.MS02ForswornBoots) },
                         { Skyrim.Keyword.ArmorCuirass,    LookupArmor(Skyrim.Armor.MS02ForswornArmor) },
@@ -523,7 +526,7 @@ namespace TMOPatcher
                         { Skyrim.Keyword.ArmorShield,     null                                                 }
                     },
 
-                    [Skyrim.Keyword.ArmorMaterialGlass] = new Dictionary<FormKey, IArmorGetter?>()
+                    [Skyrim.Keyword.ArmorMaterialGlass] = new()
                     {
                         { Skyrim.Keyword.ArmorBoots,      LookupArmor(Skyrim.Armor.ArmorGlassBoots) },
                         { Skyrim.Keyword.ArmorCuirass,    LookupArmor(Skyrim.Armor.ArmorGlassCuirass) },
@@ -532,7 +535,7 @@ namespace TMOPatcher
                         { Skyrim.Keyword.ArmorShield,     LookupArmor(Skyrim.Armor.ArmorGlassShield) }
                     },
 
-                    [Skyrim.Keyword.ArmorMaterialHide] = new Dictionary<FormKey, IArmorGetter?>()
+                    [Skyrim.Keyword.ArmorMaterialHide] = new()
                     {
                         { Skyrim.Keyword.ArmorBoots,      LookupArmor(Skyrim.Armor.ArmorHideBoots) },
                         { Skyrim.Keyword.ArmorCuirass,    LookupArmor(Skyrim.Armor.ArmorHideCuirass) },
@@ -541,7 +544,7 @@ namespace TMOPatcher
                         { Skyrim.Keyword.ArmorShield,     LookupArmor(Skyrim.Armor.ArmorHideShield) }
                     },
 
-                    [Skyrim.Keyword.ArmorMaterialImperialLight] = new Dictionary<FormKey, IArmorGetter?>()
+                    [Skyrim.Keyword.ArmorMaterialImperialLight] = new()
                     {
                         { Skyrim.Keyword.ArmorBoots,      LookupArmor(Skyrim.Armor.ArmorImperialLightBoots) },
                         { Skyrim.Keyword.ArmorCuirass,    LookupArmor(Skyrim.Armor.ArmorImperialLightCuirass) },
@@ -550,7 +553,7 @@ namespace TMOPatcher
                         { Skyrim.Keyword.ArmorShield,     LookupArmor(Skyrim.Armor.ArmorImperialLightShield) }
                     },
 
-                    [Skyrim.Keyword.ArmorMaterialImperialStudded] = new Dictionary<FormKey, IArmorGetter?>()
+                    [Skyrim.Keyword.ArmorMaterialImperialStudded] = new()
                     {
                         { Skyrim.Keyword.ArmorBoots,      null },
                         { Skyrim.Keyword.ArmorCuirass,    LookupArmor(Skyrim.Armor.ArmorImperialStuddedCuirass) },
@@ -559,7 +562,7 @@ namespace TMOPatcher
                         { Skyrim.Keyword.ArmorShield,     null }
                     },
 
-                    [Skyrim.Keyword.ArmorMaterialLeather] = new Dictionary<FormKey, IArmorGetter?>()
+                    [Skyrim.Keyword.ArmorMaterialLeather] = new()
                     {
                         { Skyrim.Keyword.ArmorBoots,      LookupArmor(Skyrim.Armor.ArmorLeatherBoots) },
                         { Skyrim.Keyword.ArmorCuirass,    LookupArmor(Skyrim.Armor.ArmorLeatherCuirass) },
@@ -568,7 +571,7 @@ namespace TMOPatcher
                         { Skyrim.Keyword.ArmorShield,     null }
                     },
 
-                    [Update.Keyword.ArmorMaterialPenitus] = new Dictionary<FormKey, IArmorGetter?>()
+                    [Update.Keyword.ArmorMaterialPenitus] = new()
                     {
                         { Skyrim.Keyword.ArmorBoots,      LookupArmor(Skyrim.Armor.ArmorPenitusBoots) },
                         { Skyrim.Keyword.ArmorCuirass,    LookupArmor(Skyrim.Armor.ArmorPenitusCuirass) },
@@ -577,7 +580,7 @@ namespace TMOPatcher
                         { Skyrim.Keyword.ArmorShield,     null }
                     },
 
-                    [Skyrim.Keyword.ArmorMaterialScaled] = new Dictionary<FormKey, IArmorGetter?>()
+                    [Skyrim.Keyword.ArmorMaterialScaled] = new()
                     {
                         { Skyrim.Keyword.ArmorBoots,      LookupArmor(Skyrim.Armor.ArmorScaledBoots) },
                         { Skyrim.Keyword.ArmorCuirass,    LookupArmor(Skyrim.Armor.ArmorScaledCuirass) },
@@ -586,7 +589,7 @@ namespace TMOPatcher
                         { Skyrim.Keyword.ArmorShield,     null }
                     },
 
-                    [Skyrim.Keyword.ArmorMaterialStormcloak] = new Dictionary<FormKey, IArmorGetter?>()
+                    [Skyrim.Keyword.ArmorMaterialStormcloak] = new()
                     {
                         { Skyrim.Keyword.ArmorBoots,      LookupArmor(Skyrim.Armor.ArmorStormcloakBoots) },
                         { Skyrim.Keyword.ArmorCuirass,    LookupArmor(Skyrim.Armor.ArmorStormcloakCuirass) },
@@ -595,7 +598,7 @@ namespace TMOPatcher
                         { Skyrim.Keyword.ArmorShield,     null }
                     },
 
-                    [Skyrim.Keyword.ArmorMaterialStudded] = new Dictionary<FormKey, IArmorGetter?>()
+                    [Skyrim.Keyword.ArmorMaterialStudded] = new()
                     {
                         { Skyrim.Keyword.ArmorBoots,      null },
                         { Skyrim.Keyword.ArmorCuirass,    LookupArmor(Skyrim.Armor.ArmorStuddedCuirass) },
@@ -604,7 +607,7 @@ namespace TMOPatcher
                         { Skyrim.Keyword.ArmorShield,     null }
                     },
 
-                    [Update.Keyword.ArmorMaterialThievesGuild] = new Dictionary<FormKey, IArmorGetter?>()
+                    [Update.Keyword.ArmorMaterialThievesGuild] = new()
                     {
                         { Skyrim.Keyword.ArmorBoots,      LookupArmor(Skyrim.Armor.ArmorThievesGuildBootsPlayer) },
                         { Skyrim.Keyword.ArmorCuirass,    LookupArmor(Skyrim.Armor.ArmorThievesGuildCuirassPlayer) },
@@ -613,7 +616,7 @@ namespace TMOPatcher
                         { Skyrim.Keyword.ArmorShield,     null }
                     },
 
-                    [Update.Keyword.ArmorMaterialThievesGuildLeader] = new Dictionary<FormKey, IArmorGetter?>()
+                    [Update.Keyword.ArmorMaterialThievesGuildLeader] = new()
                     {
                         { Skyrim.Keyword.ArmorBoots,      LookupArmor(Skyrim.Armor.ArmorThievesGuildLeaderBoots) },
                         { Skyrim.Keyword.ArmorCuirass,    LookupArmor(Skyrim.Armor.ArmorThievesGuildLeaderCuirass) },
@@ -622,7 +625,7 @@ namespace TMOPatcher
                         { Skyrim.Keyword.ArmorShield,     null }
                     },
 
-                    [Skyrim.Keyword.ArmorNightingale] = new Dictionary<FormKey, IArmorGetter?>()
+                    [Skyrim.Keyword.ArmorNightingale] = new()
                     {
                         { Skyrim.Keyword.ArmorBoots,      LookupArmor(Skyrim.Armor.ArmorNightingaleBoots) },
                         { Skyrim.Keyword.ArmorCuirass,    LookupArmor(Skyrim.Armor.ArmorNightingaleCuirass) },
@@ -631,7 +634,7 @@ namespace TMOPatcher
                         { Skyrim.Keyword.ArmorShield,     null }
                     },
 
-                    [Dawnguard.Keyword.DLC1ArmorMaterialDawnguard] = new Dictionary<FormKey, IArmorGetter?>()
+                    [Dawnguard.Keyword.DLC1ArmorMaterialDawnguard] = new()
                     {
                         { Skyrim.Keyword.ArmorBoots,      LookupArmor(Dawnguard.Armor.DLC1ArmorDawnguardBootsLight) },
                         { Skyrim.Keyword.ArmorCuirass,    LookupArmor(Dawnguard.Armor.DLC1ArmorDawnguardCuirassLight1) },
@@ -640,7 +643,7 @@ namespace TMOPatcher
                         { Skyrim.Keyword.ArmorShield,     LookupArmor(Dawnguard.Armor.DLC1DawnguardRuneShield) }
                     },
 
-                    [Dawnguard.Keyword.DLC1ArmorMaterialVampire] = new Dictionary<FormKey, IArmorGetter?>()
+                    [Dawnguard.Keyword.DLC1ArmorMaterialVampire] = new()
                     {
                         { Skyrim.Keyword.ArmorBoots,      LookupArmor(Dawnguard.Armor.DLC1ArmorVampireBoots) },
                         { Skyrim.Keyword.ArmorCuirass,    LookupArmor(Dawnguard.Armor.DLC1ArmorVampireArmorGray)  },
@@ -650,7 +653,7 @@ namespace TMOPatcher
                     },
 
                     // Yes... this is really light armor.  WTF Bethesda 
-                    [Dawnguard.Keyword.DLC1ArmorMaterielFalmerHeavyOriginal] = new Dictionary<FormKey, IArmorGetter?>()
+                    [Dawnguard.Keyword.DLC1ArmorMaterielFalmerHeavyOriginal] = new()
                     {
                         { Skyrim.Keyword.ArmorBoots,      LookupArmor(Skyrim.Armor.ArmorFalmerBoots) },
                         { Skyrim.Keyword.ArmorCuirass,    LookupArmor(Skyrim.Armor.ArmorFalmerCuirass) },
@@ -659,7 +662,7 @@ namespace TMOPatcher
                         { Skyrim.Keyword.ArmorShield,     null                                                 }
                     },
 
-                    [Dragonborn.Keyword.DLC2ArmorMaterialBonemoldLight] = new Dictionary<FormKey, IArmorGetter?>()
+                    [Dragonborn.Keyword.DLC2ArmorMaterialBonemoldLight] = new()
                     {
                         { Skyrim.Keyword.ArmorBoots,      null                                                 },
                         { Skyrim.Keyword.ArmorCuirass,    null                                                 },
@@ -668,7 +671,7 @@ namespace TMOPatcher
                         { Skyrim.Keyword.ArmorShield,     null                                                 }
                     },
 
-                    [Dragonborn.Keyword.DLC2ArmorMaterialChitinLight] = new Dictionary<FormKey, IArmorGetter?>()
+                    [Dragonborn.Keyword.DLC2ArmorMaterialChitinLight] = new()
                     {
                         { Skyrim.Keyword.ArmorBoots,      LookupArmor(Dragonborn.Armor.DLC2ArmorChitinLightBoots) },
                         { Skyrim.Keyword.ArmorCuirass,    LookupArmor(Dragonborn.Armor.DLC2ArmorChitinLightCuirass) },
@@ -677,7 +680,7 @@ namespace TMOPatcher
                         { Skyrim.Keyword.ArmorShield,     LookupArmor(Dragonborn.Armor.DLC2ArmorChitinShield) }
                     },
 
-                    [Dragonborn.Keyword.DLC2ArmorMaterialMoragTong] = new Dictionary<FormKey, IArmorGetter?>()
+                    [Dragonborn.Keyword.DLC2ArmorMaterialMoragTong] = new()
                     {
                         { Skyrim.Keyword.ArmorBoots,      LookupArmor(Dragonborn.Armor.DLC2MoragTongBoots) },
                         { Skyrim.Keyword.ArmorCuirass,    LookupArmor(Dragonborn.Armor.DLC2MoragTongCuirass) },
@@ -686,7 +689,7 @@ namespace TMOPatcher
                         { Skyrim.Keyword.ArmorShield,     null }
                     },
 
-                    [Dragonborn.Keyword.DLC2ArmorMaterialStalhrimLight] = new Dictionary<FormKey, IArmorGetter?>()
+                    [Dragonborn.Keyword.DLC2ArmorMaterialStalhrimLight] = new()
                     {
                         { Skyrim.Keyword.ArmorBoots,      LookupArmor(Dragonborn.Armor.DLC2ArmorStalhrimLightBoots) },
                         { Skyrim.Keyword.ArmorCuirass,    LookupArmor(Dragonborn.Armor.DLC2ArmorStalhrimLightCuirass) },
@@ -697,9 +700,9 @@ namespace TMOPatcher
                 }
             };
 
-            BaseWeapons = new Dictionary<FormKey, Dictionary<FormKey, IWeaponGetter?>>()
+            BaseWeapons = new Dictionary<IFormLinkGetter<IKeywordGetter>, Dictionary<IFormLinkGetter<IKeywordGetter>, IWeaponGetter?>>()
             {
-                [Dawnguard.Keyword.DLC1WeapMaterialDragonbone] = new Dictionary<FormKey, IWeaponGetter?>()
+                [Dawnguard.Keyword.DLC1WeapMaterialDragonbone] = new Dictionary<IFormLinkGetter<IKeywordGetter>, IWeaponGetter?>()
                 {
                     { Skyrim.Keyword.WeapTypeBattleaxe,  LookupWeapon(Dawnguard.Weapon.DLC1DragonboneBattleaxe) },
                     { Skyrim.Keyword.WeapTypeDagger,     LookupWeapon(Dawnguard.Weapon.DLC1DragonboneDagger) },
@@ -710,7 +713,7 @@ namespace TMOPatcher
                     { Skyrim.Keyword.WeapTypeWarhammer,  LookupWeapon(Dawnguard.Weapon.DLC1DragonboneWarhammer) }
                 },
 
-                [Dragonborn.Keyword.DLC2WeaponMaterialNordic] = new Dictionary<FormKey, IWeaponGetter?>()
+                [Dragonborn.Keyword.DLC2WeaponMaterialNordic] = new Dictionary<IFormLinkGetter<IKeywordGetter>, IWeaponGetter?>()
                 {
                     { Skyrim.Keyword.WeapTypeBattleaxe,  LookupWeapon(Dragonborn.Weapon.DLC2NordicBattleaxe) },
                     { Skyrim.Keyword.WeapTypeDagger,     LookupWeapon(Dragonborn.Weapon.DLC2NordicDagger) },
@@ -721,7 +724,7 @@ namespace TMOPatcher
                     { Skyrim.Keyword.WeapTypeWarhammer,  LookupWeapon(Dragonborn.Weapon.DLC2NordicWarhammer) }
                 },
 
-                [Dragonborn.Keyword.DLC2WeaponMaterialStalhrim] = new Dictionary<FormKey, IWeaponGetter?>()
+                [Dragonborn.Keyword.DLC2WeaponMaterialStalhrim] = new Dictionary<IFormLinkGetter<IKeywordGetter>, IWeaponGetter?>()
                 {
                     { Skyrim.Keyword.WeapTypeBattleaxe,  LookupWeapon(Dragonborn.Weapon.DLC2StalhrimBattleaxe) },
                     { Skyrim.Keyword.WeapTypeDagger,     LookupWeapon(Dragonborn.Weapon.DLC2StalhrimDagger) },
@@ -732,7 +735,7 @@ namespace TMOPatcher
                     { Skyrim.Keyword.WeapTypeWarhammer,  LookupWeapon(Dragonborn.Weapon.DLC2StalhrimWarhammer) }
                 },
 
-                [Skyrim.Keyword.WeapMaterialDaedric] = new Dictionary<FormKey, IWeaponGetter?>()
+                [Skyrim.Keyword.WeapMaterialDaedric] = new Dictionary<IFormLinkGetter<IKeywordGetter>, IWeaponGetter?>()
                 {
                     { Skyrim.Keyword.WeapTypeBattleaxe,  LookupWeapon(Skyrim.Weapon.DaedricBattleaxe) },
                     { Skyrim.Keyword.WeapTypeDagger,     LookupWeapon(Skyrim.Weapon.DaedricDagger) },
@@ -743,7 +746,7 @@ namespace TMOPatcher
                     { Skyrim.Keyword.WeapTypeWarhammer,  LookupWeapon(Skyrim.Weapon.DaedricWarhammer) }
                 },
 
-                [Skyrim.Keyword.WeapMaterialDraugr] = new Dictionary<FormKey, IWeaponGetter?>()
+                [Skyrim.Keyword.WeapMaterialDraugr] = new Dictionary<IFormLinkGetter<IKeywordGetter>, IWeaponGetter?>()
                 {
                     { Skyrim.Keyword.WeapTypeBattleaxe,  LookupWeapon(Skyrim.Weapon.DraugrBattleAxe) },
                     { Skyrim.Keyword.WeapTypeDagger,     null },
@@ -754,7 +757,7 @@ namespace TMOPatcher
                     { Skyrim.Keyword.WeapTypeWarhammer,  null }
                 },
 
-                [Skyrim.Keyword.WeapMaterialDraugrHoned] = new Dictionary<FormKey, IWeaponGetter?>()
+                [Skyrim.Keyword.WeapMaterialDraugrHoned] = new Dictionary<IFormLinkGetter<IKeywordGetter>, IWeaponGetter?>()
                 {
                     { Skyrim.Keyword.WeapTypeBattleaxe,  LookupWeapon(Skyrim.Weapon.DraugrBattleAxeHoned) },
                     { Skyrim.Keyword.WeapTypeDagger,     null },
@@ -765,7 +768,7 @@ namespace TMOPatcher
                     { Skyrim.Keyword.WeapTypeWarhammer,  null }
                 },
 
-                [Skyrim.Keyword.WeapMaterialDwarven] = new Dictionary<FormKey, IWeaponGetter?>()
+                [Skyrim.Keyword.WeapMaterialDwarven] = new Dictionary<IFormLinkGetter<IKeywordGetter>, IWeaponGetter?>()
                 {
                     { Skyrim.Keyword.WeapTypeBattleaxe,  LookupWeapon(Skyrim.Weapon.DwarvenBattleaxe) },
                     { Skyrim.Keyword.WeapTypeDagger,     LookupWeapon(Skyrim.Weapon.DwarvenDagger) },
@@ -776,7 +779,7 @@ namespace TMOPatcher
                     { Skyrim.Keyword.WeapTypeWarhammer,  LookupWeapon(Skyrim.Weapon.DwarvenWarhammer) }
                 },
 
-                [Skyrim.Keyword.WeapMaterialEbony] = new Dictionary<FormKey, IWeaponGetter?>()
+                [Skyrim.Keyword.WeapMaterialEbony] = new Dictionary<IFormLinkGetter<IKeywordGetter>, IWeaponGetter?>()
                 {
                     { Skyrim.Keyword.WeapTypeBattleaxe,  LookupWeapon(Skyrim.Weapon.EbonyBattleaxe) },
                     { Skyrim.Keyword.WeapTypeDagger,     LookupWeapon(Skyrim.Weapon.EbonyDagger) },
@@ -787,7 +790,7 @@ namespace TMOPatcher
                     { Skyrim.Keyword.WeapTypeWarhammer,  LookupWeapon(Skyrim.Weapon.EbonyWarhammer) }
                 },
 
-                [Skyrim.Keyword.WeapMaterialElven] = new Dictionary<FormKey, IWeaponGetter?>()
+                [Skyrim.Keyword.WeapMaterialElven] = new Dictionary<IFormLinkGetter<IKeywordGetter>, IWeaponGetter?>()
                 {
                     { Skyrim.Keyword.WeapTypeBattleaxe,  LookupWeapon(Skyrim.Weapon.ElvenBattleaxe) },
                     { Skyrim.Keyword.WeapTypeDagger,     LookupWeapon(Skyrim.Weapon.ElvenDagger) },
@@ -798,7 +801,7 @@ namespace TMOPatcher
                     { Skyrim.Keyword.WeapTypeWarhammer,  LookupWeapon(Skyrim.Weapon.ElvenWarhammer) }
                 },
 
-                [Skyrim.Keyword.WeapMaterialFalmer] = new Dictionary<FormKey, IWeaponGetter?>()
+                [Skyrim.Keyword.WeapMaterialFalmer] = new Dictionary<IFormLinkGetter<IKeywordGetter>, IWeaponGetter?>()
                 {
                     { Skyrim.Keyword.WeapTypeBattleaxe,  null },
                     { Skyrim.Keyword.WeapTypeDagger,     null },
@@ -809,7 +812,7 @@ namespace TMOPatcher
                     { Skyrim.Keyword.WeapTypeWarhammer,  null }
                 },
 
-                [Skyrim.Keyword.WeapMaterialFalmerHoned] = new Dictionary<FormKey, IWeaponGetter?>()
+                [Skyrim.Keyword.WeapMaterialFalmerHoned] = new Dictionary<IFormLinkGetter<IKeywordGetter>, IWeaponGetter?>()
                 {
                     { Skyrim.Keyword.WeapTypeBattleaxe,  null },
                     { Skyrim.Keyword.WeapTypeDagger,     null },
@@ -820,7 +823,7 @@ namespace TMOPatcher
                     { Skyrim.Keyword.WeapTypeWarhammer,  null }
                 },
 
-                [Skyrim.Keyword.WeapMaterialGlass] = new Dictionary<FormKey, IWeaponGetter?>()
+                [Skyrim.Keyword.WeapMaterialGlass] = new Dictionary<IFormLinkGetter<IKeywordGetter>, IWeaponGetter?>()
                 {
                     { Skyrim.Keyword.WeapTypeBattleaxe,  LookupWeapon(Skyrim.Weapon.GlassBattleaxe) },
                     { Skyrim.Keyword.WeapTypeDagger,     LookupWeapon(Skyrim.Weapon.GlassDagger) },
@@ -831,7 +834,7 @@ namespace TMOPatcher
                     { Skyrim.Keyword.WeapTypeWarhammer,  LookupWeapon(Skyrim.Weapon.GlassWarhammer) }
                 },
 
-                [Skyrim.Keyword.WeapMaterialImperial] = new Dictionary<FormKey, IWeaponGetter?>()
+                [Skyrim.Keyword.WeapMaterialImperial] = new Dictionary<IFormLinkGetter<IKeywordGetter>, IWeaponGetter?>()
                 {
                     { Skyrim.Keyword.WeapTypeBattleaxe,  null },
                     { Skyrim.Keyword.WeapTypeDagger,     null },
@@ -842,7 +845,7 @@ namespace TMOPatcher
                     { Skyrim.Keyword.WeapTypeWarhammer,  null }
                 },
 
-                [Skyrim.Keyword.WeapMaterialIron] = new Dictionary<FormKey, IWeaponGetter?>()
+                [Skyrim.Keyword.WeapMaterialIron] = new Dictionary<IFormLinkGetter<IKeywordGetter>, IWeaponGetter?>()
                 {
                     { Skyrim.Keyword.WeapTypeBattleaxe,  LookupWeapon(Skyrim.Weapon.IronBattleaxe) },
                     { Skyrim.Keyword.WeapTypeDagger,     LookupWeapon(Skyrim.Weapon.IronDagger) },
@@ -853,7 +856,7 @@ namespace TMOPatcher
                     { Skyrim.Keyword.WeapTypeWarhammer,  LookupWeapon(Skyrim.Weapon.IronWarhammer) }
                 },
 
-                [Skyrim.Keyword.WeapMaterialOrcish] = new Dictionary<FormKey, IWeaponGetter?>()
+                [Skyrim.Keyword.WeapMaterialOrcish] = new Dictionary<IFormLinkGetter<IKeywordGetter>, IWeaponGetter?>()
                 {
                     { Skyrim.Keyword.WeapTypeBattleaxe,  LookupWeapon(Skyrim.Weapon.OrcishBattleaxe) },
                     { Skyrim.Keyword.WeapTypeDagger,     LookupWeapon(Skyrim.Weapon.OrcishDagger) },
@@ -864,7 +867,7 @@ namespace TMOPatcher
                     { Skyrim.Keyword.WeapTypeWarhammer,  LookupWeapon(Skyrim.Weapon.OrcishWarhammer) }
                 },
 
-                [Skyrim.Keyword.WeapMaterialSilver] = new Dictionary<FormKey, IWeaponGetter?>()
+                [Skyrim.Keyword.WeapMaterialSilver] = new Dictionary<IFormLinkGetter<IKeywordGetter>, IWeaponGetter?>()
                 {
                     { Skyrim.Keyword.WeapTypeBattleaxe,  null },
                     { Skyrim.Keyword.WeapTypeDagger,     null },
@@ -875,7 +878,7 @@ namespace TMOPatcher
                     { Skyrim.Keyword.WeapTypeWarhammer,  null }
                 },
 
-                [Skyrim.Keyword.WeapMaterialSteel] = new Dictionary<FormKey, IWeaponGetter?>()
+                [Skyrim.Keyword.WeapMaterialSteel] = new Dictionary<IFormLinkGetter<IKeywordGetter>, IWeaponGetter?>()
                 {
                     { Skyrim.Keyword.WeapTypeBattleaxe,  LookupWeapon(Skyrim.Weapon.SteelBattleaxe) },
                     { Skyrim.Keyword.WeapTypeDagger,     LookupWeapon(Skyrim.Weapon.SteelDagger) },
@@ -886,7 +889,7 @@ namespace TMOPatcher
                     { Skyrim.Keyword.WeapTypeWarhammer,  LookupWeapon(Skyrim.Weapon.SteelWarhammer) }
                 },
 
-                [Skyrim.Keyword.WeapMaterialWood] = new Dictionary<FormKey, IWeaponGetter?>()
+                [Skyrim.Keyword.WeapMaterialWood] = new Dictionary<IFormLinkGetter<IKeywordGetter>, IWeaponGetter?>()
                 {
                     { Skyrim.Keyword.WeapTypeBattleaxe,  null },
                     { Skyrim.Keyword.WeapTypeDagger,     null },
@@ -899,7 +902,7 @@ namespace TMOPatcher
             };
         }
 
-        private void ParseSlot(JToken slot, FormKey key, string type)
+        private void ParseSlot(JToken slot, IFormLinkGetter<IKeywordGetter> key, string type)
         {
             var recipeTemplate = new RecipeTemplate()
             {
@@ -909,7 +912,7 @@ namespace TMOPatcher
             if (!slot["perk"]!.ToString().IsNullOrWhitespace() && slot["perk"]!.ToString() != "null")
             {
                 var a = slot["perk"];
-                recipeTemplate.Perk = Perks[a!.ToString()];
+                recipeTemplate.Perk = Perks[a!.ToString()].AsNullable();
             }
 
             foreach (var item in slot["items"]!.ToArray())
@@ -944,7 +947,7 @@ namespace TMOPatcher
 
         private bool IsBreakdownRecipe(IConstructibleObjectGetter cobj, IMajorRecordCommonGetter record)
         {
-            if (cobj.WorkbenchKeyword.FormKey != Skyrim.Keyword.CraftingSmelter && cobj.WorkbenchKeyword != Skyrim.Keyword.CraftingTanningRack) return false;
+            if (!cobj.WorkbenchKeyword.Equals(Skyrim.Keyword.CraftingSmelter) && !cobj.WorkbenchKeyword.Equals(Skyrim.Keyword.CraftingTanningRack)) return false;
 
             if (cobj.Items == null) return false;
 
@@ -954,12 +957,12 @@ namespace TMOPatcher
 
             if (cobj.CreatedObject.IsNull) return false;
 
-            return CraftingSupplies.ContainsValue((FormKey)cobj.CreatedObject.FormKey);
+            return CraftingSupplies.ContainsValue(cobj.CreatedObject);
         }
 
         private bool IsCraftingRecipe(IConstructibleObjectGetter cobj, IMajorRecordCommonGetter record)
         {
-            if (cobj.WorkbenchKeyword.FormKey != Skyrim.Keyword.CraftingSmithingForge && cobj.WorkbenchKeyword.FormKey != Skyrim.Keyword.CraftingSmithingSkyforge) return false;
+            if (!cobj.WorkbenchKeyword.FormKey.Equals(Skyrim.Keyword.CraftingSmithingForge) && !cobj.WorkbenchKeyword.Equals(Skyrim.Keyword.CraftingSmithingSkyforge)) return false;
 
             if (cobj.CreatedObject.IsNull) return false;
 
@@ -968,23 +971,21 @@ namespace TMOPatcher
 
         private bool IsTemperingRecipe(IConstructibleObjectGetter cobj, IMajorRecordCommonGetter record)
         {
-            if (cobj.WorkbenchKeyword.FormKey != Skyrim.Keyword.CraftingSmithingSharpeningWheel && cobj.WorkbenchKeyword.FormKey != Skyrim.Keyword.CraftingSmithingArmorTable) return false;
+            if (!cobj.WorkbenchKeyword.Equals(Skyrim.Keyword.CraftingSmithingSharpeningWheel) && !cobj.WorkbenchKeyword.Equals(Skyrim.Keyword.CraftingSmithingArmorTable)) return false;
 
             if (cobj.CreatedObject.IsNull) return false;
 
             return cobj.CreatedObject.FormKey == record.FormKey;
         }
 
-        private IWeaponGetter? LookupWeapon(FormKey formKey)
+        private IWeaponGetter? LookupWeapon(IFormLinkGetter<IWeaponGetter> link)
         {
-            LinkCache.TryResolve<IWeaponGetter>(formKey, out var weapon);
-            return weapon;
+            return link.Resolve(LinkCache);
         }
 
-        private IArmorGetter? LookupArmor(FormKey formKey)
+        private IArmorGetter? LookupArmor(IFormLinkGetter<IArmorGetter> link)
         {
-            LinkCache.TryResolve<IArmorGetter>(formKey, out var armor);
-            return armor;
+            return link.Resolve(LinkCache);
         }
     }
 }

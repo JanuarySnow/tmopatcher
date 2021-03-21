@@ -9,7 +9,7 @@ namespace TMOPatcher
 {
     public static class Extensions
     {
-        public static bool HasKeyword(this IKeywordedGetter record, FormKey? formKey)
+        public static bool HasKeyword(this IKeywordedGetter<IKeywordGetter> record, FormKey? formKey)
         {
             foreach (var kwda in record.Keywords.EmptyIfNull())
             {
@@ -22,11 +22,11 @@ namespace TMOPatcher
             return false;
         }
 
-        public static bool HasAnyKeyword(this IKeywordedGetter record, FormKey?[] formKeys)
+        public static bool HasAnyKeyword(this IKeywordedGetter<IKeywordGetter> record, HashSet<IFormLinkGetter<IKeywordGetter>> formKeys)
         {
-            foreach (var formKey in formKeys)
+            foreach (var kwda in record.Keywords.EmptyIfNull())
             {
-                if (HasKeyword(record, formKey))
+                if (formKeys.Contains(kwda))
                 {
                     return true;
                 }
@@ -35,13 +35,13 @@ namespace TMOPatcher
             return false;
         }
 
-        public static bool HasAnyKeyword(this IKeywordedGetter record, IReadOnlyList<FormKey> formKeys, [MaybeNullWhen(false)] out FormKey outKey)
+        public static bool TryHasAnyKeyword(this IKeywordedGetter<IKeywordGetter> record, HashSet<IFormLinkGetter<IKeywordGetter>> formKeys, [MaybeNullWhen(false)] out IFormLinkGetter<IKeywordGetter> outKey)
         {
-            foreach (var formKey in formKeys)
+            foreach (var kwda in record.Keywords.EmptyIfNull())
             {
-                if (HasKeyword(record, formKey))
+                if (formKeys.Contains(kwda))
                 {
-                    outKey = formKey;
+                    outKey = kwda;
                     return true;
                 }
             }
