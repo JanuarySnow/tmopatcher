@@ -143,7 +143,7 @@ namespace TMOPatcher
                     ComparisonValue = 1,
                     Data = new FunctionConditionData()
                     {
-                        Function = ConditionData.Function.HasPerk,
+                        Function = Condition.Function.HasPerk,
                         ParameterOneRecord = template.Perk.AsSetter()
                     }
                 });
@@ -178,7 +178,7 @@ namespace TMOPatcher
                     ComparisonValue = 1,
                     Data = new FunctionConditionData()
                     {
-                        Function = ConditionData.Function.HasPerk,
+                        Function = Condition.Function.HasPerk,
                         ParameterOneRecord = template.Perk.AsSetter()
                     }
                 });
