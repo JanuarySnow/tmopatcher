@@ -21,14 +21,8 @@ namespace TMOPatcher
                 {
                     IncludeDisabledMods = true
                 })
-                .Run(args, new RunPreferences()
-                {
-                    ActionsForEmptyArgs = new RunDefaultPatcher()
-                    {
-                        IdentifyingModKey = "TMOPatch.esp",
-                        TargetRelease = GameRelease.SkyrimSE
-                    }
-                });
+                .SetTypicalOpen(GameRelease.SkyrimSE, "TMOPatch.esp")
+                .Run(args);
         }
 
         public static async Task RunPatch(IPatcherState<ISkyrimMod, ISkyrimModGetter> state)

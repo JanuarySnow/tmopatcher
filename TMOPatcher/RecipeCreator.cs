@@ -136,7 +136,7 @@ namespace TMOPatcher
                 }
             });
 
-            if (template.Perk != null)
+            if (!template.Perk.IsNull)
             {
                 cobj.Conditions.Add(new ConditionFloat()
                 {
@@ -171,7 +171,7 @@ namespace TMOPatcher
                 });
             }
 
-            if (template.Perk != null)
+            if (!template.Perk.IsNull)
             {
                 cobj.Conditions.Add(new ConditionFloat()
                 {
