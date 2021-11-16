@@ -1,0 +1,132 @@
+{
+    "material": ["Dragonborn.esm", "0x024105"],
+
+    "creation": [
+        {
+            "slot": "ArmorBoots",
+            "items": [
+                ["BearCavePelt", 1], ["IngotOrichalcum", 3], ["LeatherStrips", 2], ["Leather01", 1]
+            ],
+            "perk": "OrcishSmithing",
+            "bench": "CraftingSmithingForge"
+        },
+        {
+            "slot": "ArmorCuirass",
+            "items": [
+                ["BearCavePelt", 2], ["IngotOrichalcum", 5], ["LeatherStrips", 4], ["Leather01", 2]
+            ],
+            "perk": "OrcishSmithing",
+            "bench": "CraftingSmithingForge"
+        },
+        {
+            "slot": "ArmorGauntlets",
+            "items": [
+                ["BearCavePelt", 1], ["IngotOrichalcum", 2], ["LeatherStrips", 2], ["Leather01", 1]
+            ],
+            "perk": "OrcishSmithing",
+            "bench": "CraftingSmithingForge"
+        },
+        {
+            "slot": "ArmorHelmet",
+            "items": [
+                ["BearCavePelt", 1], ["IngotOrichalcum", 3], ["LeatherStrips", 1], ["Leather01", 1]
+            ],
+            "perk": "OrcishSmithing",
+            "bench": "CraftingSmithingForge"
+        },
+        {
+            "slot": "ArmorShield",
+            "items": [
+                ["BearCavePelt", 1], ["IngotOrichalcum", 4], ["LeatherStrips", 2], ["Leather01", 1]
+            ],
+            "perk": "OrcishSmithing",
+            "bench": "CraftingSmithingForge"
+        }
+    ],
+
+    "tempering": [
+        {
+            "slot": "ArmorBoots",
+            "items": [
+                ["IngotOrichalcum", 1]
+            ],
+            "perk": null,
+            "bench": "CraftingSmithingArmorTable"
+        },
+        {
+            "slot": "ArmorCuirass",
+            "items": [
+                ["IngotOrichalcum", 1]
+            ],
+            "perk": null,
+            "bench": "CraftingSmithingArmorTable"
+        },
+        {
+            "slot": "ArmorGauntlets",
+            "items": [
+                ["IngotOrichalcum", 1]
+            ],
+            "perk": null,
+            "bench": "CraftingSmithingArmorTable"
+        },
+        {
+            "slot": "ArmorHelmet",
+            "items": [
+                ["IngotOrichalcum", 1]
+            ],
+            "perk": null,
+            "bench": "CraftingSmithingArmorTable"
+        },
+        {
+            "slot": "ArmorShield",
+            "items": [
+                ["IngotOrichalcum", 1]
+            ],
+            "perk": null,
+            "bench": "CraftingSmithingArmorTable"
+        }
+    ],
+
+    "breakdown": [
+        {
+            "slot": "ArmorBoots",
+            "items": [
+                ["IngotOrichalcum", 2]
+            ],
+            "perk": null,
+            "bench": "CraftingSmelter"
+        },
+        {
+            "slot": "ArmorCuirass",
+            "items": [
+                ["IngotOrichalcum", 4]
+            ],
+            "perk": null,
+            "bench": "CraftingSmelter"
+        },
+        {
+            "slot": "ArmorGauntlets",
+            "items": [
+                ["IngotOrichalcum", 1]
+            ],
+            "perk": null,
+            "bench": "CraftingSmelter"
+        },
+        {
+            "slot": "ArmorHelmet",
+            "items": [
+                ["IngotOrichalcum", 3]
+            ],
+            "perk": null,
+            "bench": "CraftingSmelter"
+        },
+        {
+            "slot": "ArmorShield",
+            "items": [
+                ["IngotOrichalcum", 3]
+            ],
+            "perk": null,
+            "bench": "CraftingSmelter"
+        }
+    ]
+}

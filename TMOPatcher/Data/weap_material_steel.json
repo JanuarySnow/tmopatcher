@@ -1,0 +1,180 @@
+{
+    "material": ["Skyrim.esm", "0x01e719"],
+
+    "creation": [
+        {
+            "slot": "WeapTypeBattleaxe",
+            "items": [
+                ["Firewood01", 1], ["IngotSteel", 4], ["LeatherStrips", 3]
+            ],
+            "perk": "SteelSmithing",
+            "bench": "CraftingSmithingForge"
+        },
+        {
+            "slot": "WeapTypeDagger",
+            "items": [
+                ["IngotSteel", 1], ["LeatherStrips", 1]
+            ],
+            "perk": "SteelSmithing",
+            "bench": "CraftingSmithingForge"
+        },
+        {
+            "slot": "WeapTypeGreatsword",
+            "items": [
+                ["IngotSteel", 3], ["LeatherStrips", 2]
+            ],
+            "perk": "SteelSmithing",
+            "bench": "CraftingSmithingForge"
+        },
+        {
+            "slot": "WeapTypeMace",
+            "items": [
+                ["IngotSteel", 3], ["LeatherStrips", 2]
+            ],
+            "perk": "SteelSmithing",
+            "bench": "CraftingSmithingForge"
+        },
+        {
+            "slot": "WeapTypeSword",
+            "items": [
+                ["IngotSteel", 2], ["LeatherStrips", 1]
+            ],
+            "perk": "SteelSmithing",
+            "bench": "CraftingSmithingForge"
+        },
+        {
+            "slot": "WeapTypeWarAxe",
+            "items": [
+                ["Firewood01", 1], ["IngotSteel", 2], ["LeatherStrips", 2]
+            ],
+            "perk": "SteelSmithing",
+            "bench": "CraftingSmithingForge"
+        },
+        {
+            "slot": "WeapTypeWarhammer",
+            "items": [
+                ["IngotSteel", 5], ["LeatherStrips", 3]
+            ],
+            "perk": "SteelSmithing",
+            "bench": "CraftingSmithingForge"
+        }
+    ],
+
+    "tempering": [
+        {
+            "slot": "WeapTypeBattleaxe",
+            "items": [
+                ["IngotSteel", 1]
+            ],
+            "perk": null,
+            "bench": "CraftingSmithingSharpeningWheel"
+        },
+        {
+            "slot": "WeapTypeDagger",
+            "items": [
+                ["IngotSteel", 1]
+            ],
+            "perk": null,
+            "bench": "CraftingSmithingSharpeningWheel"
+        },
+        {
+            "slot": "WeapTypeGreatsword",
+            "items": [
+                ["IngotSteel", 1]
+            ],
+            "perk": null,
+            "bench": "CraftingSmithingSharpeningWheel"
+        },
+        {
+            "slot": "WeapTypeMace",
+            "items": [
+                ["IngotSteel", 1]
+            ],
+            "perk": null,
+            "bench": "CraftingSmithingSharpeningWheel"
+        },
+        {
+            "slot": "WeapTypeSword",
+            "items": [
+                ["IngotSteel", 1]
+            ],
+            "perk": null,
+            "bench": "CraftingSmithingSharpeningWheel"
+        },
+        {
+            "slot": "WeapTypeWarAxe",
+            "items": [
+                ["IngotSteel", 1]
+            ],
+            "perk": null,
+            "bench": "CraftingSmithingSharpeningWheel"
+        },
+        {
+            "slot": "WeapTypeWarhammer",
+            "items": [
+                ["IngotSteel", 1]
+            ],
+            "perk": null,
+            "bench": "CraftingSmithingSharpeningWheel"
+        }
+    ],
+
+    "breakdown": [
+        {
+            "slot": "WeapTypeBattleaxe",
+            "items": [
+                ["IngotSteel", 3]
+            ],
+            "perk": null,
+            "bench": "CraftingSmelter"
+        },
+        {
+            "slot": "WeapTypeDagger",
+            "items": [
+                ["IngotSteel", 1]
+            ],
+            "perk": null,
+            "bench": "CraftingSmelter"
+        },
+        {
+            "slot": "WeapTypeGreatsword",
+            "items": [
+                ["IngotSteel", 2]
+            ],
+            "perk": null,
+            "bench": "CraftingSmelter"
+        },
+        {
+            "slot": "WeapTypeMace",
+            "items": [
+                ["IngotSteel", 2]
+            ],
+            "perk": null,
+            "bench": "CraftingSmelter"
+        },
+        {
+            "slot": "WeapTypeSword",
+            "items": [
+                ["IngotSteel", 1]
+            ],
+            "perk": null,
+            "bench": "CraftingSmelter"
+        },
+        {
+            "slot": "WeapTypeWarAxe",
+            "items": [
+                ["IngotSteel", 1]
+            ],
+            "perk": null,
+            "bench": "CraftingSmelter"
+        },
+        {
+            "slot": "WeapTypeWarhammer",
+            "items": [
+                ["IngotSteel", 4]
+            ],
+            "perk": null,
+            "bench": "CraftingSmelter"
+        }
+    ]
+}

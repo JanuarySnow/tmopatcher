@@ -1,0 +1,57 @@
+{
+    "material": ["Skyrim.esm", "0x0c5c03"],
+
+    "tempering": [
+        {
+            "slot": "WeapTypeBow",
+            "items": [
+                ["ChaurusChitin", 1]
+            ],
+            "perk": null,
+            "bench": "CraftingSmithingSharpeningWheel"
+        },
+        {
+            "slot": "WeapTypeSword",
+            "items": [
+                ["ChaurusChitin", 1]
+            ],
+            "perk": null,
+            "bench": "CraftingSmithingSharpeningWheel"
+        },
+        {
+            "slot": "WeapTypeWarAxe",
+            "items": [
+                ["ChaurusChitin", 1]
+            ],
+            "perk": null,
+            "bench": "CraftingSmithingSharpeningWheel"
+        }
+    ],
+
+    "breakdown": [
+        {
+            "slot": "WeapTypeBow",
+            "items": [
+                ["ChaurusChitin", 1]
+            ],
+            "perk": null,
+            "bench": "CraftingSmelter"
+        },
+        {
+            "slot": "WeapTypeSword",
+            "items": [
+                ["ChaurusChitin", 1]
+            ],
+            "perk": null,
+            "bench": "CraftingSmelter"
+        },
+        {
+            "slot": "WeapTypeWarAxe",
+            "items": [
+                ["ChaurusChitin", 1]
+            ],
+            "perk": null,
+            "bench": "CraftingSmelter"
+        }
+    ]
+}

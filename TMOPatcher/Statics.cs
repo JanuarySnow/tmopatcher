@@ -7,7 +7,12 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using Mutagen.Bethesda.Plugins;
 using Mutagen.Bethesda.FormKeys.SkyrimSE;
+using Mutagen.Bethesda.Plugins.Aspects;
+using Mutagen.Bethesda.Plugins.Records;
+using static TMOPatcher.Helpers;
+using Mutagen.Bethesda.Plugins.Cache;
 
 namespace TMOPatcher
 {
@@ -27,7 +32,10 @@ namespace TMOPatcher
 
     public class Statics
     {
-        public static readonly ICollection<ModKey> ExcludedMods = new ModKey[] { Constants.Skyrim, Constants.Update, Constants.Dawnguard, Constants.HearthFires, Constants.Dragonborn, "Unofficial Skyrim Special Edition Patch.esp" }.ToHashSet();
+        bool DebugTrace = false;
+        public static readonly ICollection<ModKey> ExcludedMods = new ModKey[] { Constants.Skyrim, Constants.Update, Constants.Dawnguard, 
+            Constants.HearthFires, Constants.Dragonborn, "Unofficial Skyrim Special Edition Patch.esp", "ccBGSSSE037 - Curios.esl",
+            "ccQDRSSE001-SurvivalMode.esl", "ccBGSSSE001-Fish.esm", "ccBGSSSE025-AdvDSGS.esm"}.ToHashSet();
 
         public HashSet<IFormLinkGetter<IKeywordGetter>> ArmorMaterials { get; set; }
         public HashSet<IFormLinkGetter<IKeywordGetter>> ArmorSlots { get; set; }
@@ -35,7 +43,7 @@ namespace TMOPatcher
         public HashSet<IFormLinkGetter<IKeywordGetter>> WeaponMaterials { get; set; }
         public HashSet<IFormLinkGetter<IKeywordGetter>> WeaponTypes { get; set; }
 
-
+        public List<ModKey> blacklisted_mods = new List<ModKey>();
         public Dictionary<IFormLinkGetter<IKeywordGetter>, Dictionary<IFormLinkGetter<IKeywordGetter>, Dictionary<IFormLinkGetter<IKeywordGetter>, IArmorGetter?>>> BaseArmors;
         public Dictionary<IFormLinkGetter<IKeywordGetter>, Dictionary<IFormLinkGetter<IKeywordGetter>, IWeaponGetter?>> BaseWeapons;
         public Dictionary<IFormLinkGetter<IKeywordGetter>, Dictionary<string, Dictionary<IFormLinkGetter<IKeywordGetter>, RecipeTemplate>>> RecipeTemplates = new Dictionary<IFormLinkGetter<IKeywordGetter>, Dictionary<string, Dictionary<IFormLinkGetter<IKeywordGetter>, RecipeTemplate>>>();
@@ -61,13 +69,35 @@ namespace TMOPatcher
                 ["tempering"] = new Dictionary<FormKey, IConstructibleObjectGetter>() { }
             },
         };
+
         public IPatcherState<ISkyrimMod, ISkyrimModGetter> State { get; set; }
         private ILinkCache LinkCache { get; }
 
         public Statics(IPatcherState<ISkyrimMod, ISkyrimModGetter> state)
         {
             State = state;
+            string textFile = Path.Combine(state.ExtraSettingsDataPath, "blacklist.txt");
+            var text_count = 0;
+            var blacklist_found = false;
+            if (File.Exists(textFile))
+            {
+                blacklist_found = true;
+            }
 
+            Console.WriteLine("*** DETECTED BLACKLIST ***");
+            if (blacklist_found)
+            {
+                string[] lines = File.ReadAllLines(textFile);
+                var idx = 0;
+                foreach (string line in lines)
+                {
+                    Log("Mod blacklisted from TMOPatcher: " + line);
+                    ModKey entry = ModKey.FromNameAndExtension(line);
+                    blacklisted_mods.Add(entry);
+                    idx++;
+                }
+                Console.WriteLine("*************************");
+            }
             ArmorSlots = new HashSet<IFormLinkGetter<IKeywordGetter>>()
             {
                 Skyrim.Keyword.ArmorBoots,
@@ -214,11 +244,26 @@ namespace TMOPatcher
             var templates = new List<JObject>();
             var files = Directory.GetFiles(state.ExtraSettingsDataPath);
             LinkCache = State.LoadOrder.ToImmutableLinkCache();
-
             foreach (var file in files)
             {
+                string ext = Path.GetExtension(file);
+                // if not json: ( i.e the blacklist txt )
+                if( ext != ".json")
+                {
+                    continue;
+                }
+                if ( DebugTrace)
+                {
+                    Log($"Loading from data Json: ({file})");
+                }
                 TextReader textReader = File.OpenText(file);
-                templates.Add(JObject.Parse(textReader.ReadToEnd()));
+                var entireText = JObject.Parse(textReader.ReadToEnd());
+                var material = entireText["material"];
+                if( material == null && DebugTrace)
+                {
+                    Log($"({file}) has malformed material, skipping");
+                }
+                templates.Add(entireText);
             }
 
             foreach (var kwda in state.LoadOrder.PriorityOrder.WinningOverrides<IKeywordGetter>())
@@ -234,7 +279,7 @@ namespace TMOPatcher
 
                 Perks[perk.EditorID] = perk.AsLink();
             }
-
+            // link each existing COBJ to an armor/weapon record
             foreach (var cobj in state.LoadOrder.PriorityOrder.WinningOverrides<IConstructibleObjectGetter>())
             {
                 if (cobj.CreatedObject.FormKey.IsNull) continue;
@@ -265,10 +310,16 @@ namespace TMOPatcher
             {
                 var material = template["material"];
 
-                if (material == null) continue;
-
+                if (material == null)
+                {
+                    continue;
+                }
                 var key = new FormKey(material![0]!.ToString(), Convert.ToUInt32(material[1]!.ToString(), 16)).AsLinkGetter<IKeywordGetter>();
-
+                if (DebugTrace)
+                {
+                    Log("loading material");
+                    Log(material[1]!.ToString());
+                }
                 foreach (var slot in template["creation"].EmptyIfNull())
                 {
                     ParseSlot(slot, key, "creation");
@@ -284,7 +335,6 @@ namespace TMOPatcher
                     ParseSlot(slot, key, "breakdown");
                 }
             }
-
             BaseArmors = new()
             {
                 [Skyrim.Keyword.ArmorHeavy] = new()
@@ -933,15 +983,34 @@ namespace TMOPatcher
         {
             if (IsCraftingRecipe(cobj, record))
             {
+                if( DebugTrace)
+                {
+                    Log(record, $"CacheExistingRecipeCrafting({type}): Added Record");
+                }
                 Recipes[type]["creation"][record.FormKey] = cobj;
             }
             else if (IsTemperingRecipe(cobj, record))
             {
+                if (DebugTrace)
+                {
+                    Log(record, $"CacheExistingRecipeTempering({type}): Added Record");
+                }
                 Recipes[type]["tempering"][record.FormKey] = cobj;
             }
             else if (IsBreakdownRecipe(cobj, record))
             {
+                if (DebugTrace)
+                {
+                    Log(record, $"CacheExistingRecipeBreakdown({type}): Added Record");
+                }
                 Recipes[type]["breakdown"][record.FormKey] = cobj;
+            }
+            else
+            {
+                if (DebugTrace)
+                {
+                    Log(record, $"COBJ record error ({type}): NOT added to cache");
+                }
             }
         }
 
@@ -962,7 +1031,7 @@ namespace TMOPatcher
 
         private bool IsCraftingRecipe(IConstructibleObjectGetter cobj, IMajorRecordCommonGetter record)
         {
-            if (!cobj.WorkbenchKeyword.FormKey.Equals(Skyrim.Keyword.CraftingSmithingForge) && !cobj.WorkbenchKeyword.Equals(Skyrim.Keyword.CraftingSmithingSkyforge)) return false;
+            if (!cobj.WorkbenchKeyword.Equals(Skyrim.Keyword.CraftingSmithingForge) && !cobj.WorkbenchKeyword.Equals(Skyrim.Keyword.CraftingSmithingSkyforge)) return false;
 
             if (cobj.CreatedObject.IsNull) return false;
 
@@ -974,8 +1043,9 @@ namespace TMOPatcher
             if (!cobj.WorkbenchKeyword.Equals(Skyrim.Keyword.CraftingSmithingSharpeningWheel) && !cobj.WorkbenchKeyword.Equals(Skyrim.Keyword.CraftingSmithingArmorTable)) return false;
 
             if (cobj.CreatedObject.IsNull) return false;
-
+ 
             return cobj.CreatedObject.FormKey == record.FormKey;
+
         }
 
         private IWeaponGetter? LookupWeapon(IFormLinkGetter<IWeaponGetter> link)

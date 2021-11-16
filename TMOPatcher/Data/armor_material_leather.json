@@ -1,0 +1,116 @@
+{
+    "material": ["Skyrim.esm", "0x06bbdb"],
+
+    "creation": [
+        {
+            "slot": "ArmorBoots",
+            "items": [
+                ["LeatherStrips", 3], ["Leather01", 2]
+            ],
+            "perk": "null",
+            "bench": "CraftingSmithingForge"
+        },
+        {
+            "slot": "ArmorCuirass",
+            "items": [
+                ["IngotIron", 1], ["LeatherStrips", 5], ["Leather01", 2]
+            ],
+            "perk": "null",
+            "bench": "CraftingSmithingForge"
+        },
+        {
+            "slot": "ArmorGauntlets",
+            "items": [
+                ["LeatherStrips", 2], ["Leather01", 2]
+            ],
+            "perk": "null",
+            "bench": "CraftingSmithingForge"
+        },
+        {
+            "slot": "ArmorHelmet",
+            "items": [
+                ["IngotIron", 1], ["LeatherStrips", 1], ["Leather01", 2]
+            ],
+            "perk": "null",
+            "bench": "CraftingSmithingForge"
+        }
+    ],
+
+    "tempering": [
+        {
+            "slot": "ArmorBoots",
+            "items": [
+                ["Leather01", 1]
+            ],
+            "perk": null,
+            "bench": "CraftingSmithingArmorTable"
+        },
+        {
+            "slot": "ArmorCuirass",
+            "items": [
+                ["Leather01", 1]
+            ],
+            "perk": null,
+            "bench": "CraftingSmithingArmorTable"
+        },
+        {
+            "slot": "ArmorGauntlets",
+            "items": [
+                ["Leather01", 1]
+            ],
+            "perk": null,
+            "bench": "CraftingSmithingArmorTable"
+        },
+        {
+            "slot": "ArmorHelmet",
+            "items": [
+                ["Leather01", 1]
+            ],
+            "perk": null,
+            "bench": "CraftingSmithingArmorTable"
+        },
+        {
+            "slot": "ArmorShield",
+            "items": [
+                ["Leather01", 1]
+            ],
+            "perk": null,
+            "bench": "CraftingSmithingArmorTable"
+        }
+    ],
+
+    "breakdown": [
+        {
+            "slot": "ArmorBoots",
+            "items": [
+                ["LeatherStrips", 4]
+            ],
+            "perk": null,
+            "bench": "CraftingSmelter"
+        },
+        {
+            "slot": "ArmorCuirass",
+            "items": [
+                ["LeatherStrips", 8]
+            ],
+            "perk": null,
+            "bench": "CraftingSmelter"
+        },
+        {
+            "slot": "ArmorGauntlets",
+            "items": [
+                ["LeatherStrips", 4]
+            ],
+            "perk": null,
+            "bench": "CraftingSmelter"
+        },
+        {
+            "slot": "ArmorHelmet",
+            "items": [
+                ["LeatherStrips", 4]
+            ],
+            "perk": null,
+            "bench": "CraftingSmelter"
+        }
+    ]
+}

@@ -1,0 +1,132 @@
+{
+    "material": ["Skyrim.esm", "0x06bbd9"],
+
+    "creation": [
+        {
+            "slot": "ArmorBoots",
+            "items": [
+                ["IngotQuicksilver", 1], ["IngotIMoonstone", 3], ["LeatherStrips", 2], ["Leather01", 1]
+            ],
+            "perk": "ElvenSmithing",
+            "bench": "CraftingSmithingForge"
+        },
+        {
+            "slot": "ArmorCuirass",
+            "items": [
+                ["IngotQuicksilver", 2], ["IngotIMoonstone", 5], ["LeatherStrips", 4], ["Leather01", 2]
+            ],
+            "perk": "ElvenSmithing",
+            "bench": "CraftingSmithingForge"
+        },
+        {
+            "slot": "ArmorGauntlets",
+            "items": [
+                ["IngotQuicksilver", 1], ["IngotIMoonstone", 2], ["LeatherStrips", 2], ["Leather01", 1]
+            ],
+            "perk": "ElvenSmithing",
+            "bench": "CraftingSmithingForge"
+        },
+        {
+            "slot": "ArmorHelmet",
+            "items": [
+                ["IngotQuicksilver", 1], ["IngotIMoonstone", 3], ["LeatherStrips", 1], ["Leather01", 1]
+            ],
+            "perk": "ElvenSmithing",
+            "bench": "CraftingSmithingForge"
+        },
+        {
+            "slot": "ArmorShield",
+            "items": [
+                ["IngotQuicksilver", 1], ["IngotIMoonstone", 4], ["LeatherStrips", 2]
+            ],
+            "perk": "ElvenSmithing",
+            "bench": "CraftingSmithingForge"
+        }
+    ],
+
+    "tempering": [
+        {
+            "slot": "ArmorBoots",
+            "items": [
+                ["IngotIMoonstone", 1]
+            ],
+            "perk": null,
+            "bench": "CraftingSmithingArmorTable"
+        },
+        {
+            "slot": "ArmorCuirass",
+            "items": [
+                ["IngotIMoonstone", 1]
+            ],
+            "perk": null,
+            "bench": "CraftingSmithingArmorTable"
+        },
+        {
+            "slot": "ArmorGauntlets",
+            "items": [
+                ["IngotIMoonstone", 1]
+            ],
+            "perk": null,
+            "bench": "CraftingSmithingArmorTable"
+        },
+        {
+            "slot": "ArmorHelmet",
+            "items": [
+                ["IngotIMoonstone", 1]
+            ],
+            "perk": null,
+            "bench": "CraftingSmithingArmorTable"
+        },
+        {
+            "slot": "ArmorShield",
+            "items": [
+                ["IngotIMoonstone", 1]
+            ],
+            "perk": null,
+            "bench": "CraftingSmithingArmorTable"
+        }
+    ],
+
+    "breakdown": [
+        {
+            "slot": "ArmorBoots",
+            "items": [
+                ["IngotIMoonstone", 1]
+            ],
+            "perk": null,
+            "bench": "CraftingSmelter"
+        },
+        {
+            "slot": "ArmorCuirass",
+            "items": [
+                ["IngotIMoonstone", 4]
+            ],
+            "perk": null,
+            "bench": "CraftingSmelter"
+        },
+        {
+            "slot": "ArmorGauntlets",
+            "items": [
+                ["IngotIMoonstone", 1]
+            ],
+            "perk": null,
+            "bench": "CraftingSmelter"
+        },
+        {
+            "slot": "ArmorHelmet",
+            "items": [
+                ["IngotIMoonstone", 2]
+            ],
+            "perk": null,
+            "bench": "CraftingSmelter"
+        },
+        {
+            "slot": "ArmorShield",
+            "items": [
+                ["IngotIMoonstone", 3]
+            ],
+            "perk": null,
+            "bench": "CraftingSmelter"
+        }
+    ]
+}

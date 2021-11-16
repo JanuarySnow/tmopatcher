@@ -1,0 +1,108 @@
+{
+    "material": ["Skyrim.esm", "0x06bbde"],
+
+    "creation": [
+        {
+            "slot": "ArmorBoots",
+            "items": [
+                ["SabreCatPelt", 1], ["IngotSteel", 2], ["LeatherStrips", 2], ["Leather01", 1]
+            ],
+            "perk": "AdvancedArmors",
+            "bench": "CraftingSmithingForge"
+        },
+        {
+            "slot": "ArmorCuirass",
+            "items": [
+                ["SabreCatPelt", 1], ["IngotSteel", 2], ["LeatherStrips", 4], ["Leather01", 4]
+            ],
+            "perk": "AdvancedArmors",
+            "bench": "CraftingSmithingForge"
+        },
+        {
+            "slot": "ArmorGauntlets",
+            "items": [
+                ["SabreCatPelt", 1], ["IngotSteel", 2], ["LeatherStrips", 2], ["Leather01", 1]
+            ],
+            "perk": "AdvancedArmors",
+            "bench": "CraftingSmithingForge"
+        },
+        {
+            "slot": "ArmorHelmet",
+            "items": [
+                ["IngotSteel", 3], ["LeatherStrips", 1], ["Leather01", 1]
+            ],
+            "perk": "AdvancedArmors",
+            "bench": "CraftingSmithingForge"
+        }
+    ],
+
+    "tempering": [
+        {
+            "slot": "ArmorBoots",
+            "items": [
+                ["IngotCorundum", 1]
+            ],
+            "perk": null,
+            "bench": "CraftingSmithingArmorTable"
+        },
+        {
+            "slot": "ArmorCuirass",
+            "items": [
+                ["IngotCorundum", 1]
+            ],
+            "perk": null,
+            "bench": "CraftingSmithingArmorTable"
+        },
+        {
+            "slot": "ArmorGauntlets",
+            "items": [
+                ["IngotCorundum", 1]
+            ],
+            "perk": null,
+            "bench": "CraftingSmithingArmorTable"
+        },
+        {
+            "slot": "ArmorHelmet",
+            "items": [
+                ["IngotCorundum", 1]
+            ],
+            "perk": null,
+            "bench": "CraftingSmithingArmorTable"
+        }
+    ],
+
+    "breakdown": [
+        {
+            "slot": "ArmorBoots",
+            "items": [
+                ["IngotSteel", 1]
+            ],
+            "perk": null,
+            "bench": "CraftingSmelter"
+        },
+        {
+            "slot": "ArmorCuirass",
+            "items": [
+                ["IngotSteel", 1]
+            ],
+            "perk": null,
+            "bench": "CraftingSmelter"
+        },
+        {
+            "slot": "ArmorGauntlets",
+            "items": [
+                ["IngotSteel", 1]
+            ],
+            "perk": null,
+            "bench": "CraftingSmelter"
+        },
+        {
+            "slot": "ArmorHelmet",
+            "items": [
+                ["IngotSteel", 2]
+            ],
+            "perk": null,
+            "bench": "CraftingSmelter"
+        }
+    ]
+}

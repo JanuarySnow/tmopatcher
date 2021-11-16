@@ -1,0 +1,89 @@
+{
+    "material": ["Dawnguard.esm", "0x012ccd"],
+
+    "tempering": [
+        {
+            "slot": "ArmorBoots",
+            "items": [
+                ["IngotSteel", 1]
+            ],
+            "perk": null,
+            "bench": "CraftingSmithingArmorTable"
+        },
+        {
+            "slot": "ArmorCuirass",
+            "items": [
+                ["IngotSteel", 1]
+            ],
+            "perk": null,
+            "bench": "CraftingSmithingArmorTable"
+        },
+        {
+            "slot": "ArmorGauntlets",
+            "items": [
+                ["IngotSteel", 1]
+            ],
+            "perk": null,
+            "bench": "CraftingSmithingArmorTable"
+        },
+        {
+            "slot": "ArmorHelmet",
+            "items": [
+                ["IngotSteel", 1]
+            ],
+            "perk": null,
+            "bench": "CraftingSmithingArmorTable"
+        },
+        {
+            "slot": "ArmorShield",
+            "items": [
+                ["IngotSteel", 1]
+            ],
+            "perk": null,
+            "bench": "CraftingSmithingArmorTable"
+        }
+    ],
+
+    "breakdown": [
+        {
+            "slot": "ArmorBoots",
+            "items": [
+                ["IngotSteel", 1]
+            ],
+            "perk": null,
+            "bench": "CraftingSmelter"
+        },
+        {
+            "slot": "ArmorCuirass",
+            "items": [
+                ["IngotSteel", 3]
+            ],
+            "perk": null,
+            "bench": "CraftingSmelter"
+        },
+        {
+            "slot": "ArmorGauntlets",
+            "items": [
+                ["IngotSteel", 1]
+            ],
+            "perk": null,
+            "bench": "CraftingSmelter"
+        },
+        {
+            "slot": "ArmorHelmet",
+            "items": [
+                ["IngotSteel", 2]
+            ],
+            "perk": null,
+            "bench": "CraftingSmelter"
+        },
+        {
+            "slot": "ArmorShield",
+            "items": [
+                ["IngotSteel", 2]
+            ],
+            "perk": null,
+            "bench": "CraftingSmelter"
+        }
+    ]
+}

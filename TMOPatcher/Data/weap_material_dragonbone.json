@@ -1,0 +1,204 @@
+{
+    "material": ["Dawnguard.esm", "0x019822"],
+
+    "creation": [
+        {
+            "slot": "WeapTypeBattleaxe",
+            "items": [
+                ["IngotEbony", 2], ["DragonBone", 3], ["LeatherStrips", 3]
+            ],
+            "perk": "DragonArmor",
+            "bench": "CraftingSmithingForge"
+        },
+        {
+            "slot": "WeapTypeBow",
+            "items": [
+                ["IngotEbony", 1], ["DragonBone", 3], ["LeatherStrips", 2]
+            ],
+            "perk": "DragonArmor",
+            "bench": "CraftingSmithingForge"
+        },
+        {
+            "slot": "WeapTypeDagger",
+            "items": [
+                ["IngotEbony", 1], ["DragonBone", 1], ["LeatherStrips", 1]
+            ],
+            "perk": "DragonArmor",
+            "bench": "CraftingSmithingForge"
+        },
+        {
+            "slot": "WeapTypeGreatsword",
+            "items": [
+                ["IngotEbony", 1], ["DragonBone", 3], ["LeatherStrips", 2]
+            ],
+            "perk": "DragonArmor",
+            "bench": "CraftingSmithingForge"
+        },
+        {
+            "slot": "WeapTypeMace",
+            "items": [
+                ["IngotEbony", 1], ["DragonBone", 3], ["LeatherStrips", 2]
+            ],
+            "perk": "DragonArmor",
+            "bench": "CraftingSmithingForge"
+        },
+        {
+            "slot": "WeapTypeSword",
+            "items": [
+                ["IngotEbony", 1], ["DragonBone", 2], ["LeatherStrips", 1]
+            ],
+            "perk": "DragonArmor",
+            "bench": "CraftingSmithingForge"
+        },
+        {
+            "slot": "WeapTypeWarAxe",
+            "items": [
+                ["IngotEbony", 1], ["DragonBone", 2], ["LeatherStrips", 2]
+            ],
+            "perk": "DragonArmor",
+            "bench": "CraftingSmithingForge"
+        },
+        {
+            "slot": "WeapTypeWarhammer",
+            "items": [
+                ["IngotEbony", 2], ["DragonBone", 4], ["LeatherStrips", 3]
+            ],
+            "perk": "DragonArmor",
+            "bench": "CraftingSmithingForge"
+        }
+    ],
+
+    "tempering": [
+        {
+            "slot": "WeapTypeBattleaxe",
+            "items": [
+                ["DragonBone", 1]
+            ],
+            "perk": null,
+            "bench": "CraftingSmithingSharpeningWheel"
+        },
+        {
+            "slot": "WeapTypeBow",
+            "items": [
+                ["DragonBone", 1]
+            ],
+            "perk": null,
+            "bench": "CraftingSmithingSharpeningWheel"
+        },
+        {
+            "slot": "WeapTypeDagger",
+            "items": [
+                ["DragonBone", 1]
+            ],
+            "perk": null,
+            "bench": "CraftingSmithingSharpeningWheel"
+        },
+        {
+            "slot": "WeapTypeGreatsword",
+            "items": [
+                ["DragonBone", 1]
+            ],
+            "perk": null,
+            "bench": "CraftingSmithingSharpeningWheel"
+        },
+        {
+            "slot": "WeapTypeMace",
+            "items": [
+                ["DragonBone", 1]
+            ],
+            "perk": null,
+            "bench": "CraftingSmithingSharpeningWheel"
+        },
+        {
+            "slot": "WeapTypeSword",
+            "items": [
+                ["DragonBone", 1]
+            ],
+            "perk": null,
+            "bench": "CraftingSmithingSharpeningWheel"
+        },
+        {
+            "slot": "WeapTypeWarAxe",
+            "items": [
+                ["DragonBone", 1]
+            ],
+            "perk": null,
+            "bench": "CraftingSmithingSharpeningWheel"
+        },
+        {
+            "slot": "WeapTypeWarhammer",
+            "items": [
+                ["DragonBone", 1]
+            ],
+            "perk": null,
+            "bench": "CraftingSmithingSharpeningWheel"
+        }
+    ],
+
+    "breakdown": [
+        {
+            "slot": "WeapTypeBattleaxe",
+            "items": [
+                ["IngotEbony", 1]
+            ],
+            "perk": null,
+            "bench": "CraftingSmelter"
+        },
+        {
+            "slot": "WeapTypeBow",
+            "items": [
+                ["IngotEbony", 1]
+            ],
+            "perk": null,
+            "bench": "CraftingSmelter"
+        },
+        {
+            "slot": "WeapTypeDagger",
+            "items": [
+                ["IngotEbony", 1]
+            ],
+            "perk": null,
+            "bench": "CraftingSmelter"
+        },
+        {
+            "slot": "WeapTypeGreatsword",
+            "items": [
+                ["IngotEbony", 1]
+            ],
+            "perk": null,
+            "bench": "CraftingSmelter"
+        },
+        {
+            "slot": "WeapTypeMace",
+            "items": [
+                ["IngotEbony", 1]
+            ],
+            "perk": null,
+            "bench": "CraftingSmelter"
+        },
+        {
+            "slot": "WeapTypeSword",
+            "items": [
+                ["IngotEbony", 1]
+            ],
+            "perk": null,
+            "bench": "CraftingSmelter"
+        },
+        {
+            "slot": "WeapTypeWarAxe",
+            "items": [
+                ["IngotEbony", 1]
+            ],
+            "perk": null,
+            "bench": "CraftingSmelter"
+        },
+        {
+            "slot": "WeapTypeWarhammer",
+            "items": [
+                ["IngotEbony", 1]
+            ],
+            "perk": null,
+            "bench": "CraftingSmelter"
+        }
+    ]
+}

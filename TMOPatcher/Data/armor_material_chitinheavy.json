@@ -1,0 +1,108 @@
+{
+    "material": ["Dragonborn.esm", "0x024102"],
+
+    "creation": [
+        {
+            "slot": "ArmorBoots",
+            "items": [
+                ["IngotCorundum", 1], ["DLC2ChitinPlate", 4], ["LeatherStrips", 2], ["DLC2NetchLeather", 1]
+            ],
+            "perk": "OrcishSmithing",
+            "bench": "CraftingSmithingForge"
+        },
+        {
+            "slot": "ArmorCuirass",
+            "items": [
+                ["IngotCorundum", 2], ["DLC2ChitinPlate", 6], ["LeatherStrips", 4], ["DLC2NetchLeather", 2]
+            ],
+            "perk": "OrcishSmithing",
+            "bench": "CraftingSmithingForge"
+        },
+        {
+            "slot": "ArmorGauntlets",
+            "items": [
+                ["IngotCorundum", 1], ["DLC2ChitinPlate", 3], ["LeatherStrips", 2], ["DLC2NetchLeather", 1]
+            ],
+            "perk": "OrcishSmithing",
+            "bench": "CraftingSmithingForge"
+        },
+        {
+            "slot": "ArmorHelmet",
+            "items": [
+                ["IngotCorundum", 1], ["DLC2ChitinPlate", 4], ["LeatherStrips", 1], ["DLC2NetchLeather", 1]
+            ],
+            "perk": "OrcishSmithing",
+            "bench": "CraftingSmithingForge"
+        }
+    ],
+
+    "tempering": [
+        {
+            "slot": "ArmorBoots",
+            "items": [
+                ["DLC2ChitinPlate", 1]
+            ],
+            "perk": null,
+            "bench": "CraftingSmithingArmorTable"
+        },
+        {
+            "slot": "ArmorCuirass",
+            "items": [
+                ["DLC2ChitinPlate", 1]
+            ],
+            "perk": null,
+            "bench": "CraftingSmithingArmorTable"
+        },
+        {
+            "slot": "ArmorGauntlets",
+            "items": [
+                ["DLC2ChitinPlate", 1]
+            ],
+            "perk": null,
+            "bench": "CraftingSmithingArmorTable"
+        },
+        {
+            "slot": "ArmorHelmet",
+            "items": [
+                ["DLC2ChitinPlate", 1]
+            ],
+            "perk": null,
+            "bench": "CraftingSmithingArmorTable"
+        }
+    ],
+
+    "breakdown": [
+        {
+            "slot": "ArmorBoots",
+            "items": [
+                ["DLC2ChitinPlate", 2]
+            ],
+            "perk": null,
+            "bench": "CraftingSmelter"
+        },
+        {
+            "slot": "ArmorCuirass",
+            "items": [
+                ["DLC2ChitinPlate", 4]
+            ],
+            "perk": null,
+            "bench": "CraftingSmelter"
+        },
+        {
+            "slot": "ArmorGauntlets",
+            "items": [
+                ["DLC2ChitinPlate", 1]
+            ],
+            "perk": null,
+            "bench": "CraftingSmelter"
+        },
+        {
+            "slot": "ArmorHelmet",
+            "items": [
+                ["DLC2ChitinPlate", 3]
+            ],
+            "perk": null,
+            "bench": "CraftingSmelter"
+        }
+    ]
+}

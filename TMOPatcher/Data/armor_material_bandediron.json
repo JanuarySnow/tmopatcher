@@ -1,0 +1,60 @@
+{
+    "material": ["Skyrim.esm", "0x06bbe4"],
+
+    "creation": [
+        {
+            "slot": "ArmorCuirass",
+            "items": [
+                ["GoatHide", 2], ["IngotIron", 5], ["LeatherStrips", 4], ["Leather01", 2]
+            ],
+            "perk": "SteelSmithing",
+            "bench": "CraftingSmithingForge"
+        },
+        {
+            "slot": "ArmorShield",
+            "items": [
+                ["IngotCorundum", 1], ["IngotIron", 4], ["LeatherStrips", 2]
+            ],
+            "perk": "SteelSmithing",
+            "bench": "CraftingSmithingForge"
+        }
+    ],
+
+    "tempering": [
+        {
+            "slot": "ArmorCuirass",
+            "items": [
+                ["IngotIron", 1]
+            ],
+            "perk": null,
+            "bench": "CraftingSmithingArmorTable"
+        },
+        {
+            "slot": "ArmorShield",
+            "items": [
+                ["IngotIron", 1]
+            ],
+            "perk": null,
+            "bench": "CraftingSmithingArmorTable"
+        }
+    ],
+
+    "breakdown": [
+        {
+            "slot": "ArmorCuirass",
+            "items": [
+                ["IngotIron", 4]
+            ],
+            "perk": null,
+            "bench": "CraftingSmelter"
+        },
+        {
+            "slot": "ArmorShield",
+            "items": [
+                ["IngotIron", 3]
+            ],
+            "perk": null,
+            "bench": "CraftingSmelter"
+        }
+    ]
+}

@@ -2,6 +2,9 @@ using Mutagen.Bethesda;
 using Mutagen.Bethesda.Synthesis;
 using Mutagen.Bethesda.Skyrim;
 using System.Threading.Tasks;
+using System.IO;
+using Mutagen.Bethesda.Plugins;
+using System;
 
 namespace TMOPatcher
 {

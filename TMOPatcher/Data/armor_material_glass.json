@@ -1,0 +1,132 @@
+{
+    "material": ["Skyrim.esm", "0x06bbdc"],
+
+    "creation": [
+        {
+            "slot": "ArmorBoots",
+            "items": [
+                ["IngotIMoonstone", 1], ["IngotMalachite", 3], ["LeatherStrips", 2], ["Leather01", 1]
+            ],
+            "perk": "GlassSmithing",
+            "bench": "CraftingSmithingForge"
+        },
+        {
+            "slot": "ArmorCuirass",
+            "items": [
+                ["IngotIMoonstone", 2], ["IngotMalachite", 5], ["LeatherStrips", 4], ["Leather01", 2]
+            ],
+            "perk": "GlassSmithing",
+            "bench": "CraftingSmithingForge"
+        },
+        {
+            "slot": "ArmorGauntlets",
+            "items": [
+                ["IngotIMoonstone", 1], ["IngotMalachite", 2], ["LeatherStrips", 2], ["Leather01", 1]
+            ],
+            "perk": "GlassSmithing",
+            "bench": "CraftingSmithingForge"
+        },
+        {
+            "slot": "ArmorHelmet",
+            "items": [
+                ["IngotIMoonstone", 1], ["IngotMalachite", 3], ["LeatherStrips", 1], ["Leather01", 1]
+            ],
+            "perk": "GlassSmithing",
+            "bench": "CraftingSmithingForge"
+        },
+        {
+            "slot": "ArmorShield",
+            "items": [
+                ["IngotIMoonstone", 1], ["IngotMalachite", 4], ["LeatherStrips", 2]
+            ],
+            "perk": "GlassSmithing",
+            "bench": "CraftingSmithingForge"
+        }
+    ],
+
+    "tempering": [
+        {
+            "slot": "ArmorBoots",
+            "items": [
+                ["IngotMalachite", 1]
+            ],
+            "perk": null,
+            "bench": "CraftingSmithingArmorTable"
+        },
+        {
+            "slot": "ArmorCuirass",
+            "items": [
+                ["IngotMalachite", 1]
+            ],
+            "perk": null,
+            "bench": "CraftingSmithingArmorTable"
+        },
+        {
+            "slot": "ArmorGauntlets",
+            "items": [
+                ["IngotMalachite", 1]
+            ],
+            "perk": null,
+            "bench": "CraftingSmithingArmorTable"
+        },
+        {
+            "slot": "ArmorHelmet",
+            "items": [
+                ["IngotMalachite", 1]
+            ],
+            "perk": null,
+            "bench": "CraftingSmithingArmorTable"
+        },
+        {
+            "slot": "ArmorShield",
+            "items": [
+                ["IngotMalachite", 1]
+            ],
+            "perk": null,
+            "bench": "CraftingSmithingArmorTable"
+        }
+    ],
+
+    "breakdown": [
+        {
+            "slot": "ArmorBoots",
+            "items": [
+                ["IngotMalachite", 2]
+            ],
+            "perk": null,
+            "bench": "CraftingSmelter"
+        },
+        {
+            "slot": "ArmorCuirass",
+            "items": [
+                ["IngotMalachite", 4]
+            ],
+            "perk": null,
+            "bench": "CraftingSmelter"
+        },
+        {
+            "slot": "ArmorGauntlets",
+            "items": [
+                ["IngotMalachite", 1]
+            ],
+            "perk": null,
+            "bench": "CraftingSmelter"
+        },
+        {
+            "slot": "ArmorHelmet",
+            "items": [
+                ["IngotMalachite", 2]
+            ],
+            "perk": null,
+            "bench": "CraftingSmelter"
+        },
+        {
+            "slot": "ArmorShield",
+            "items": [
+                ["IngotMalachite", 3]
+            ],
+            "perk": null,
+            "bench": "CraftingSmelter"
+        }
+    ]
+}

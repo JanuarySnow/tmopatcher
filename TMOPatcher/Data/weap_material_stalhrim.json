@@ -1,0 +1,204 @@
+{
+    "material": ["Dragonborn.esm", "0x026230"],
+
+    "creation": [
+        {
+            "slot": "WeapTypeBattleaxe",
+            "items": [
+                ["IngotQuicksilver", 1], ["DLC2OreStalhrim", 4], ["LeatherStrips", 3]
+            ],
+            "perk": "EbonySmithing",
+            "bench": "CraftingSmithingForge"
+        },
+        {
+            "slot": "WeapTypeBow",
+            "items": [
+                ["IngotQuicksilver", 1], ["DLC2OreStalhrim", 3], ["LeatherStrips", 2]
+            ],
+            "perk": "EbonySmithing",
+            "bench": "CraftingSmithingForge"
+        },
+        {
+            "slot": "WeapTypeDagger",
+            "items": [
+                ["IngotQuicksilver", 1], ["DLC2OreStalhrim", 1], ["LeatherStrips", 1]
+            ],
+            "perk": "EbonySmithing",
+            "bench": "CraftingSmithingForge"
+        },
+        {
+            "slot": "WeapTypeGreatsword",
+            "items": [
+                ["IngotQuicksilver", 1], ["DLC2OreStalhrim", 3], ["LeatherStrips", 2]
+            ],
+            "perk": "EbonySmithing",
+            "bench": "CraftingSmithingForge"
+        },
+        {
+            "slot": "WeapTypeMace",
+            "items": [
+                ["IngotQuicksilver", 1], ["DLC2OreStalhrim", 3], ["LeatherStrips", 2]
+            ],
+            "perk": "EbonySmithing",
+            "bench": "CraftingSmithingForge"
+        },
+        {
+            "slot": "WeapTypeSword",
+            "items": [
+                ["IngotQuicksilver", 1], ["DLC2OreStalhrim", 2], ["LeatherStrips", 1]
+            ],
+            "perk": "EbonySmithing",
+            "bench": "CraftingSmithingForge"
+        },
+        {
+            "slot": "WeapTypeWarAxe",
+            "items": [
+                ["IngotQuicksilver", 1], ["DLC2OreStalhrim", 2], ["LeatherStrips", 2]
+            ],
+            "perk": "EbonySmithing",
+            "bench": "CraftingSmithingForge"
+        },
+        {
+            "slot": "WeapTypeWarhammer",
+            "items": [
+                ["IngotQuicksilver", 2], ["DLC2OreStalhrim", 4], ["LeatherStrips", 3]
+            ],
+            "perk": "EbonySmithing",
+            "bench": "CraftingSmithingForge"
+        }
+    ],
+
+    "tempering": [
+        {
+            "slot": "WeapTypeBattleaxe",
+            "items": [
+                ["DLC2OreStalhrim", 1]
+            ],
+            "perk": null,
+            "bench": "CraftingSmithingSharpeningWheel"
+        },
+        {
+            "slot": "WeapTypeBow",
+            "items": [
+                ["DLC2OreStalhrim", 1]
+            ],
+            "perk": null,
+            "bench": "CraftingSmithingSharpeningWheel"
+        },
+        {
+            "slot": "WeapTypeDagger",
+            "items": [
+                ["DLC2OreStalhrim", 1]
+            ],
+            "perk": null,
+            "bench": "CraftingSmithingSharpeningWheel"
+        },
+        {
+            "slot": "WeapTypeGreatsword",
+            "items": [
+                ["DLC2OreStalhrim", 1]
+            ],
+            "perk": null,
+            "bench": "CraftingSmithingSharpeningWheel"
+        },
+        {
+            "slot": "WeapTypeMace",
+            "items": [
+                ["DLC2OreStalhrim", 1]
+            ],
+            "perk": null,
+            "bench": "CraftingSmithingSharpeningWheel"
+        },
+        {
+            "slot": "WeapTypeSword",
+            "items": [
+                ["DLC2OreStalhrim", 1]
+            ],
+            "perk": null,
+            "bench": "CraftingSmithingSharpeningWheel"
+        },
+        {
+            "slot": "WeapTypeWarAxe",
+            "items": [
+                ["DLC2OreStalhrim", 1]
+            ],
+            "perk": null,
+            "bench": "CraftingSmithingSharpeningWheel"
+        },
+        {
+            "slot": "WeapTypeWarhammer",
+            "items": [
+                ["DLC2OreStalhrim", 1]
+            ],
+            "perk": null,
+            "bench": "CraftingSmithingSharpeningWheel"
+        }
+    ],
+
+    "breakdown": [
+        {
+            "slot": "WeapTypeBattleaxe",
+            "items": [
+                ["DLC2OreStalhrim", 2]
+            ],
+            "perk": null,
+            "bench": "CraftingSmelter"
+        },
+        {
+            "slot": "WeapTypeBow",
+            "items": [
+                ["DLC2OreStalhrim", 1]
+            ],
+            "perk": null,
+            "bench": "CraftingSmelter"
+        },
+        {
+            "slot": "WeapTypeDagger",
+            "items": [
+                ["DLC2OreStalhrim", 1]
+            ],
+            "perk": null,
+            "bench": "CraftingSmelter"
+        },
+        {
+            "slot": "WeapTypeGreatsword",
+            "items": [
+                ["DLC2OreStalhrim", 1]
+            ],
+            "perk": null,
+            "bench": "CraftingSmelter"
+        },
+        {
+            "slot": "WeapTypeMace",
+            "items": [
+                ["DLC2OreStalhrim", 1]
+            ],
+            "perk": null,
+            "bench": "CraftingSmelter"
+        },
+        {
+            "slot": "WeapTypeSword",
+            "items": [
+                ["DLC2OreStalhrim", 1]
+            ],
+            "perk": null,
+            "bench": "CraftingSmelter"
+        },
+        {
+            "slot": "WeapTypeWarAxe",
+            "items": [
+                ["DLC2OreStalhrim", 1]
+            ],
+            "perk": null,
+            "bench": "CraftingSmelter"
+        },
+        {
+            "slot": "WeapTypeWarhammer",
+            "items": [
+                ["DLC2OreStalhrim", 2]
+            ],
+            "perk": null,
+            "bench": "CraftingSmelter"
+        }
+    ]
+}

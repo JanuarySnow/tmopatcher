@@ -1,0 +1,57 @@
+{
+    "material": ["Skyrim.esm", "0x01e719"],
+
+    "tempering": [
+        {
+            "slot": "WeapTypeBow",
+            "items": [
+                ["IngotSteel", 1]
+            ],
+            "perk": null,
+            "bench": "CraftingSmithingSharpeningWheel"
+        },
+        {
+            "slot": "WeapTypeSword",
+            "items": [
+                ["IngotSteel", 1]
+            ],
+            "perk": null,
+            "bench": "CraftingSmithingSharpeningWheel"
+        },
+        {
+            "slot": "WeapTypeWarAxe",
+            "items": [
+                ["IngotSteel", 1]
+            ],
+            "perk": null,
+            "bench": "CraftingSmithingSharpeningWheel"
+        }
+    ],
+
+    "breakdown": [
+        {
+            "slot": "WeapTypeBow",
+            "items": [
+                ["Coal01", 3]
+            ],
+            "perk": null,
+            "bench": "CraftingSmelter"
+        },
+        {
+            "slot": "WeapTypeSword",
+            "items": [
+                ["Coal01", 3]
+            ],
+            "perk": null,
+            "bench": "CraftingSmelter"
+        },
+        {
+            "slot": "WeapTypeWarAxe",
+            "items": [
+                ["Coal01", 5]
+            ],
+            "perk": null,
+            "bench": "CraftingSmelter"
+        }
+    ]
+}

@@ -1,0 +1,132 @@
+{
+    "material": ["Dragonborn.esm", "0x024101"],
+
+    "creation": [
+        {
+            "slot": "ArmorBoots",
+            "items": [
+                ["IngotIron", 1], ["BoneMeal", 6], ["SaltPile", 1], ["PowderedMammothTusk", 1], ["LeatherStrips", 2], ["DLC2NetchJelly", 1], ["DLC2NetchLeather", 1]
+            ],
+            "perk": "SteelSmithing",
+            "bench": "CraftingSmithingForge"
+        },
+        {
+            "slot": "ArmorCuirass",
+            "items": [
+                ["IngotIron", 2], ["BoneMeal", 10], ["SaltPile", 2], ["PowderedMammothTusk", 1], ["LeatherStrips", 4], ["DLC2NetchJelly", 2], ["DLC2NetchLeather", 2]
+            ],
+            "perk": "SteelSmithing",
+            "bench": "CraftingSmithingForge"
+        },
+        {
+            "slot": "ArmorGauntlets",
+            "items": [
+                ["IngotIron", 1], ["BoneMeal", 4], ["SaltPile", 1], ["PowderedMammothTusk", 1], ["LeatherStrips", 2], ["DLC2NetchJelly", 1], ["DLC2NetchLeather", 1]
+            ],
+            "perk": "SteelSmithing",
+            "bench": "CraftingSmithingForge"
+        },
+        {
+            "slot": "ArmorHelmet",
+            "items": [
+                ["IngotIron", 1], ["BoneMeal", 6], ["SaltPile", 1], ["PowderedMammothTusk", 1], ["LeatherStrips", 1], ["DLC2NetchJelly", 1], ["DLC2NetchLeather", 1]
+            ],
+            "perk": "SteelSmithing",
+            "bench": "CraftingSmithingForge"
+        },
+        {
+            "slot": "ArmorShield",
+            "items": [
+                ["IngotIron", 1], ["BoneMeal", 8], ["SaltPile", 2], ["PowderedMammothTusk", 2], ["DLC2NetchJelly", 2], ["DLC2NetchLeather", 1]
+            ],
+            "perk": "SteelSmithing",
+            "bench": "CraftingSmithingForge"
+        }
+    ],
+
+    "tempering": [
+        {
+            "slot": "ArmorBoots",
+            "items": [
+                ["BoneMeal", 2]
+            ],
+            "perk": null,
+            "bench": "CraftingSmithingArmorTable"
+        },
+        {
+            "slot": "ArmorCuirass",
+            "items": [
+                ["BoneMeal", 2]
+            ],
+            "perk": null,
+            "bench": "CraftingSmithingArmorTable"
+        },
+        {
+            "slot": "ArmorGauntlets",
+            "items": [
+                ["BoneMeal", 1]
+            ],
+            "perk": null,
+            "bench": "CraftingSmithingArmorTable"
+        },
+        {
+            "slot": "ArmorHelmet",
+            "items": [
+                ["BoneMeal", 2]
+            ],
+            "perk": null,
+            "bench": "CraftingSmithingArmorTable"
+        },
+        {
+            "slot": "ArmorShield",
+            "items": [
+                ["BoneMeal", 2]
+            ],
+            "perk": null,
+            "bench": "CraftingSmithingArmorTable"
+        }
+    ],
+
+    "breakdown": [
+        {
+            "slot": "ArmorBoots",
+            "items": [
+                ["BoneMeal", 2]
+            ],
+            "perk": null,
+            "bench": "CraftingSmelter"
+        },
+        {
+            "slot": "ArmorCuirass",
+            "items": [
+                ["BoneMeal", 4]
+            ],
+            "perk": null,
+            "bench": "CraftingSmelter"
+        },
+        {
+            "slot": "ArmorGauntlets",
+            "items": [
+                ["BoneMeal", 1]
+            ],
+            "perk": null,
+            "bench": "CraftingSmelter"
+        },
+        {
+            "slot": "ArmorHelmet",
+            "items": [
+                ["BoneMeal", 3]
+            ],
+            "perk": null,
+            "bench": "CraftingSmelter"
+        },
+        {
+            "slot": "ArmorShield",
+            "items": [
+                ["BoneMeal", 3]
+            ],
+            "perk": null,
+            "bench": "CraftingSmelter"
+        }
+    ]
+}

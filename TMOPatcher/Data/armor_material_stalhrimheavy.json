@@ -1,0 +1,116 @@
+{
+    "material": ["Dragonborn.esm", "0x024107"],
+
+    "creation": [
+        {
+            "slot": "ArmorBoots",
+            "items": [
+                ["IngotQuicksilver", 1], ["DLC2OreStalhrim", 3], ["LeatherStrips", 2], ["Leather01", 1]
+            ],
+            "perk": "EbonySmithing",
+            "bench": "CraftingSmithingForge"
+        },
+        {
+            "slot": "ArmorCuirass",
+            "items": [
+                ["IngotQuicksilver", 2], ["DLC2OreStalhrim", 5], ["LeatherStrips", 4], ["Leather01", 2]
+            ],
+            "perk": "EbonySmithing",
+            "bench": "CraftingSmithingForge"
+        },
+        {
+            "slot": "ArmorGauntlets",
+            "items": [
+                ["IngotQuicksilver", 1], ["DLC2OreStalhrim", 2], ["LeatherStrips", 2], ["Leather01", 1]
+            ],
+            "perk": "EbonySmithing",
+            "bench": "CraftingSmithingForge"
+        },
+        {
+            "slot": "ArmorHelmet",
+            "items": [
+                ["IngotQuicksilver", 1], ["DLC2OreStalhrim", 3], ["LeatherStrips", 1], ["Leather01", 1]
+            ],
+            "perk": "EbonySmithing",
+            "bench": "CraftingSmithingForge"
+        }
+    ],
+
+    "tempering": [
+        {
+            "slot": "ArmorBoots",
+            "items": [
+                ["DLC2OreStalhrim", 1]
+            ],
+            "perk": null,
+            "bench": "CraftingSmithingArmorTable"
+        },
+        {
+            "slot": "ArmorCuirass",
+            "items": [
+                ["DLC2OreStalhrim", 1]
+            ],
+            "perk": null,
+            "bench": "CraftingSmithingArmorTable"
+        },
+        {
+            "slot": "ArmorGauntlets",
+            "items": [
+                ["DLC2OreStalhrim", 1]
+            ],
+            "perk": null,
+            "bench": "CraftingSmithingArmorTable"
+        },
+        {
+            "slot": "ArmorHelmet",
+            "items": [
+                ["DLC2OreStalhrim", 1]
+            ],
+            "perk": null,
+            "bench": "CraftingSmithingArmorTable"
+        },
+        {
+            "slot": "ArmorShield",
+            "items": [
+                ["DLC2OreStalhrim", 1]
+            ],
+            "perk": null,
+            "bench": "CraftingSmithingArmorTable"
+        }
+    ],
+
+    "breakdown": [
+        {
+            "slot": "ArmorBoots",
+            "items": [
+                ["DLC2OreStalhrim", 1]
+            ],
+            "perk": null,
+            "bench": "CraftingSmelter"
+        },
+        {
+            "slot": "ArmorCuirass",
+            "items": [
+                ["DLC2OreStalhrim", 3]
+            ],
+            "perk": null,
+            "bench": "CraftingSmelter"
+        },
+        {
+            "slot": "ArmorGauntlets",
+            "items": [
+                ["DLC2OreStalhrim", 1]
+            ],
+            "perk": null,
+            "bench": "CraftingSmelter"
+        },
+        {
+            "slot": "ArmorHelmet",
+            "items": [
+                ["DLC2OreStalhrim", 1]
+            ],
+            "perk": null,
+            "bench": "CraftingSmelter"
+        }
+    ]
+}

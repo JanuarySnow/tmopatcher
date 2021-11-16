@@ -2,6 +2,9 @@ using Mutagen.Bethesda;
 using Mutagen.Bethesda.FormKeys.SkyrimSE;
 using Mutagen.Bethesda.Skyrim;
 using Mutagen.Bethesda.Synthesis;
+using Mutagen.Bethesda.Plugins;
+using Mutagen.Bethesda.Plugins.Aspects;
+using Mutagen.Bethesda.Plugins.Records;
 using Noggog;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
@@ -21,12 +24,13 @@ namespace TMOPatcher
             Statics = statics;
             State = state;
         }
-
+        bool DebugTrace = false;
         public void RunPatch()
         {
             var loadOrder = State.LoadOrder.PriorityOrder
                 .OnlyEnabled()
-                .Where(modGetter => !Statics.ExcludedMods.Contains(modGetter.ModKey));
+                .Where(modGetter => !Statics.ExcludedMods.Contains(modGetter.ModKey))
+                .Where(modGetter => !Statics.blacklisted_mods.Contains(modGetter.ModKey));
 
             foreach (var armor in loadOrder.WinningOverrides<IArmorGetter>())
             {
@@ -46,10 +50,20 @@ namespace TMOPatcher
         private void NormalizeBreakdownRecipesForArmors(IArmorGetter armor)
         {
             Statics.Recipes["armors"]["breakdown"].TryGetValue(armor.FormKey, out var cobjGetter);
-            if (cobjGetter == null) return;
-
+            if (cobjGetter == null)
+            {
+                if (DebugTrace)
+                {
+                    Log(armor, "BreakdownRecipeNormalizationArmor: cant get recipe from statics");
+                }
+                return;
+            }
             if (!FindRecipeTemplate(armor, "breakdown", Statics.ArmorMaterials, Statics.ArmorSlots, out var recipeTemplate))
             {
+                if (DebugTrace)
+                {
+                    Log(armor, "BreakdownRecipeNormalizationArmor: cant get recipe from statics templates");
+                }
                 return;
             }
 
@@ -59,10 +73,20 @@ namespace TMOPatcher
         private void NormalizeCreationRecipesForArmors(IArmorGetter armor)
         {
             Statics.Recipes["armors"]["creation"].TryGetValue(armor.FormKey, out var cobjGetter);
-            if (cobjGetter == null) return;
-
+            if (cobjGetter == null)
+            {
+                if(DebugTrace)
+                {
+                    Log(armor, "CreationRecipeNormalizationArmor: cant get recipe from statics");
+                }
+                return;
+            }
             if (!FindRecipeTemplate(armor, "creation", Statics.ArmorMaterials, Statics.ArmorSlots, out var recipeTemplate))
             {
+                if (DebugTrace)
+                {
+                    Log(armor, "CreationRecipeNormalizationArmor: cant get recipe template from statics");
+                }
                 return;
             }
 
@@ -72,10 +96,20 @@ namespace TMOPatcher
         private void NormalizeTemperingRecipesForArmors(IArmorGetter armor)
         {
             Statics.Recipes["armors"]["tempering"].TryGetValue(armor.FormKey, out var cobjGetter);
-            if (cobjGetter == null) return;
-
+            if (cobjGetter == null)
+            {
+                if (DebugTrace)
+                {
+                    Log(armor, "TemperingRecipeNormalizationArmor: cant get recipe from statics");
+                }
+                return;
+            }
             if (!FindRecipeTemplate(armor, "tempering", Statics.ArmorMaterials, Statics.ArmorSlots, out var recipeTemplate))
             {
+                if (DebugTrace)
+                {
+                    Log(armor, "TemperingRecipeNormalizationArmor: cant get recipe from statics templates");
+                }
                 return;
             }
 
@@ -85,10 +119,21 @@ namespace TMOPatcher
         private void NormalizeBreakdownRecipesForWeapons(IWeaponGetter weapon)
         {
             Statics.Recipes["weapons"]["breakdown"].TryGetValue(weapon.FormKey, out var cobjGetter);
-            if (cobjGetter == null) return;
+            if (cobjGetter == null)
+            {
+                if (DebugTrace)
+                {
+                    Log(weapon, "BreakdownRecipeNormalizationWeapon: cant get recipe from statics");
+                }
+                return;
+            }
 
             if (!FindRecipeTemplate(weapon, "breakdown", Statics.WeaponMaterials, Statics.WeaponTypes, out var recipeTemplate))
             {
+                if (DebugTrace)
+                {
+                    Log(weapon, "BreakdownRecipeNormalizationWeapon: cant get recipe from statics templates");
+                }
                 return;
             }
 
@@ -98,10 +143,21 @@ namespace TMOPatcher
         private void NormalizeCreationRecipesForWeapons(IWeaponGetter weapon)
         {
             Statics.Recipes["weapons"]["creation"].TryGetValue(weapon.FormKey, out var cobjGetter);
-            if (cobjGetter == null) return;
+            if (cobjGetter == null)
+            {
+                if (DebugTrace)
+                {
+                    Log(weapon, "CreationRecipeNormalizationWeapon: cant get recipe from statics");
+                }
+                return;
+            }
 
             if (!FindRecipeTemplate(weapon, "creation", Statics.WeaponMaterials, Statics.WeaponTypes, out var recipeTemplate))
             {
+                if (DebugTrace)
+                {
+                    Log(weapon, "BreakdownRecipeNormalizationWeapon: cant get recipe from statics templates");
+                }
                 return;
             }
 
@@ -111,10 +167,21 @@ namespace TMOPatcher
         private void NormalizeTemperingRecipesForWeapons(IWeaponGetter weapon)
         {
             Statics.Recipes["weapons"]["tempering"].TryGetValue(weapon.FormKey, out var cobjGetter);
-            if (cobjGetter == null) return;
+            if (cobjGetter == null)
+            {
+                if (DebugTrace)
+                {
+                    Log(weapon, "TemperingRecipeNormalizationWeapon: cant get recipe from statics");
+                }
+                return;
+            }
 
             if (!FindRecipeTemplate(weapon, "tempering", Statics.WeaponMaterials, Statics.WeaponTypes, out var recipeTemplate))
             {
+                if (DebugTrace)
+                {
+                    Log(weapon, "TemperingRecipeNormalizationWeapon: cant get recipe from statics templates");
+                }
                 return;
             }
 

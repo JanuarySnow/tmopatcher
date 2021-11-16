@@ -1,0 +1,204 @@
+{
+    "material": ["Skyrim.esm", "0x01e71d"],
+
+    "creation": [
+        {
+            "slot": "WeapTypeBattleaxe",
+            "items": [
+                ["IngotIMoonstone", 2], ["IngotMalachite", 3], ["LeatherStrips", 3]
+            ],
+            "perk": "GlassSmithing",
+            "bench": "CraftingSmithingForge"
+        },
+        {
+            "slot": "WeapTypeBow",
+            "items": [
+                ["IngotIMoonstone", 1], ["IngotMalachite", 3], ["LeatherStrips", 2]
+            ],
+            "perk": "GlassSmithing",
+            "bench": "CraftingSmithingForge"
+        },
+        {
+            "slot": "WeapTypeDagger",
+            "items": [
+                ["IngotIMoonstone", 1], ["IngotMalachite", 1], ["LeatherStrips", 1]
+            ],
+            "perk": "GlassSmithing",
+            "bench": "CraftingSmithingForge"
+        },
+        {
+            "slot": "WeapTypeGreatsword",
+            "items": [
+                ["IngotIMoonstone", 1], ["IngotMalachite", 3], ["LeatherStrips", 2]
+            ],
+            "perk": "GlassSmithing",
+            "bench": "CraftingSmithingForge"
+        },
+        {
+            "slot": "WeapTypeMace",
+            "items": [
+                ["IngotIMoonstone", 1], ["IngotMalachite", 3], ["LeatherStrips", 2]
+            ],
+            "perk": "GlassSmithing",
+            "bench": "CraftingSmithingForge"
+        },
+        {
+            "slot": "WeapTypeSword",
+            "items": [
+                ["IngotIMoonstone", 1], ["IngotMalachite", 2], ["LeatherStrips", 1]
+            ],
+            "perk": "GlassSmithing",
+            "bench": "CraftingSmithingForge"
+        },
+        {
+            "slot": "WeapTypeWarAxe",
+            "items": [
+                ["IngotIMoonstone", 1], ["IngotMalachite", 2], ["LeatherStrips", 2]
+            ],
+            "perk": "GlassSmithing",
+            "bench": "CraftingSmithingForge"
+        },
+        {
+            "slot": "WeapTypeWarhammer",
+            "items": [
+                ["IngotIMoonstone", 2], ["IngotMalachite", 4], ["LeatherStrips", 3]
+            ],
+            "perk": "GlassSmithing",
+            "bench": "CraftingSmithingForge"
+        }
+    ],
+
+    "tempering": [
+        {
+            "slot": "WeapTypeBattleaxe",
+            "items": [
+                ["IngotMalachite", 1]
+            ],
+            "perk": null,
+            "bench": "CraftingSmithingSharpeningWheel"
+        },
+        {
+            "slot": "WeapTypeBow",
+            "items": [
+                ["IngotMalachite", 1]
+            ],
+            "perk": null,
+            "bench": "CraftingSmithingSharpeningWheel"
+        },
+        {
+            "slot": "WeapTypeDagger",
+            "items": [
+                ["IngotMalachite", 1]
+            ],
+            "perk": null,
+            "bench": "CraftingSmithingSharpeningWheel"
+        },
+        {
+            "slot": "WeapTypeGreatsword",
+            "items": [
+                ["IngotMalachite", 1]
+            ],
+            "perk": null,
+            "bench": "CraftingSmithingSharpeningWheel"
+        },
+        {
+            "slot": "WeapTypeMace",
+            "items": [
+                ["IngotMalachite", 1]
+            ],
+            "perk": null,
+            "bench": "CraftingSmithingSharpeningWheel"
+        },
+        {
+            "slot": "WeapTypeSword",
+            "items": [
+                ["IngotMalachite", 1]
+            ],
+            "perk": null,
+            "bench": "CraftingSmithingSharpeningWheel"
+        },
+        {
+            "slot": "WeapTypeWarAxe",
+            "items": [
+                ["IngotMalachite", 1]
+            ],
+            "perk": null,
+            "bench": "CraftingSmithingSharpeningWheel"
+        },
+        {
+            "slot": "WeapTypeWarhammer",
+            "items": [
+                ["IngotMalachite", 1]
+            ],
+            "perk": null,
+            "bench": "CraftingSmithingSharpeningWheel"
+        }
+    ],
+
+    "breakdown": [
+        {
+            "slot": "WeapTypeBattleaxe",
+            "items": [
+                ["IngotMalachite", 2]
+            ],
+            "perk": null,
+            "bench": "CraftingSmelter"
+        },
+        {
+            "slot": "WeapTypeBow",
+            "items": [
+                ["IngotMalachite", 2]
+            ],
+            "perk": null,
+            "bench": "CraftingSmelter"
+        },
+        {
+            "slot": "WeapTypeDagger",
+            "items": [
+                ["IngotMalachite", 1]
+            ],
+            "perk": null,
+            "bench": "CraftingSmelter"
+        },
+        {
+            "slot": "WeapTypeGreatsword",
+            "items": [
+                ["IngotMalachite", 2]
+            ],
+            "perk": null,
+            "bench": "CraftingSmelter"
+        },
+        {
+            "slot": "WeapTypeMace",
+            "items": [
+                ["IngotMalachite", 2]
+            ],
+            "perk": null,
+            "bench": "CraftingSmelter"
+        },
+        {
+            "slot": "WeapTypeSword",
+            "items": [
+                ["IngotMalachite", 1]
+            ],
+            "perk": null,
+            "bench": "CraftingSmelter"
+        },
+        {
+            "slot": "WeapTypeWarAxe",
+            "items": [
+                ["IngotMalachite", 1]
+            ],
+            "perk": null,
+            "bench": "CraftingSmelter"
+        },
+        {
+            "slot": "WeapTypeWarhammer",
+            "items": [
+                ["IngotMalachite", 3]
+            ],
+            "perk": null,
+            "bench": "CraftingSmelter"
+        }
+    ]
+}

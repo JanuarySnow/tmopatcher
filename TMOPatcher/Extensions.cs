@@ -3,6 +3,9 @@ using Mutagen.Bethesda.Skyrim;
 using Noggog;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
+using Mutagen.Bethesda.Plugins.Aspects;
+using Mutagen.Bethesda.Plugins;
+using Mutagen.Bethesda.Plugins.Records;
 using System.Linq;
 
 namespace TMOPatcher

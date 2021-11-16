@@ -1,0 +1,132 @@
+{
+    "material": ["Skyrim.esm", "0x06bbd5"],
+
+    "creation": [
+        {
+            "slot": "ArmorBoots",
+            "items": [
+                ["DragonScales", 1], ["DragonBone", 2], ["IngotEbony", 1], ["LeatherStrips", 2], ["Leather01", 1]
+            ],
+            "perk": "DragonArmor",
+            "bench": "CraftingSmithingForge"
+        },
+        {
+            "slot": "ArmorCuirass",
+            "items": [
+                ["DragonScales", 1], ["DragonBone", 4], ["IngotEbony", 2], ["LeatherStrips", 4], ["Leather01", 2]
+            ],
+            "perk": "DragonArmor",
+            "bench": "CraftingSmithingForge"
+        },
+        {
+            "slot": "ArmorGauntlets",
+            "items": [
+                ["DragonScales", 1], ["DragonBone", 2], ["IngotEbony", 1], ["LeatherStrips", 2], ["Leather01", 1]
+            ],
+            "perk": "DragonArmor",
+            "bench": "CraftingSmithingForge"
+        },
+        {
+            "slot": "ArmorHelmet",
+            "items": [
+                ["DragonScales", 1], ["DragonBone", 2], ["IngotEbony", 1], ["LeatherStrips", 1], ["Leather01", 1]
+            ],
+            "perk": "DragonArmor",
+            "bench": "CraftingSmithingForge"
+        },
+        {
+            "slot": "ArmorShield",
+            "items": [
+                ["DragonBone", 4], ["IngotEbony", 2], ["LeatherStrips", 2]
+            ],
+            "perk": "DragonArmor",
+            "bench": "CraftingSmithingForge"
+        }
+    ],
+
+    "tempering": [
+        {
+            "slot": "ArmorBoots",
+            "items": [
+                ["DragonBone", 1]
+            ],
+            "perk": null,
+            "bench": "CraftingSmithingArmorTable"
+        },
+        {
+            "slot": "ArmorCuirass",
+            "items": [
+                ["DragonBone", 1]
+            ],
+            "perk": null,
+            "bench": "CraftingSmithingArmorTable"
+        },
+        {
+            "slot": "ArmorGauntlets",
+            "items": [
+                ["DragonBone", 1]
+            ],
+            "perk": null,
+            "bench": "CraftingSmithingArmorTable"
+        },
+        {
+            "slot": "ArmorHelmet",
+            "items": [
+                ["DragonBone", 1]
+            ],
+            "perk": null,
+            "bench": "CraftingSmithingArmorTable"
+        },
+        {
+            "slot": "ArmorShield",
+            "items": [
+                ["DragonBone", 1]
+            ],
+            "perk": null,
+            "bench": "CraftingSmithingArmorTable"
+        }
+    ],
+
+    "breakdown": [
+        {
+            "slot": "ArmorBoots",
+            "items": [
+                ["IngotEbony", 1]
+            ],
+            "perk": null,
+            "bench": "CraftingSmelter"
+        },
+        {
+            "slot": "ArmorCuirass",
+            "items": [
+                ["IngotEbony", 1]
+            ],
+            "perk": null,
+            "bench": "CraftingSmelter"
+        },
+        {
+            "slot": "ArmorGauntlets",
+            "items": [
+                ["IngotEbony", 1]
+            ],
+            "perk": null,
+            "bench": "CraftingSmelter"
+        },
+        {
+            "slot": "ArmorHelmet",
+            "items": [
+                ["IngotEbony", 1]
+            ],
+            "perk": null,
+            "bench": "CraftingSmelter"
+        },
+        {
+            "slot": "ArmorShield",
+            "items": [
+                ["IngotEbony", 1]
+            ],
+            "perk": null,
+            "bench": "CraftingSmelter"
+        }
+    ]
+}

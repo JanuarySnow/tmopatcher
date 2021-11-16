@@ -1,5 +1,8 @@
 ﻿using Mutagen.Bethesda;
 using Mutagen.Bethesda.FormKeys.SkyrimSE;
+using Mutagen.Bethesda.Plugins;
+using Mutagen.Bethesda.Plugins.Aspects;
+using Mutagen.Bethesda.Plugins.Records;
 using Mutagen.Bethesda.Skyrim;
 using Mutagen.Bethesda.Synthesis;
 using Noggog;
@@ -19,35 +22,100 @@ namespace TMOPatcher
             Statics = statics;
             State = state;
         }
-
+        bool TraceDebug = false;
         public void RunPatch()
         {
             var loadOrder = State.LoadOrder.PriorityOrder
                 .OnlyEnabled()
-                .Where(modGetter => !Statics.ExcludedMods.Contains(modGetter.ModKey));
+                .Where(modGetter => !Statics.blacklisted_mods.Contains(modGetter.ModKey));
 
+            //initially - include vanilla items for breakdown recipes
             foreach (var armor in loadOrder.WinningOverrides<IArmorGetter>())
             {
-                if (!armor.TemplateArmor.IsNull) continue;
-                if (armor.BodyTemplate == null) continue;
-                if (armor.BodyTemplate.ArmorType == ArmorType.Clothing) continue;
-                if (armor.BodyTemplate.Flags.HasFlag(BodyTemplate.Flag.NonPlayable)) continue;
-                if (armor.HasKeyword(Skyrim.Keyword.ArmorClothing)) continue;
-                if (armor.HasKeyword(Skyrim.Keyword.ArmorJewelry)) continue;
-                
+                if (!armor.TemplateArmor.IsNull)
+                {
+                    if (TraceDebug)
+                    {
+                        Log(armor, $"RecipeCreation({"armor records"}): Skipping due to template not being null");
+                    }
+                    continue;
+                }
+                if (armor.BodyTemplate == null)
+                {
+                    if (TraceDebug)
+                    {
+                        Log(armor, $"RecipeCreation({"armor records"}): Skipping due to bodytemplate being null");
+                    }
+                    continue;
+                }
+                if (armor.BodyTemplate.ArmorType == ArmorType.Clothing || armor.HasKeyword(Skyrim.Keyword.ArmorClothing) || armor.HasKeyword(Skyrim.Keyword.ArmorJewelry) )
+                {
+                    if (TraceDebug)
+                    {
+                        Log(armor, $"RecipeCreation({"armor records"}): Skipping due to armortype being clothing/jewellery");
+                    }
+                    continue;
+                }
+                if (armor.BodyTemplate.Flags.HasFlag(BodyTemplate.Flag.NonPlayable) || armor.MajorFlags.HasFlag(Armor.MajorFlag.NonPlayable) )
+                {
+                    if (TraceDebug)
+                    {
+                        Log(armor, $"RecipeCreation({"armor records"}): Skipping due to armor being nonplayable");
+                    }
+                    continue;
+                }
+
                 CreateMissingRecipesForArmors(armor);
             }
 
             foreach (var weapon in loadOrder.WinningOverrides<IWeaponGetter>())
             {
-                if (!weapon.Template.IsNull) continue;
-                if (weapon.MajorFlags.HasFlag(Weapon.MajorFlag.NonPlayable)) continue;
+                if (!weapon.Template.IsNull)
+                {
+                    if (TraceDebug)
+                    {
+                        Log(weapon, $"RecipeCreation({"weapon records"}): Skipping due to template not being null");
+                    }
+                    continue;
+                }
+                if (weapon.MajorFlags.HasFlag(Weapon.MajorFlag.NonPlayable))
+                {
+                    if (TraceDebug)
+                    {
+                        Log(weapon, $"RecipeCreation({"weapon records"}): Skipping due to weapon being non-playable");
+                    }
+                    continue;
+                }
+                if( weapon.Data != null)
+                {
+                    if (weapon.Data.Flags.HasFlag(WeaponData.Flag.NonPlayable))
+                    {
+                        continue;
+                    }
+                }
+                if (weapon.HasKeyword(Skyrim.Keyword.MagicDisallowEnchanting))
+                {
+                    if (TraceDebug)
+                    {
+                        Log(weapon, $"RecipeCreation({"weapon records"}): Skipping due to weapon being already enchanted");
+                    }
+                    continue;
+                }
+                if (weapon.HasKeyword(Skyrim.Keyword.DaedricArtifact))
+                {
+                    if (TraceDebug)
+                    {
+                        Log(weapon, $"RecipeCreation({"weapon records"}): Skipping due to weapon being a daedric artifact");
+                    }
+                    continue;
+                }
                 CreateMissingRecipesForWeapons(weapon);
             }
         }
 
         private void CreateMissingRecipesForArmors(IArmorGetter armor)
         {
+            
             if (!Statics.Recipes["armors"]["breakdown"].TryGetValue(armor.FormKey, out var cobjGetter) || cobjGetter == null) {
                 if (armor.HasKeyword(Skyrim.Keyword.MagicDisallowEnchanting)) return;
 
@@ -57,7 +125,10 @@ namespace TMOPatcher
 
                 CreateBreakdownRecipe(armor, recipeTemplate);
             }
-
+            if (Statics.ExcludedMods.Contains(armor.FormKey.ModKey)){
+                // dont want vanilla armor beyond this point
+                return;
+            }
             if (!Statics.Recipes["armors"]["creation"].TryGetValue(armor.FormKey, out cobjGetter) || cobjGetter == null)
             {
                 if (armor.HasKeyword(Skyrim.Keyword.MagicDisallowEnchanting)) return;
@@ -85,14 +156,16 @@ namespace TMOPatcher
         {
             if (!Statics.Recipes["weapons"]["breakdown"].TryGetValue(weapon.FormKey, out var cobjGetter) || cobjGetter == null)
             {
-                if (weapon.HasKeyword(Skyrim.Keyword.MagicDisallowEnchanting)) return;
-
-                if (!FindRecipeTemplate(weapon, "breakdown", Statics.ArmorMaterials, Statics.WeaponTypes, out var recipeTemplate) || recipeTemplate == null)
+                if (!FindRecipeTemplate(weapon, "breakdown", Statics.WeaponMaterials, Statics.WeaponTypes, out var recipeTemplate) || recipeTemplate == null)
                 {
                     return;
                 }
-
                 CreateBreakdownRecipe(weapon, recipeTemplate);
+            }
+            if (Statics.ExcludedMods.Contains(weapon.FormKey.ModKey))
+            {
+                // dont want vanilla weapons beyond this point
+                return;
             }
 
             if (!Statics.Recipes["weapons"]["creation"].TryGetValue(weapon.FormKey, out cobjGetter) || cobjGetter == null)
@@ -146,8 +219,46 @@ namespace TMOPatcher
                         Function = Condition.Function.HasPerk,
                         ParameterOneRecord = template.Perk.AsSetter()
                     }
+
                 });
             }
+            // condition for equipped
+            cobj.Conditions.Add(new ConditionFloat()
+            {
+                ComparisonValue = 1,
+                CompareOperator = CompareOperator.GreaterThanOrEqualTo,
+                Data = new FunctionConditionData()
+                {
+                    Function = Condition.Function.GetItemCount,
+                    ParameterOneRecord = new FormLink<IItemGetter>(record.FormKey),
+                }
+
+
+            });
+            cobj.Conditions.Add(new ConditionFloat()
+            {
+                Flags = Condition.Flag.OR,
+                ComparisonValue = 0,
+                Data = new FunctionConditionData()
+                {
+                    Function = Condition.Function.GetEquipped,
+                    ParameterOneRecord = new FormLink<IItemGetter>(record.FormKey),
+                }
+
+
+            });
+            cobj.Conditions.Add(new ConditionFloat()
+            {
+                ComparisonValue = 2,
+                CompareOperator = CompareOperator.GreaterThanOrEqualTo,
+                Data = new FunctionConditionData()
+                {
+                    Function = Condition.Function.GetItemCount,
+                    ParameterOneRecord = new FormLink<IItemGetter>(record.FormKey),
+                }
+
+
+            });
         }
 
         private void CreateRecipe(IConstructibleGetter record, string type, RecipeTemplate template)
@@ -195,7 +306,6 @@ namespace TMOPatcher
                 Log(record, $"RecipeCreation({type}): Unable to determine material");
                 return false;
             }
-
             if (!Extensions.TryHasAnyKeyword(record, slots, out var slot))
             {
                 Log(record, $"RecipeCreation({type}): Unable to determine slot");

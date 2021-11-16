@@ -1,9 +1,12 @@
 ﻿using Mutagen.Bethesda;
 using Mutagen.Bethesda.FormKeys.SkyrimSE;
+using Mutagen.Bethesda.Plugins;
 using Mutagen.Bethesda.Skyrim;
 using Mutagen.Bethesda.Synthesis;
 using System;
 using System.Collections.Generic;
+using Mutagen.Bethesda.Plugins.Aspects;
+using Mutagen.Bethesda.Plugins.Records;
 using System.Linq;
 using static TMOPatcher.Helpers;
 
@@ -24,7 +27,9 @@ namespace TMOPatcher
         {
             var loadOrder = State.LoadOrder.PriorityOrder
                 .OnlyEnabled()
-                .Where(modGetter => !Statics.ExcludedMods.Contains(modGetter.ModKey));
+                .Where(modGetter => !Statics.ExcludedMods.Contains(modGetter.ModKey))
+                .Where(modGetter => !Statics.blacklisted_mods.Contains(modGetter.ModKey));
+
 
             foreach (var record in loadOrder.WinningOverrides<IWeaponGetter>().Where(weapon => ShouldPatchWeapon(weapon)))
             {
